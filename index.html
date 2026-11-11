@@ -2345,15 +2345,16 @@
       let c = parrafo('ECOHORARIOS BARRIALES', izquierda, y + 12, anchoUtil, 12, { negrita: true, color: '#166534', centro: true });
       c = parrafo(ruta.barrio, izquierda + 12, c + 4, anchoUtil - 24, 24, { negrita: true, centro: true });
       c = parrafo(lineaTerritorial(ruta), izquierda + 16, c + 4, anchoUtil - 32, 13.5, { color: GRIS_TEXTO, centro: true });
-      const estado = ruta.comunitaria ? 'RUTA APORTADA POR LA COMUNIDAD, SIN VERIFICAR' : 'HORARIO BARRIAL DE REFERENCIA';
-      const anchoEstado = anchoTexto(estado, 9.5, true);
-      const anchoPastilla = anchoEstado + 38;
-      const xPastilla = izquierda + (anchoUtil - anchoPastilla) / 2;
-      c += 7;
-      rect(xPastilla, c, anchoPastilla, 21, { relleno: '#FEF3C7', r: 10.5 });
-      iconoAlerta(xPastilla + 12, c + 4.5);
-      poner({ tipo: 'texto', x: xPastilla + 30, y: c + 14.2, tamano: 9.5, negrita: true, color: '#92400E', texto: estado });
-      c += 21;
+      if (ruta.comunitaria) {
+        const estado = 'RUTA APORTADA POR LA COMUNIDAD, SIN VERIFICAR';
+        const anchoPastilla = anchoTexto(estado, 9.5, true) + 38;
+        const xPastilla = izquierda + (anchoUtil - anchoPastilla) / 2;
+        c += 7;
+        rect(xPastilla, c, anchoPastilla, 21, { relleno: '#FEF3C7', r: 10.5 });
+        iconoAlerta(xPastilla + 12, c + 4.5);
+        poner({ tipo: 'texto', x: xPastilla + 30, y: c + 14.2, tamano: 9.5, negrita: true, color: '#92400E', texto: estado });
+        c += 21;
+      }
       if (ruta.aviso) c = parrafo(ruta.aviso, izquierda + 16, c + 5, anchoUtil - 32, 10, { color: '#92400E', centro: true });
       cabecera.h = c + 11 - y;
       y += cabecera.h + 13;
