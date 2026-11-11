@@ -268,6 +268,21 @@
 
     /* Sección 3: narrativa */
     .narrativa { background: var(--color-bg-alt); }
+    .frase-oficial {
+      margin: 1.75rem 0 0;
+      padding-left: clamp(1rem, 0.5rem + 2vw, 2.25rem);
+      border-left: 6px solid var(--color-primary);
+      max-width: 70ch;
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+    .frase-oficial figcaption {
+      margin-bottom: 0.5rem;
+      color: var(--color-text-muted);
+      font-size: 0.9em;
+      font-weight: 600;
+    }
+    .frase-oficial blockquote { margin: 0; }
     .impactos { display: grid; gap: 1rem; margin-top: 2.5rem; }
     .impacto {
       padding: 1.5rem;
@@ -733,6 +748,10 @@
     <section class="narrativa seccion" aria-labelledby="titulo-narrativa">
       <div class="contenedor">
         <h2 id="titulo-narrativa">Sacar la bolsa el día equivocado le cuesta caro a la cuadra</h2>
+        <figure class="frase-oficial">
+          <figcaption>Frase oficial del problema</figcaption>
+          <blockquote id="frase-oficial">"Los vecinos y adultos mayores de los barrios residenciales de Medellín tienen problemas para sacar las bolsas de basura ordinaria y el material reciclable en los días y horarios exactos de recolección porque los cronogramas oficiales de Emvarias están dispersos en PDFs técnicos extensos y las rutas de recicladores de oficio no están digitalizadas ni adaptadas para personas con brecha digital, y eso les cuesta acumulación de basuras y regueros por animales de 2 a 3 veces por semana, pérdida de hasta el 40% del material reciclable del hogar, conflictos de convivencia vecinal y riesgo de multas o problemas sanitarios en la cuadra."</blockquote>
+        </figure>
         <div class="impactos">
           <article class="impacto">
             <strong>40%</strong>
