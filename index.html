@@ -622,6 +622,81 @@
       .buscador-rejilla { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 4rem; }
     }
 
+    /* Primera pantalla: puerta de nevera con la hoja del mapa */
+    .hero { position: relative; background: var(--color-primary); border-bottom: 12px solid #14481A; }
+    .hero-texto { color: var(--color-surface); }
+    .hero h1 { color: var(--color-surface); }
+    .hero h1 span { color: #CFE8C9; }
+    .hero-simbolo {
+      box-sizing: content-box;
+      padding: 0.7rem;
+      border-radius: 50%;
+      background: var(--color-bg-base);
+      box-shadow: inset -3px -4px 6px rgba(0, 0, 0, 0.14), 0 6px 12px rgba(0, 0, 0, 0.35);
+    }
+    .hero-texto .opcion-manual { color: #DDEBD6; }
+    .hero-texto .nota-privacidad { color: #DDEBD6; }
+    .mapa figcaption, .mapa .mapa-creditos { color: #DDEBD6; }
+    .mapa-volver { color: var(--color-surface); }
+    .mapa-marco {
+      border: 0;
+      border-radius: 2px;
+      overflow: visible;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 18px 32px rgba(0, 0, 0, 0.38);
+    }
+    .mapa-nombre { top: 1.6rem; }
+    .mapa-controles { top: 1.6rem; }
+    .panel-ubicacion { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 18px 32px rgba(0, 0, 0, 0.32); }
+
+    /* Mapa: un color por cada zona de la ciudad */
+    .zona-grupo-1 { fill: #F6D9A8; }
+    .zona-grupo-2 { fill: #BFE0C2; }
+    .zona-grupo-3 { fill: #F4C4B8; }
+    .zona-grupo-4 { fill: #BBD7EE; }
+    .zona-grupo-5 { fill: #DCCBEF; }
+    .zona-grupo-6 { fill: #F3E59B; }
+    .zona-grupo-7 { fill: #DDE7D5; }
+    .zona:hover { fill: #FFFFFF; }
+    .zona-activa, .zona-activa:hover { fill: var(--color-primary); }
+    .via-p { stroke: #4B5563; stroke-width: 3px; }
+    .via-m { stroke: #6B7480; stroke-width: 1.8px; }
+    .via-b { stroke: #8D95A1; stroke-width: 1.1px; }
+
+    /* Pasos y bolsas con más presencia */
+    .pasos-lista { --paso: 4rem; }
+    .paso { padding-left: calc(var(--paso) + 1.25rem); }
+    .paso::before { width: var(--paso); height: var(--paso); font-size: 1.9rem; }
+    .paso:not(:last-child)::after { left: calc(var(--paso) / 2 - 2px); top: var(--paso); }
+    .paso svg { width: 3rem; height: 3rem; }
+    .paso h3 { font-size: clamp(1.35rem, 1.2rem + 0.7vw, 1.9rem); }
+    .bolsa { padding: clamp(1.5rem, 1.2rem + 1.2vw, 2.5rem); }
+    .bolsa svg { width: 5rem; height: 5.75rem; }
+
+    @media (min-width: 48rem) {
+      .paso { padding: calc(var(--paso) + 1.25rem) 2rem 0 0; }
+      .paso:not(:last-child)::after { left: var(--paso); top: calc(var(--paso) / 2 - 2px); }
+      .bolsa { min-height: 21rem; }
+      .bolsa svg { width: 7.5rem; height: 8.5rem; }
+    }
+
+    @media (min-width: 100rem) {
+      :root { --text-base: 1.3rem; }
+      .contenedor { width: min(100% - 4rem, 92rem); }
+      .hero h1 { font-size: 5.75rem; }
+      .hero::before {
+        content: "";
+        position: absolute;
+        left: 2.25rem;
+        top: 50%;
+        width: 0.9rem;
+        height: 34%;
+        transform: translateY(-50%);
+        border-radius: 999px;
+        background: #D7DDD5;
+        box-shadow: inset -3px 0 3px rgba(0, 0, 0, 0.2), 4px 8px 14px rgba(0, 0, 0, 0.35);
+      }
+    }
+
     /* Póster para la nevera: una hoja carta vertical */
     @media print {
       @page { size: letter portrait; margin: 1.5cm; }
@@ -715,7 +790,7 @@
         <p class="eslogan">El horario de tu barrio, en tu celular y en tu nevera.</p>
         <p class="hero-apoyo">Consulta qué día pasan el camión de la basura y el reciclador en las 16 comunas y 5 corregimientos de Medellín.</p>
         <div class="hero-acciones">
-          <button type="button" id="btn-mi-horario" class="boton">¿Cuál es mi horario?</button>
+          <button type="button" id="btn-mi-horario" class="boton boton-imprimir">¿Cuál es mi horario?</button>
           <a class="opcion-manual js-manual" href="#buscador">Ingresar ubicación manualmente</a>
         </div>
         <p id="estado-ubicacion" class="estado-ubicacion" role="status"></p>
@@ -724,6 +799,8 @@
       <div class="hero-mapa">
         <figure class="mapa">
           <div class="mapa-marco">
+            <span class="iman iman-izq" aria-hidden="true"></span>
+            <span class="iman iman-der" aria-hidden="true"></span>
             <svg id="mapa-medellin" role="group" aria-label="Mapa de las 16 comunas y 5 corregimientos de Medellín. También puedes elegir tu zona con la opción de ingresar la ubicación manualmente."></svg>
             <p id="mapa-nombre" class="mapa-nombre"></p>
             <div class="mapa-norte" role="img" aria-label="El norte está hacia arriba">
@@ -1464,6 +1541,16 @@
       return elemento;
     }
 
+    function grupoZona(nombre) {
+      const numero = Number(nombre.match(/\d+/)[0]);
+      if (numero >= 50) return 7;
+      if (numero <= 4) return 1;
+      if (numero <= 7) return 2;
+      if (numero <= 10) return 3;
+      if (numero <= 13) return 4;
+      return numero === 14 ? 5 : 6;
+    }
+
     function construirMapa() {
       const svg = porId('mapa-medellin');
       svg.setAttribute('viewBox', `0 0 ${MAPA_MEDELLIN.ancho} ${MAPA_MEDELLIN.alto}`);
@@ -1471,7 +1558,7 @@
 
       MAPA_MEDELLIN.sinAsignar.forEach((d) => svg.append(crearSvg('path', { d, class: 'zona-sin-asignar' })));
       MAPA_MEDELLIN.zonas.forEach((zona) => {
-        const trazo = crearSvg('path', { d: zona.d, class: `zona${zona.rural ? ' zona-rural' : ''}`, 'data-zona': zona.zona, tabindex: 0, role: 'button', 'aria-label': zona.zona });
+        const trazo = crearSvg('path', { d: zona.d, class: `zona${zona.rural ? ' zona-rural' : ''} zona-grupo-${grupoZona(zona.zona)}`, 'data-zona': zona.zona, tabindex: 0, role: 'button', 'aria-label': zona.zona });
         const titulo = crearSvg('title');
         titulo.textContent = zona.zona;
         trazo.append(titulo);
