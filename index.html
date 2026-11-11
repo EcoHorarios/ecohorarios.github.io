@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EcoHorarios Barriales | Horarios de basura y reciclaje en Medellín</title>
+  <meta name="description" content="Consulta qué día pasan el camión de la basura y el reciclador en las 16 comunas y 5 corregimientos de Medellín, e imprime el horario para tu nevera.">
+  <meta name="theme-color" content="#0F2152">
+  <link rel="icon" type="image/png" href="data:image/png;base64,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">
+  <style>
+    :root {
+      --color-primary: #1B5E20;
+      --color-primary-fiduciario: #02227B;
+      --color-primary-dark: #0F2152;
+      --color-bg-base: #EFE8DF;
+      --color-bg-alt: #F4F6F4;
+      --color-surface: #FFFFFF;
+      --color-accent: #3B82FF;
+      --color-warning: #D97706;
+      --color-warning-alt: #F9A825;
+      --color-text-dark: #0F172A;
+      --color-text-muted: #475569;
+      --color-bolsa-verde: #2E7D32;
+      --color-bolsa-negra: #000000;
+
+      --font-heading: "Montserrat", Georgia, "Times New Roman", serif;
+      --font-body: "Hind Madurai", system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+
+      --text-base: clamp(1rem, 0.95rem + 0.5vw, 1.25rem);
+      --text-h2: clamp(1.75rem, 1.35rem + 1.8vw, 3rem);
+      --text-h3: clamp(1.25rem, 1.1rem + 0.7vw, 1.75rem);
+      --espacio-seccion: clamp(3rem, 2rem + 5vw, 6.5rem);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+
+    html { -webkit-text-size-adjust: 100%; }
+    @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
+    }
+
+    body {
+      margin: 0;
+      background: var(--color-bg-base);
+      color: var(--color-text-dark);
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.55;
+      overflow-wrap: break-word;
+    }
+
+    img, svg, iframe { display: block; max-width: 100%; }
+    h1, h2, h3, h4 {
+      margin: 0;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--color-primary-dark);
+    }
+    h2 { font-size: var(--text-h2); max-width: 22ch; }
+    h3 { font-size: var(--text-h3); }
+    p { margin: 0; }
+    ul, ol { margin: 0; padding: 0; list-style: none; }
+    a { color: var(--color-primary-fiduciario); text-underline-offset: 0.15em; }
+
+    :focus-visible {
+      outline: 3px solid var(--color-accent);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 2px var(--color-surface);
+    }
+
+    .contenedor { width: min(100% - 2rem, 78rem); margin-inline: auto; }
+    .seccion { padding-block: var(--espacio-seccion); scroll-margin-top: 1rem; }
+    .entrada { margin-top: 0.75rem; max-width: 62ch; color: var(--color-text-muted); }
+
+    .saltar {
+      position: absolute;
+      left: 1rem;
+      top: -4rem;
+      z-index: 10;
+      padding: 0.75rem 1rem;
+      background: var(--color-surface);
+      color: var(--color-primary-dark);
+      font-weight: 700;
+    }
+    .saltar:focus { top: 0.5rem; }
+
+    .boton {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      min-height: 3.25rem;
+      padding: 0.75rem 1.5rem;
+      border: 2px solid transparent;
+      border-radius: 0.5rem;
+      background: var(--color-primary);
+      color: var(--color-surface);
+      font-family: var(--font-body);
+      font-size: 1.05em;
+      font-weight: 700;
+      line-height: 1.25;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .boton:hover { background: var(--color-primary-dark); }
+    .boton svg { width: 1.5em; height: 1.5em; flex: none; }
+
+    .pendiente,
+    .pendiente:hover {
+      background: transparent;
+      border: 2px dashed currentColor;
+      color: inherit;
+      cursor: default;
+    }
+
+    /* Sección 2: hero */
+    .hero { padding-block: clamp(1.5rem, 1rem + 5vw, 6rem); }
+    .hero-interior { display: grid; gap: 1rem; align-items: center; }
+    .hero-simbolo { width: clamp(4.5rem, 3rem + 6vw, 7rem); height: auto; }
+    .hero h1 {
+      font-size: clamp(2.5rem, 1.2rem + 5.5vw, 6rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--color-primary);
+    }
+    .hero h1 span { display: block; color: var(--color-primary-dark); }
+    .eslogan {
+      margin-top: 0.75rem;
+      max-width: 26ch;
+      font-family: var(--font-heading);
+      font-size: clamp(1.25rem, 1.05rem + 1vw, 2rem);
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .hero-apoyo { margin-top: 0.6rem; max-width: 48ch; }
+
+    .hero-acciones { display: grid; justify-items: start; gap: 0.25rem; margin-top: 1.25rem; }
+    .opcion-manual {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.75rem;
+      color: var(--color-text-muted);
+      font-size: 0.9em;
+    }
+    .estado-ubicacion { margin-top: 0.5rem; max-width: 48ch; font-weight: 600; }
+    .estado-ubicacion:empty { display: none; }
+    .nota-privacidad { margin-top: 0.5rem; max-width: 48ch; color: var(--color-text-muted); font-size: 0.875em; }
+
+    .mapa { margin: 0; }
+    .mapa-marco {
+      position: relative;
+      background: var(--color-surface);
+      border: 1px solid var(--color-text-muted);
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+    #mapa-medellin { width: 100%; height: auto; touch-action: pan-y; cursor: pointer; }
+    #mapa-medellin.con-zoom { touch-action: none; cursor: grab; }
+    .zona {
+      fill: var(--color-bg-alt);
+      stroke: var(--color-primary);
+      stroke-width: 1.25px;
+      vector-effect: non-scaling-stroke;
+    }
+    .zona-rural { fill: #DDE7D5; }
+    .zona:hover { fill: #BFD8B8; }
+    .zona-activa, .zona-activa:hover { fill: var(--color-primary); }
+    .zona-sin-asignar { fill: var(--color-bg-base); stroke: var(--color-text-muted); stroke-width: 0.75px; vector-effect: non-scaling-stroke; }
+    .mapa-etiquetas { pointer-events: none; font-family: var(--font-body); font-weight: 700; text-anchor: middle; dominant-baseline: central; }
+    .mapa-etiqueta { fill: var(--color-primary-dark); }
+    .mapa-etiqueta-activa { fill: var(--color-surface); }
+    .mapa-marcador { fill: var(--color-accent); stroke: var(--color-surface); stroke-width: 3px; vector-effect: non-scaling-stroke; }
+    .mapa-nombre {
+      position: absolute;
+      left: 0.5rem;
+      top: 0.5rem;
+      max-width: calc(100% - 7rem);
+      padding: 0.15rem 0.5rem;
+      background: var(--color-primary-dark);
+      color: var(--color-surface);
+      border-radius: 0.25rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .mapa-controles { position: absolute; right: 0.5rem; top: 0.5rem; display: grid; gap: 0.25rem; }
+    .mapa-controles button {
+      min-width: 2.75rem;
+      min-height: 2.75rem;
+      border: 1px solid var(--color-text-muted);
+      border-radius: 0.25rem;
+      background: var(--color-surface);
+      color: var(--color-text-dark);
+      font-family: var(--font-body);
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .mapa-controles button:hover { background: var(--color-bg-base); }
+    .mapa-norte {
+      position: absolute;
+      right: 0.5rem;
+      bottom: 0.5rem;
+      display: grid;
+      justify-items: center;
+      padding: 0.25rem 0.4rem;
+      background: var(--color-surface);
+      border: 1px solid var(--color-text-muted);
+      border-radius: 0.25rem;
+      color: var(--color-primary-dark);
+      font-size: 0.8125rem;
+      font-weight: 700;
+      line-height: 1.1;
+      pointer-events: none;
+    }
+    .mapa-norte svg { width: 1.25rem; height: 1.25rem; fill: var(--color-primary-dark); }
+    .mapa figcaption { margin-top: 0.4rem; color: var(--color-text-muted); font-size: 0.875em; }
+
+    .panel-ubicacion {
+      margin-top: 1rem;
+      padding: clamp(1.25rem, 1rem + 1vw, 2rem);
+      background: var(--color-surface);
+      border-top: 6px solid var(--color-primary);
+    }
+    .panel-ubicacion h2 { font-size: var(--text-h3); max-width: none; color: var(--color-primary); }
+    .panel-ubicacion .panel-barrio { font-weight: 600; }
+    .panel-bloques {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+      gap: 1rem;
+      margin-block: 1rem 1.25rem;
+    }
+    .panel-bloques h3 { font-size: 1.05em; }
+    .panel-bloques .res-entidad { font-size: 0.95em; }
+    .panel-bloques .res-dias { margin-top: 0.35rem; font-size: 1.15em; }
+    .panel-bloques .res-horas { font-size: 1.05em; }
+    .panel-acciones { display: grid; justify-items: start; gap: 0.25rem; }
+
+    #vista-previa {
+      width: min(100% - 1rem, 38rem);
+      max-height: calc(100dvh - 1rem);
+      padding: 1rem;
+      border: 0;
+      border-radius: 0.5rem;
+      background: var(--color-bg-base);
+      color: var(--color-text-dark);
+    }
+    #vista-previa::backdrop { background: rgba(15, 33, 82, 0.72); }
+    #vista-previa h2 { font-size: var(--text-h3); max-width: none; }
+    #hoja-previa {
+      display: block;
+      height: min(62dvh, calc((100vw - 3rem) * 1.294));
+      aspect-ratio: 612 / 792;
+      margin: 0.75rem auto;
+      background: #FFFFFF;
+      box-shadow: 0 1px 4px rgba(15, 33, 82, 0.5);
+      font-family: Helvetica, Arial, "Liberation Sans", sans-serif;
+    }
+    .previa-acciones { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+    .boton-secundario { background: transparent; border-color: var(--color-primary-dark); color: var(--color-primary-dark); }
+    .boton-secundario:hover { background: var(--color-surface); }
+    #estado-descarga { margin-top: 0.5rem; text-align: center; font-weight: 600; }
+    #estado-descarga:empty { display: none; }
+
+    /* Sección 3: narrativa */
+    .narrativa { background: var(--color-bg-alt); }
+    .frase-oficial {
+      margin: 1.75rem 0 0;
+      padding-left: clamp(1rem, 0.5rem + 2vw, 2.25rem);
+      border-left: 6px solid var(--color-primary);
+      max-width: 70ch;
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+    .frase-oficial figcaption {
+      margin-bottom: 0.5rem;
+      color: var(--color-text-muted);
+      font-size: 0.9em;
+      font-weight: 600;
+    }
+    .frase-oficial blockquote { margin: 0; }
+    .impactos { display: grid; gap: 1rem; margin-top: 2.5rem; }
+    .impacto {
+      padding: 1.5rem;
+      background: var(--color-surface);
+      border-top: 6px solid var(--color-warning);
+    }
+    .impacto strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: clamp(2.75rem, 2rem + 3vw, 4.5rem);
+      line-height: 1;
+      color: var(--color-primary-dark);
+    }
+    .impacto p { margin-top: 0.6rem; }
+
+    /* Sección 4: pasos */
+    .pasos-lista { margin-top: 2.5rem; counter-reset: paso; display: grid; }
+    .paso {
+      position: relative;
+      padding: 0 0 2.25rem 4.5rem;
+      counter-increment: paso;
+    }
+    .paso:last-child { padding-bottom: 0; }
+    .paso::before {
+      content: counter(paso);
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 3.25rem;
+      height: 3.25rem;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: var(--color-surface);
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    .paso:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: calc(1.625rem - 2px);
+      top: 3.25rem;
+      bottom: 0;
+      border-left: 4px dotted var(--color-primary);
+    }
+    .paso svg { width: 2.25rem; height: 2.25rem; margin-bottom: 0.4rem; color: var(--color-primary); }
+    .paso p { margin-top: 0.35rem; color: var(--color-text-muted); max-width: 36ch; }
+
+    /* Sección 5: prototipo interactivo */
+    .buscador-prototipo { background: var(--color-primary); color: var(--color-surface); }
+    .buscador-prototipo h2 { color: var(--color-surface); }
+    .buscador-prototipo .entrada { color: var(--color-surface); }
+    .buscador-rejilla { display: grid; gap: 2.5rem; margin-top: 2rem; }
+
+    .campo { display: grid; gap: 0.35rem; }
+    .campo label { font-weight: 600; }
+    .campo input, .campo select {
+      width: 100%;
+      min-height: 3.25rem;
+      padding: 0.6rem 0.8rem;
+      border: 2px solid var(--color-text-muted);
+      border-radius: 0.5rem;
+      background: var(--color-surface);
+      color: var(--color-text-dark);
+      font-family: var(--font-body);
+      font-size: max(1rem, 1em);
+    }
+    .campo small { color: var(--color-text-muted); font-size: 0.9em; }
+    .buscador-controles { display: grid; gap: 1.25rem; align-content: start; }
+    .estado-busqueda { font-weight: 600; }
+    .estado-busqueda:empty { margin-top: -1.25rem; }
+    .coincidencias { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .coincidencias:empty { display: none; }
+    .coincidencia {
+      min-height: 2.75rem;
+      padding: 0.4rem 0.8rem;
+      border: 2px solid var(--color-surface);
+      border-radius: 0.5rem;
+      background: transparent;
+      color: var(--color-surface);
+      font-family: var(--font-body);
+      font-size: 0.95em;
+      text-align: left;
+      cursor: pointer;
+    }
+    .coincidencia:hover,
+    .coincidencia[aria-pressed="true"] { background: var(--color-surface); color: var(--color-primary); font-weight: 700; }
+    .nota-prototipo { font-size: 0.95em; }
+
+    #resultado-horario {
+      position: relative;
+      align-self: start;
+      padding: clamp(2rem, 1.5rem + 2vw, 3.25rem) clamp(1.25rem, 0.75rem + 2.5vw, 3rem) clamp(1.5rem, 1rem + 2vw, 3rem);
+      background: var(--color-surface);
+      color: var(--color-text-dark);
+      border-radius: 2px;
+      box-shadow: 0 1px 2px rgba(15, 33, 82, 0.4), 0 18px 32px rgba(15, 33, 82, 0.35);
+    }
+    .iman {
+      position: absolute;
+      top: -0.8rem;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 50%;
+      box-shadow: inset -3px -4px 6px rgba(0, 0, 0, 0.25), 0 4px 6px rgba(0, 0, 0, 0.35);
+    }
+    .iman-izq { left: 1.5rem; background: var(--color-warning-alt); }
+    .iman-der { right: 1.5rem; background: var(--color-accent); }
+    #res-zona { font-size: clamp(1.6rem, 1.3rem + 1.5vw, 2.5rem); color: var(--color-primary); }
+    #res-barrio { margin-top: 0.25rem; font-size: 1.2em; font-weight: 600; }
+    .res-aviso {
+      margin-top: 0.75rem;
+      padding: 0.4rem 0.7rem;
+      border-left: 5px solid var(--color-warning);
+      background: var(--color-bg-base);
+      font-size: 0.95em;
+    }
+    .res-bloques {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .res-bloque { padding-top: 0.75rem; border-top: 5px solid var(--color-text-dark); }
+    .res-bloque-reciclaje { border-top-color: var(--color-bolsa-verde); }
+    .res-bloque h4 { font-size: 1.15em; }
+    .res-entidad { color: var(--color-text-muted); }
+    .res-dias { margin-top: 0.6rem; font-size: 1.3em; font-weight: 700; line-height: 1.25; }
+    .res-horas { font-size: 1.2em; font-variant-numeric: tabular-nums; }
+    .res-referencia { margin-top: 1.5rem; padding-top: 0.75rem; border-top: 1px solid var(--color-text-muted); }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .hoja-nueva { animation: hoja 240ms ease-out; }
+      @keyframes hoja {
+        from { transform: translateY(-8px); }
+        to { transform: translateY(0); }
+      }
+    }
+
+    /* Sección 6: separación en la fuente */
+    .bolsas { display: grid; gap: 1rem; margin-top: 2rem; }
+    .bolsa { display: flex; gap: 1rem; align-items: flex-start; padding: 1.5rem; }
+    .bolsa svg { flex: none; width: 3.5rem; height: 4rem; stroke-width: 2; }
+    .bolsa h3 { color: inherit; }
+    .bolsa p { margin-top: 0.4rem; }
+    .bolsa-blanca { background: var(--color-surface); color: var(--color-text-dark); }
+    .bolsa-verde { background: var(--color-primary); color: var(--color-surface); }
+    .bolsa-negra { background: var(--color-bolsa-negra); color: var(--color-surface); }
+    .icono-blanca { fill: var(--color-surface); stroke: var(--color-text-dark); }
+    .icono-verde { fill: var(--color-bolsa-verde); stroke: var(--color-surface); }
+    .icono-negra { fill: var(--color-bolsa-negra); stroke: var(--color-surface); }
+    .etiqueta-alerta { margin-top: 0.6rem; color: var(--color-warning-alt); font-weight: 700; }
+
+    /* Sección 7: impresión */
+    .print-action-box { background: var(--color-primary-fiduciario); color: var(--color-surface); }
+    .print-interior {
+      display: grid;
+      gap: 1.25rem;
+      padding-block: clamp(2rem, 1.5rem + 3vw, 4rem);
+    }
+    .print-interior h2 { color: var(--color-surface); font-size: var(--text-h3); max-width: none; }
+    .print-interior p { margin-top: 0.5rem; max-width: 60ch; }
+    .print-botones { display: grid; gap: 0.5rem; }
+    .boton-imprimir { background: var(--color-warning-alt); color: var(--color-text-dark); }
+    .boton-imprimir:hover { background: var(--color-surface); }
+
+    /* Sección 8: formulario comunitario */
+    .registro-rutas { background: var(--color-bg-alt); }
+    #form-comunitario {
+      display: grid;
+      gap: 1.25rem;
+      margin-top: 2rem;
+      padding: clamp(1.25rem, 0.75rem + 2.5vw, 3rem);
+      background: var(--color-surface);
+    }
+    .form-acciones { display: grid; gap: 0.75rem; justify-items: start; }
+    #estado-formulario { font-weight: 600; color: var(--color-primary); }
+
+    /* Sección 9: video pitch */
+    .marco-video {
+      position: relative;
+      height: 0;
+      padding-bottom: 56.25%;
+      margin-top: 2rem;
+      overflow: hidden;
+      background: var(--color-primary-dark);
+    }
+    .marco-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .video-pendiente {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+      color: var(--color-surface);
+      text-align: center;
+      font-weight: 600;
+    }
+
+    /* Sección 10: ensayo */
+    .ensayo-doc { background: var(--color-bg-alt); }
+    .ensayo-tarjeta {
+      display: grid;
+      gap: 1.25rem;
+      margin-top: 2rem;
+      padding: clamp(1.25rem, 0.75rem + 2.5vw, 3rem);
+      background: var(--color-surface);
+      border-left: 6px solid var(--color-primary-fiduciario);
+    }
+    .ensayo-tarjeta p { max-width: 65ch; }
+    .ensayo-tarjeta .boton { justify-self: start; }
+    .ensayo-tarjeta .pendiente { color: var(--color-text-dark); }
+
+    /* Sección 11: equipo y footer */
+    .equipo-footer { background: var(--color-primary-dark); color: var(--color-surface); }
+    .equipo-footer h2 { color: var(--color-surface); }
+    .equipo-tarjetas { display: grid; gap: 2rem; margin-top: 2rem; }
+    .integrante { display: flex; gap: 1rem; align-items: flex-start; }
+    .avatar {
+      display: grid;
+      place-items: center;
+      flex: none;
+      width: 4.5rem;
+      height: 4.5rem;
+      border-radius: 50%;
+      background: var(--color-bg-base);
+      color: var(--color-primary-dark);
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+    .integrante h3 { color: var(--color-surface); }
+    .integrante-enlaces { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; margin-top: 0.5rem; }
+    .integrante-enlaces a { color: var(--color-surface); }
+    .integrante-enlaces .pendiente { border: 0; text-decoration: none; opacity: 0.85; }
+
+    @media (min-width: 40rem) {
+      .form-rejilla { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+      .equipo-tarjetas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #form-comunitario > .form-rejilla { margin: 0; }
+    }
+
+    @media (max-width: 39.99rem) {
+      .form-rejilla { display: grid; gap: 1.25rem; }
+    }
+
+    @media (min-width: 48rem) {
+      .impactos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .bolsas { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .bolsa { flex-direction: column; }
+
+      .pasos-lista { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .paso { padding: 4.5rem 2rem 0 0; }
+      .paso:last-child { padding-bottom: 0; }
+      .paso:not(:last-child)::after {
+        left: 3.25rem;
+        right: 0;
+        top: calc(1.625rem - 2px);
+        bottom: auto;
+        border-left: 0;
+        border-top: 4px dotted var(--color-primary);
+      }
+      .print-interior { grid-template-columns: 1fr auto; align-items: center; gap: 3rem; }
+    }
+
+    @media (min-width: 60rem) {
+      .hero-interior { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); grid-template-rows: auto 1fr; column-gap: 3rem; align-items: start; }
+      .hero-simbolo { grid-column: 1; grid-row: 1; }
+      .hero-texto { grid-column: 1; grid-row: 2; }
+      .hero-mapa { grid-column: 2; grid-row: 1 / 3; }
+      .hero h1 { font-size: clamp(3.25rem, 1rem + 3.4vw, 5rem); }
+      .buscador-rejilla { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 4rem; }
+    }
+
+    /* Póster para la nevera: una hoja carta vertical */
+    @media print {
+      @page { size: letter portrait; margin: 1.5cm; }
+
+      .saltar,
+      #vista-previa,
+      .hero,
+      .narrativa,
+      .pasos,
+      .buscador-cabecera,
+      .buscador-controles,
+      .reciclaje-cabecera,
+      .print-action-box,
+      .registro-rutas,
+      .pitch-video,
+      .ensayo-doc,
+      .equipo-footer,
+      .iman,
+      .etiqueta-alerta { display: none !important; }
+
+      *, *::before, *::after {
+        color: #000000 !important;
+        background: #FFFFFF !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+        animation: none !important;
+      }
+
+      html, body { margin: 0; height: auto; font-size: 20pt; line-height: 1.2; }
+
+      main,
+      .contenedor,
+      .buscador-prototipo,
+      .reciclaje-guia,
+      .buscador-rejilla,
+      .bolsas {
+        display: block;
+        width: auto;
+        margin: 0;
+        padding: 0;
+      }
+
+      #resultado-horario {
+        padding: 0;
+        border-radius: 0;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      #res-zona { font-size: 26pt; line-height: 1.15; }
+      #res-barrio { margin: 0; font-size: 24pt; font-weight: 700; line-height: 1.15; }
+      .res-aviso { margin-top: 4pt; padding: 0; border: 0; font-size: 20pt; }
+      .res-bloques { display: block; margin: 0; }
+      .res-bloque { margin-top: 8pt; padding-top: 4pt; border-top: 2pt solid #000000; }
+      .res-bloque h4 { font-size: 24pt; }
+      .res-entidad, .res-dias, .res-horas { margin: 0; font-size: 20pt; line-height: 1.2; }
+      .res-dias { font-weight: 700; }
+      .res-referencia { margin-top: 8pt; padding-top: 4pt; border-top: 2pt solid #000000; font-size: 20pt; }
+
+      .reciclaje-guia {
+        margin-top: 10pt;
+        padding-top: 6pt;
+        border-top: 2pt solid #000000;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .reciclaje-titulo { font-size: 24pt; max-width: none; }
+      .bolsa { display: flex; flex-direction: row; gap: 10pt; margin-top: 6pt; padding: 0; break-inside: avoid; }
+      .bolsa svg {
+        width: 34pt;
+        height: 40pt;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .icono-verde, .icono-negra { stroke: #000000; }
+      .icono-blanca { stroke: #000000; }
+      .bolsa h3 { font-size: 24pt; }
+      .bolsa p { margin: 0; font-size: 20pt; line-height: 1.15; }
+    }
+  </style>
+</head>
+<body>
+  <a class="saltar" href="#buscador">Ir directo al buscador de horarios</a>
+
+  <!-- Sección 2: hero -->
+  <header class="hero">
+    <div class="contenedor hero-interior">
+      <img class="hero-simbolo" src="data:image/png;base64,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" width="460" height="400" alt="Símbolo de EcoHorarios: edificios de un barrio abrazados por una rama con hojas">
+      <div class="hero-texto">
+        <h1>EcoHorarios <span>Barriales</span></h1>
+        <p class="eslogan">El horario de tu barrio, en tu celular y en tu nevera.</p>
+        <p class="hero-apoyo">Consulta qué día pasan el camión de la basura y el reciclador en las 16 comunas y 5 corregimientos de Medellín.</p>
+        <div class="hero-acciones">
+          <button type="button" id="btn-mi-horario" class="boton">¿Cuál es mi horario?</button>
+          <a class="opcion-manual js-manual" href="#buscador">Ingresar ubicación manualmente</a>
+        </div>
+        <p id="estado-ubicacion" class="estado-ubicacion" role="status"></p>
+        <p class="nota-privacidad">Tu ubicación se usa solo en este dispositivo y no se envía a ningún lado.</p>
+      </div>
+      <div class="hero-mapa">
+        <figure class="mapa">
+          <div class="mapa-marco">
+            <svg id="mapa-medellin" role="img" aria-label="Mapa de las 16 comunas y 5 corregimientos de Medellín. También puedes elegir tu zona con la opción de ingresar la ubicación manualmente."></svg>
+            <p id="mapa-nombre" class="mapa-nombre"></p>
+            <div class="mapa-norte" role="img" aria-label="El norte está hacia arriba">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l7 19-7-4-7 4z"/></svg>
+              <span aria-hidden="true">Norte</span>
+            </div>
+            <div class="mapa-controles">
+              <button type="button" id="mapa-acercar" aria-label="Acercar el mapa">+</button>
+              <button type="button" id="mapa-alejar" aria-label="Alejar el mapa">−</button>
+              <button type="button" id="mapa-completo" aria-label="Ver toda Medellín">⌂</button>
+            </div>
+          </div>
+          <figcaption>Toca una zona para ver su horario. Límites: Alcaldía de Medellín.</figcaption>
+        </figure>
+        <div id="panel-ubicacion" class="panel-ubicacion" hidden>
+          <h2 id="panel-zona"></h2>
+          <p id="panel-barrio" class="panel-barrio"></p>
+          <div class="panel-bloques">
+            <div>
+              <h3>Basura ordinaria</h3>
+              <p class="res-entidad">Emvarias</p>
+              <p id="panel-dias-basura" class="res-dias"></p>
+              <p id="panel-horas-basura" class="res-horas"></p>
+            </div>
+            <div>
+              <h3>Reciclaje</h3>
+              <p id="panel-entidad" class="res-entidad"></p>
+              <p id="panel-dias-reciclaje" class="res-dias"></p>
+              <p id="panel-horas-reciclaje" class="res-horas"></p>
+            </div>
+          </div>
+          <div class="panel-acciones">
+            <button type="button" class="boton js-vista-previa">Descargar horario</button>
+            <a class="opcion-manual js-manual" href="#buscador">¿No es tu zona? Cámbiala</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Sección 3: narrativa comunitaria -->
+    <section class="narrativa seccion" aria-labelledby="titulo-narrativa">
+      <div class="contenedor">
+        <h2 id="titulo-narrativa">Sacar la bolsa el día equivocado le cuesta caro a la cuadra</h2>
+        <figure class="frase-oficial">
+          <figcaption>Frase oficial del problema</figcaption>
+          <blockquote id="frase-oficial">"Los vecinos y adultos mayores de los barrios residenciales de Medellín tienen problemas para sacar las bolsas de basura ordinaria y el material reciclable en los días y horarios exactos de recolección porque los cronogramas oficiales de Emvarias están dispersos en PDFs técnicos extensos y las rutas de recicladores de oficio no están digitalizadas ni adaptadas para personas con brecha digital, y eso les cuesta acumulación de basuras y regueros por animales de 2 a 3 veces por semana, pérdida de hasta el 40% del material reciclable del hogar, conflictos de convivencia vecinal y riesgo de multas o problemas sanitarios en la cuadra."</blockquote>
+        </figure>
+        <div class="impactos">
+          <article class="impacto">
+            <strong>40%</strong>
+            <p>Es la parte del reciclaje del hogar que se puede perder por no coincidir con el reciclador.</p>
+          </article>
+          <article class="impacto">
+            <strong>2 a 3</strong>
+            <p>Veces por semana aparecen regueros por animales cuando las bolsas salen a destiempo.</p>
+          </article>
+          <article class="impacto">
+            <strong>50 páginas</strong>
+            <p>Puede tener un PDF técnico de cronogramas, una barrera para quien vive la brecha digital.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 4: guía de uso en 3 pasos -->
+    <section class="pasos seccion" aria-labelledby="titulo-pasos">
+      <div class="contenedor">
+        <h2 id="titulo-pasos">Tu horario en 3 pasos</h2>
+        <ol class="pasos-lista">
+          <li class="paso">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.500 7 12 7 12z"/><circle cx="12" cy="10" r="2.500"/></svg>
+            <h3>Elige tu comuna o corregimiento</h3>
+            <p>Selecciónalo en la lista o escribe el nombre de tu barrio.</p>
+          </li>
+          <li class="paso">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 15l2.500 2.500L16 13"/></svg>
+            <h3>Conoce tus frecuencias oficiales</h3>
+            <p>Mira los días y las horas de la basura y del reciclaje.</p>
+          </li>
+          <li class="paso">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8V3h10v5M7 18H4a1 1 0 0 1-1-1v-7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7a1 1 0 0 1-1 1h-3"/><rect x="7" y="14" width="10" height="7"/></svg>
+            <h3>Imprime o comparte el horario con tus vecinos</h3>
+            <p>Pégalo en la nevera, en la portería o en la tienda de la cuadra.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Sección 5: prototipo interactivo -->
+    <section id="buscador" class="buscador-prototipo seccion" aria-labelledby="titulo-buscador">
+      <div class="contenedor">
+        <div class="buscador-cabecera">
+          <h2 id="titulo-buscador">¿Cuándo pasan por tu barrio?</h2>
+          <p class="entrada">Los días y las horas aparecen en la hoja apenas eliges tu zona.</p>
+        </div>
+        <div class="buscador-rejilla">
+          <div class="buscador-controles">
+            <div class="campo">
+              <label for="input-busqueda">Buscar por barrio, comuna o cooperativa</label>
+              <input id="input-busqueda" type="search" placeholder="Ej.: Robledo, Castilla, Recimed" autocomplete="off">
+            </div>
+            <p id="estado-busqueda" class="estado-busqueda" role="status"></p>
+            <div id="coincidencias" class="coincidencias"></div>
+            <div class="campo">
+              <label for="select-zona">Comuna o corregimiento</label>
+              <select id="select-zona"></select>
+            </div>
+            <div class="campo">
+              <label for="select-barrio">Barrio o sector</label>
+              <select id="select-barrio"></select>
+            </div>
+            <p class="nota-prototipo">Prototipo académico. Los horarios pueden cambiar en festivos.</p>
+          </div>
+
+          <article id="resultado-horario" aria-live="polite" aria-labelledby="res-zona">
+            <span class="iman iman-izq" aria-hidden="true"></span>
+            <span class="iman iman-der" aria-hidden="true"></span>
+            <h3 id="res-zona"></h3>
+            <p id="res-barrio"></p>
+            <p id="res-aviso" class="res-aviso" hidden>Ruta aportada por la comunidad, sin verificar.</p>
+            <div class="res-bloques">
+              <section class="res-bloque">
+                <h4>Basura ordinaria</h4>
+                <p class="res-entidad">Emvarias</p>
+                <p id="res-dias-basura" class="res-dias"></p>
+                <p id="res-horas-basura" class="res-horas"></p>
+              </section>
+              <section class="res-bloque res-bloque-reciclaje">
+                <h4>Reciclaje</h4>
+                <p id="res-entidad" class="res-entidad"></p>
+                <p id="res-dias-reciclaje" class="res-dias"></p>
+                <p id="res-horas-reciclaje" class="res-horas"></p>
+              </section>
+            </div>
+            <p class="res-referencia">Punto de referencia: <strong id="res-referencia"></strong></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 6: mini guía de separación en la fuente -->
+    <section class="reciclaje-guia seccion" aria-labelledby="titulo-guia">
+      <div class="contenedor">
+        <h2 id="titulo-guia" class="reciclaje-titulo">Las 3 bolsas de la Resolución 2184 de 2019</h2>
+        <div class="reciclaje-cabecera">
+          <p class="entrada">Este es el código de colores nacional para separar los residuos en casa.</p>
+        </div>
+        <div class="bolsas">
+          <article class="bolsa bolsa-blanca">
+            <svg class="icono-blanca" viewBox="0 0 48 56" aria-hidden="true"><path d="M18 14C10 20 6 30 6 40c0 8 6 12 18 12s18-4 18-12c0-10-4-20-12-26z"/><path d="M18 14l-4-9c4 2 7 2 10 0 3 2 6 2 10 0l-4 9z"/></svg>
+            <div>
+              <h3>Bolsa blanca</h3>
+              <p><strong>Aprovechables limpios:</strong> papel, cartón, plástico, metal, vidrio.</p>
+            </div>
+          </article>
+          <article class="bolsa bolsa-verde">
+            <svg class="icono-verde" viewBox="0 0 48 56" aria-hidden="true"><path d="M18 14C10 20 6 30 6 40c0 8 6 12 18 12s18-4 18-12c0-10-4-20-12-26z"/><path d="M18 14l-4-9c4 2 7 2 10 0 3 2 6 2 10 0l-4 9z"/></svg>
+            <div>
+              <h3>Bolsa verde</h3>
+              <p><strong>Orgánicos aprovechables:</strong> restos de comida, poda.</p>
+            </div>
+          </article>
+          <article class="bolsa bolsa-negra">
+            <svg class="icono-negra" viewBox="0 0 48 56" aria-hidden="true"><path d="M18 14C10 20 6 30 6 40c0 8 6 12 18 12s18-4 18-12c0-10-4-20-12-26z"/><path d="M18 14l-4-9c4 2 7 2 10 0 3 2 6 2 10 0l-4 9z"/></svg>
+            <div>
+              <h3>Bolsa negra</h3>
+              <p><strong>No aprovechables:</strong> papel higiénico, servilletas usadas, cartones contaminados.</p>
+              <p class="etiqueta-alerta">Esta bolsa no va para el reciclador.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 7: motor de impresión inclusiva -->
+    <div class="print-action-box">
+      <div class="contenedor print-interior">
+        <div>
+          <h2>Lleva el horario a quien no usa internet</h2>
+          <p>Imprime una hoja en letra grande y pégala en la nevera de los abuelos o en la tienda del barrio. Un papel a la vista evita olvidos y regueros en toda la cuadra.</p>
+          <p>Se va a imprimir: <strong id="print-resumen"></strong></p>
+        </div>
+        <div class="print-botones">
+        <button type="button" class="boton boton-imprimir" onclick="window.print()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8V3h10v5M7 18H4a1 1 0 0 1-1-1v-7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7a1 1 0 0 1-1 1h-3"/><rect x="7" y="14" width="10" height="7"/></svg>
+          Imprimir horario para la nevera
+        </button>
+        <button type="button" class="boton boton-imprimir js-vista-previa">Ver y descargar en PDF</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 8: formulario comunitario -->
+    <section class="registro-rutas seccion" aria-labelledby="titulo-registro">
+      <div class="contenedor">
+        <h2 id="titulo-registro">¿Tu reciclador cambió de horario?</h2>
+        <p class="entrada">Juntas comunales y vecinos pueden registrar una ruta nueva. Si escribes un barrio que ya existe en esa zona, se actualiza. El cambio dura mientras esta página siga abierta.</p>
+        <form id="form-comunitario">
+          <div class="form-rejilla">
+            <div class="campo">
+              <label for="form-zona">Comuna o corregimiento</label>
+              <select id="form-zona" name="zona" required></select>
+            </div>
+            <div class="campo">
+              <label for="form-barrio">Barrio o sector</label>
+              <input id="form-barrio" name="barrio" type="text" required maxlength="40" pattern=".*\S.*" autocomplete="off" placeholder="Ej.: Pilarica">
+            </div>
+            <div class="campo">
+              <label for="form-dias-basura">Días de basura ordinaria</label>
+              <input id="form-dias-basura" name="diasBasura" type="text" required maxlength="30" pattern=".*\S.*" autocomplete="off" placeholder="Ej.: Mar-Jue-Sáb">
+            </div>
+            <div class="campo">
+              <label for="form-horas-basura">Horas de basura ordinaria</label>
+              <input id="form-horas-basura" name="horasBasura" type="text" required inputmode="numeric" maxlength="11" pattern="([01][0-9]|2[0-3]):[0-5][0-9]-([01][0-9]|2[0-3]):[0-5][0-9]" title="Usa el formato de 24 horas, por ejemplo 06:00-14:00" autocomplete="off" aria-describedby="ayuda-horas-basura" placeholder="06:00-14:00">
+              <small id="ayuda-horas-basura">Formato de 24 horas, por ejemplo 06:00-14:00</small>
+            </div>
+            <div class="campo">
+              <label for="form-dias-reciclaje">Días de reciclaje</label>
+              <input id="form-dias-reciclaje" name="diasReciclaje" type="text" required maxlength="30" pattern=".*\S.*" autocomplete="off" placeholder="Ej.: Jueves">
+            </div>
+            <div class="campo">
+              <label for="form-horas-reciclaje">Horas de reciclaje</label>
+              <input id="form-horas-reciclaje" name="horasReciclaje" type="text" required inputmode="numeric" maxlength="11" pattern="([01][0-9]|2[0-3]):[0-5][0-9]-([01][0-9]|2[0-3]):[0-5][0-9]" title="Usa el formato de 24 horas, por ejemplo 08:00-12:00" autocomplete="off" aria-describedby="ayuda-horas-reciclaje" placeholder="08:00-12:00">
+              <small id="ayuda-horas-reciclaje">Formato de 24 horas, por ejemplo 08:00-12:00</small>
+            </div>
+            <div class="campo">
+              <label for="form-entidad">Reciclador o cooperativa</label>
+              <input id="form-entidad" name="entidadReciclaje" type="text" required maxlength="40" pattern=".*\S.*" autocomplete="off" placeholder="Ej.: Cooperativa Recimed">
+            </div>
+            <div class="campo">
+              <label for="form-referencia">Punto de referencia</label>
+              <input id="form-referencia" name="referencia" type="text" required maxlength="40" pattern=".*\S.*" autocomplete="off" placeholder="Ej.: Parque del barrio">
+            </div>
+          </div>
+          <div class="form-acciones">
+            <button type="submit" class="boton">Guardar ruta</button>
+            <p id="estado-formulario" role="status"></p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Sección 9: video pitch -->
+    <section id="video" class="pitch-video seccion" aria-labelledby="titulo-video">
+      <div class="contenedor">
+        <h2 id="titulo-video">Nuestro pitch Shark Tank</h2>
+        <p class="entrada">El equipo presenta el problema, la solución y cómo llega a cada cuadra de Medellín.</p>
+        <div class="marco-video">
+          <iframe id="iframe-pitch" title="Video pitch de EcoHorarios Barriales" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <p id="video-pendiente" class="video-pendiente" hidden>El video del pitch se publicará aquí.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 10: ensayo académico -->
+    <section id="ensayo" class="ensayo-doc seccion" aria-labelledby="titulo-ensayo">
+      <div class="contenedor">
+        <h2 id="titulo-ensayo">Ensayo académico</h2>
+        <article class="ensayo-tarjeta">
+          <h3>La brecha digital también se ve en la acera</h3>
+          <p>El ensayo examina por qué los cronogramas dispersos en PDFs técnicos y las rutas de reciclaje sin digitalizar afectan a vecinos y adultos mayores de Medellín, y sustenta una solución accesible que une la consulta web con el horario impreso.</p>
+          <a class="boton" data-enlace="ensayo">Leer el ensayo en Google Docs / PDF</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Sección 11: equipo y footer -->
+  <footer id="equipo" class="equipo-footer seccion">
+    <div class="contenedor">
+      <h2>Equipo de trabajo</h2>
+      <div class="equipo-tarjetas">
+        <article class="integrante">
+          <span class="avatar" aria-hidden="true">SC</span>
+          <div>
+            <h3>Santiago David Cueva Araujo</h3>
+            <p>Líder de prototipo, web y pitch</p>
+            <p>Tecnología en Sistemas Mecatrónicos</p>
+            <p class="integrante-enlaces">
+              <a data-enlace="linkedinSantiago">LinkedIn</a>
+              <a data-enlace="portafolioSantiago">Portafolio</a>
+            </p>
+          </div>
+        </article>
+        <article class="integrante">
+          <span class="avatar" aria-hidden="true">JR</span>
+          <div>
+            <h3>Juan Felipe Ramírez Giraldo</h3>
+            <p>Líder de investigación, ensayo y video</p>
+            <p>Tecnología en Sistemas Mecatrónicos</p>
+            <p class="integrante-enlaces">
+              <a data-enlace="linkedinJuanFelipe">LinkedIn</a>
+              <a data-enlace="portafolioJuanFelipe">Portafolio</a>
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </footer>
+
+  <dialog id="vista-previa" aria-labelledby="titulo-previa">
+    <h2 id="titulo-previa">Así queda tu hoja para la nevera</h2>
+    <svg id="hoja-previa" viewBox="0 0 612 792" role="img" aria-label="Vista previa de la hoja tamaño carta con tu horario y las 3 bolsas"></svg>
+    <div class="previa-acciones">
+      <button type="button" id="previa-descargar" class="boton" autofocus>Descargar PDF</button>
+      <button type="button" id="previa-imprimir" class="boton boton-secundario">Imprimir</button>
+      <button type="button" id="previa-cerrar" class="boton boton-secundario">Cerrar</button>
+    </div>
+    <p id="estado-descarga" role="status"></p>
+  </dialog>
+
+  <script>
+    'use strict';
+
+    /* Enlaces de la entrega final. Se pegan aquí y la página los activa sola. */
+    const ENLACES_PROYECTO = {
+      videoYoutubeId: '',
+      ensayo: 'https://docs.google.com',
+      linkedinSantiago: 'https://www.linkedin.com/in/santiago-david-cueva-araujo-4938b6437/',
+      portafolioSantiago: 'https://drive.google.com/drive/folders/1GAZiqt1LG0vpXwlT_qz6vNdDdqwswLpn?usp=sharing',
+      linkedinJuanFelipe: 'https://www.linkedin.com',
+      portafolioJuanFelipe: 'https://drive.google.com'
+    };
+
+    /* Dataset territorial oficial: 16 comunas y 5 corregimientos */
+    const DATASET_OFICIAL = Object.freeze([
+      { id: 1, zona: 'Comuna 1 - Popular', barrio: 'Popular N.º 1 / Sto Domingo', diasBasura: 'Lun-Mié-Vie', horasBasura: '06:00-13:00', diasReciclaje: 'Miércoles', horasReciclaje: '08:00-12:00', entidadReciclaje: 'Asorecicladores Norte', referencia: 'Metrocable Santo Domingo' },
+      { id: 2, zona: 'Comuna 2 - Santa Cruz', barrio: 'Playón de los Comuneros', diasBasura: 'Mar-Jue-Sáb', horasBasura: '06:00-14:00', diasReciclaje: 'Jueves', horasReciclaje: '08:00-12:00', entidadReciclaje: 'Recimed', referencia: 'Parque Biblioteca Santa Cruz' },
+      { id: 3, zona: 'Comuna 3 - Manrique', barrio: 'Manrique Central / Campo Valdés', diasBasura: 'Lun-Mié-Vie', horasBasura: '06:00-13:00', diasReciclaje: 'Viernes', horasReciclaje: '08:00-12:00', entidadReciclaje: 'Corpocir', referencia: 'Metroplús La 45' },
+      { id: 4, zona: 'Comuna 4 - Aranjuez', barrio: 'San Cayetano / Berlín', diasBasura: 'Lun-Mié-Vie', horasBasura: '06:00-13:00', diasReciclaje: 'Miércoles', horasReciclaje: '08:00-12:00', entidadReciclaje: 'Asorecicladores Norte', referencia: 'Casa Museo Pedro Nel Gómez' },
+      { id: 5, zona: 'Comuna 5 - Castilla', barrio: 'Castilla Plaza / Alfonso López', diasBasura: 'Mar-Jue-Sáb', horasBasura: '06:00-14:00', diasReciclaje: 'Sábado', horasReciclaje: '08:00-12:00', entidadReciclaje: 'Recuperadores Castilla', referencia: 'Bulevar de la 68' },
+      { id: 6, zona: 'Comuna 6 - Doce de Octubre', barrio: 'Kennedy / Doce de Octubre', diasBasura: 'Lun-Mié-Vie', horasBasura: '06:00-13:00', diasReciclaje: 'Lunes', horasReciclaje: '08:00-12:00', entidadReciclaje: 'Recimed', referencia: 'Cancha Maracaná' },
+      { id: 7, zona: 'Comuna 7 - Robledo', barrio: 'Pilarica / Cerca Pascual Bravo', diasBasura: 'Mar-Jue-Sáb', horasBasura: '06:00-14:00', diasReciclaje: 'Jueves', horasReciclaje: '08:00-12:00', entidadReciclaje: 'Cooperativa Recimed', referencia: 'Campus I.U. Pascual Bravo' },
+      { id: 8, zona: 'Comuna 8 - Villa Hermosa', barrio: 'Villa Hermosa / Sucre', diasBasura: 'Mar-Jue-Sáb', horasBasura: '06:00-13:00', diasReciclaje: 'Martes', horasReciclaje: '08:00-12:00', entidadReciclaje: 'Asorecicladores Oriente', referencia: 'Parque de Villa Hermosa' },
+      { id: 9, zona: 'Comuna 9 - Buenos Aires', barrio: 'Buenos Aires / Caicedo', diasBasura: 'Lun-Mié-Vie', horasBasura: '06:00-14:00', diasReciclaje: 'Viernes', horasReciclaje: '08:00-12:00', entidadReciclaje: 'Corpocir', referencia: 'Tranvía de Ayacucho' },
+      { id: 10, zona: 'Comuna 10 - La Candelaria', barrio: 'Prado / Boston Centro', diasBasura: 'Todos los días', horasBasura: '19:00-02:00', diasReciclaje: 'Mar y Vie', horasReciclaje: '14:00-18:00', entidadReciclaje: 'Red Reciclaje Centro', referencia: 'Parque Bolívar' },
+      { id: 11, zona: 'Comuna 11 - Laureles', barrio: 'Segundo Parque / Suramericana', diasBasura: 'Mar-Jue-Sáb', horasBasura: '19:00-23:00', diasReciclaje: 'Jueves', horasReciclaje: '14:00-17:00', entidadReciclaje: 'Recicladores del Aburrá', referencia: 'Avenida Nutibara' },
+      { id: 12, zona: 'Comuna 12 - La América', barrio: 'La Floresta / Calasanz', diasBasura: 'Mar-Jue-Sáb', horasBasura: '06:00-13:00', diasReciclaje: 'Sábado', horasReciclaje: '08:00-12:00', entidadReciclaje: 'Arreciclar Occidente', referencia: 'Parque de La Floresta' },
+      { id: 13, zona: 'Comuna 13 - San Javier', barrio: 'San Javier N.º 1 / 20 de Julio', diasBasura: 'Lun-Mié-Vie', horasBasura: '06:00-13:00', diasReciclaje: 'Miércoles', horasReciclaje: '09:00-13:00', entidadReciclaje: 'Asorecicladores San Javier', referencia: 'Estación San Javier Metro' },
+      { id: 14, zona: 'Comuna 14 - El Poblado', barrio: 'Manila / Castropol / Provenza', diasBasura: 'Lun-Mié-Vie', horasBasura: '19:00-01:00', diasReciclaje: 'Jueves', horasReciclaje: '08:00-13:00', entidadReciclaje: 'Coop. Recuperar', referencia: 'Parque de El Poblado' },
+      { id: 15, zona: 'Comuna 15 - Guayabal', barrio: 'Cristo Rey / Santa Fe', diasBasura: 'Lun-Mié-Vie', horasBasura: '06:00-13:00', diasReciclaje: 'Lunes', horasReciclaje: '08:00-12:00', entidadReciclaje: 'Arreciclar Antioquia', referencia: 'Aeroparque Juan Pablo II' },
+      { id: 16, zona: 'Comuna 16 - Belén', barrio: 'Belén Rosales / Los Alpes', diasBasura: 'Mar-Jue-Sáb', horasBasura: '06:00-13:00', diasReciclaje: 'Mar y Sáb', horasReciclaje: '07:00-11:00', entidadReciclaje: 'Arreciclar Antioquia', referencia: 'Parque de Belén' },
+      { id: 17, zona: 'Correg. 50 - Palmitas', barrio: 'Sector Central / La Aldea', diasBasura: 'Mié y Sáb', horasBasura: '07:00-13:00', diasReciclaje: 'Sábado', horasReciclaje: '08:00-11:00', entidadReciclaje: 'Red Rural Palmitas', referencia: 'Cabecera Palmitas' },
+      { id: 18, zona: 'Correg. 60 - San Cristóbal', barrio: 'Cabecera / La Loma', diasBasura: 'Lun-Mié-Vie', horasBasura: '06:00-13:00', diasReciclaje: 'Martes', horasReciclaje: '08:00-12:00', entidadReciclaje: 'Asorecicladores Occ.', referencia: 'Parque Principal San Cristóbal' },
+      { id: 19, zona: 'Correg. 70 - Altavista', barrio: 'Central Altavista / San Pablo', diasBasura: 'Mar-Jue-Sáb', horasBasura: '06:00-13:00', diasReciclaje: 'Jueves', horasReciclaje: '08:00-12:00', entidadReciclaje: 'Recuperadores Altavista', referencia: 'Vía Puente Amaya' },
+      { id: 20, zona: 'Correg. 80 - San Antonio Prado', barrio: 'Parque / Limonar / Barichara', diasBasura: 'Mar-Jue-Sáb', horasBasura: '06:00-13:00', diasReciclaje: 'Sábado', horasReciclaje: '08:00-12:00', entidadReciclaje: 'Asorecicladores Prado', referencia: 'Parque Principal Prado' },
+      { id: 21, zona: 'Correg. 90 - Santa Elena', barrio: 'Parque Santa Elena / El Placer', diasBasura: 'Mar y Vie', horasBasura: '07:00-14:00', diasReciclaje: 'Miércoles', horasReciclaje: '08:00-13:00', entidadReciclaje: 'EcoSantaElena', referencia: 'Estación Policía Santa Elena' }
+    ].map((registro) => Object.freeze(registro)));
+
+    const ZONA_PREDETERMINADA = 'Comuna 7 - Robledo';
+    const ZONAS_OFICIALES = [...new Set(DATASET_OFICIAL.map((ruta) => ruta.zona))];
+    const NOMBRES_DIAS = { lun: 'lunes', mar: 'martes', mie: 'miércoles', jue: 'jueves', vie: 'viernes', sab: 'sábado', dom: 'domingo' };
+
+    /* Copia de trabajo: el dataset oficial nunca se altera */
+    const rutas = [...DATASET_OFICIAL];
+    let rutaActual = null;
+    let totalComunitarias = 0;
+
+    const porId = (id) => document.getElementById(id);
+    const normalizar = (texto) => texto.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+
+    function formatearDias(dias) {
+      const partes = dias.split(/\s*(?:-|,|\sy\s)\s*/).map((parte) => {
+        const clave = normalizar(parte);
+        const dia = NOMBRES_DIAS[clave.slice(0, 3)];
+        return dia && (clave.length === 3 || clave === normalizar(dia)) ? dia : null;
+      });
+      if (partes.some((parte) => !parte)) return dias;
+      const texto = partes.length > 1 ? `${partes.slice(0, -1).join(', ')} y ${partes[partes.length - 1]}` : partes[0];
+      return texto.charAt(0).toUpperCase() + texto.slice(1);
+    }
+
+    function formatearHora(hora) {
+      const [h, m] = hora.split(':').map(Number);
+      return `${h % 12 || 12}:${String(m).padStart(2, '0')} ${h < 12 ? 'a. m.' : 'p. m.'}`;
+    }
+
+    function formatearHoras(horas) {
+      if (!/^\d{2}:\d{2}-\d{2}:\d{2}$/.test(horas)) return horas;
+      const [inicio, fin] = horas.split('-');
+      return `${formatearHora(inicio)} a ${formatearHora(fin)}`;
+    }
+
+    function rutasCoincidentes() {
+      const termino = normalizar(porId('input-busqueda').value);
+      if (!termino) return rutas;
+      return rutas.filter((ruta) => normalizar(`${ruta.barrio} ${ruta.zona} ${ruta.entidadReciclaje}`).includes(termino));
+    }
+
+    function llenarSelect(select, opciones, valor) {
+      select.replaceChildren(...opciones.map(({ valor: v, texto }) => new Option(texto, v)));
+      select.value = valor;
+    }
+
+    function poblarBarrios(lista) {
+      const zona = porId('select-zona').value;
+      const barrios = lista.filter((ruta) => ruta.zona === zona);
+      llenarSelect(
+        porId('select-barrio'),
+        barrios.map((ruta) => ({ valor: String(ruta.id), texto: ruta.barrio })),
+        String(rutaActual.id)
+      );
+    }
+
+    function poblarSelectores(lista) {
+      const zonas = ZONAS_OFICIALES.filter((zona) => lista.some((ruta) => ruta.zona === zona));
+      llenarSelect(porId('select-zona'), zonas.map((zona) => ({ valor: zona, texto: zona })), rutaActual.zona);
+      poblarBarrios(lista);
+    }
+
+    function mostrarHorario(ruta) {
+      rutaActual = ruta;
+      porId('res-zona').textContent = ruta.zona;
+      porId('res-barrio').textContent = ruta.barrio;
+      porId('res-aviso').hidden = !ruta.comunitaria;
+      porId('res-dias-basura').textContent = formatearDias(ruta.diasBasura);
+      porId('res-horas-basura').textContent = formatearHoras(ruta.horasBasura);
+      porId('res-entidad').textContent = ruta.entidadReciclaje;
+      porId('res-dias-reciclaje').textContent = formatearDias(ruta.diasReciclaje);
+      porId('res-horas-reciclaje').textContent = formatearHoras(ruta.horasReciclaje);
+      porId('res-referencia').textContent = ruta.referencia;
+      porId('print-resumen').textContent = `${ruta.zona}, ${ruta.barrio}`;
+      porId('panel-zona').textContent = ruta.zona;
+      porId('panel-barrio').textContent = ruta.barrio;
+      porId('panel-dias-basura').textContent = formatearDias(ruta.diasBasura);
+      porId('panel-horas-basura').textContent = formatearHoras(ruta.horasBasura);
+      porId('panel-entidad').textContent = ruta.entidadReciclaje;
+      porId('panel-dias-reciclaje').textContent = formatearDias(ruta.diasReciclaje);
+      porId('panel-horas-reciclaje').textContent = formatearHoras(ruta.horasReciclaje);
+      resaltarZona(ruta.zona);
+
+      const hoja = porId('resultado-horario');
+      hoja.classList.remove('hoja-nueva');
+      void hoja.offsetWidth;
+      hoja.classList.add('hoja-nueva');
+    }
+
+    function pintarCoincidencias(lista) {
+      const contenedor = porId('coincidencias');
+      const botones = lista.map((ruta) => {
+        const boton = document.createElement('button');
+        boton.type = 'button';
+        boton.className = 'coincidencia';
+        boton.dataset.id = String(ruta.id);
+        boton.textContent = `${ruta.zona}: ${ruta.barrio}`;
+        boton.setAttribute('aria-pressed', String(ruta === rutaActual));
+        return boton;
+      });
+      contenedor.replaceChildren(...botones);
+    }
+
+    function actualizarBuscador() {
+      const texto = porId('input-busqueda').value.trim();
+      const coincidentes = rutasCoincidentes();
+      const lista = coincidentes.length ? coincidentes : rutas;
+
+      if (!lista.includes(rutaActual)) mostrarHorario(lista[0]);
+      poblarSelectores(lista);
+      pintarCoincidencias(texto ? coincidentes : []);
+
+      const estado = porId('estado-busqueda');
+      if (!texto) {
+        estado.textContent = '';
+      } else if (coincidentes.length) {
+        estado.textContent = coincidentes.length === 1 ? '1 ruta encontrada.' : `${coincidentes.length} rutas encontradas.`;
+      } else {
+        estado.textContent = `No hay rutas para «${texto}». Revisa cómo está escrito o busca por comuna, barrio o cooperativa. La hoja sigue mostrando el último horario.`;
+      }
+    }
+
+    function zonaCambiada() {
+      const coincidentes = rutasCoincidentes();
+      const lista = coincidentes.length ? coincidentes : rutas;
+      mostrarHorario(lista.find((ruta) => ruta.zona === porId('select-zona').value));
+      poblarBarrios(lista);
+      pintarCoincidencias(porId('input-busqueda').value.trim() ? coincidentes : []);
+    }
+
+    function barrioCambiado() {
+      mostrarHorario(rutas.find((ruta) => String(ruta.id) === porId('select-barrio').value));
+      const coincidentes = rutasCoincidentes();
+      pintarCoincidencias(porId('input-busqueda').value.trim() ? coincidentes : []);
+    }
+
+    function coincidenciaElegida(evento) {
+      const boton = evento.target.closest('.coincidencia');
+      if (!boton) return;
+      mostrarHorario(rutas.find((ruta) => String(ruta.id) === boton.dataset.id));
+      actualizarBuscador();
+      porId('coincidencias').querySelector(`[data-id="${boton.dataset.id}"]`).focus();
+    }
+
+    function guardarRuta(evento) {
+      evento.preventDefault();
+      const formulario = evento.target;
+      const datos = new FormData(formulario);
+      const leer = (campo) => String(datos.get(campo)).trim().replace(/\s+/g, ' ');
+
+      totalComunitarias += 1;
+      const nueva = Object.freeze({
+        id: `comunitaria-${totalComunitarias}`,
+        zona: leer('zona'),
+        barrio: leer('barrio'),
+        diasBasura: leer('diasBasura'),
+        horasBasura: leer('horasBasura'),
+        diasReciclaje: leer('diasReciclaje'),
+        horasReciclaje: leer('horasReciclaje'),
+        entidadReciclaje: leer('entidadReciclaje'),
+        referencia: leer('referencia'),
+        comunitaria: true
+      });
+
+      const posicion = rutas.findIndex((ruta) => ruta.zona === nueva.zona && normalizar(ruta.barrio) === normalizar(nueva.barrio));
+      if (posicion >= 0) rutas.splice(posicion, 1);
+      rutas.unshift(nueva);
+
+      porId('input-busqueda').value = '';
+      mostrarHorario(nueva);
+      actualizarBuscador();
+      formulario.reset();
+      porId('estado-formulario').textContent = `Ruta ${posicion >= 0 ? 'actualizada' : 'guardada'}: ${nueva.zona}, ${nueva.barrio}. Ya aparece en el buscador.`;
+    }
+
+    function activarEnlaces() {
+      document.querySelectorAll('[data-enlace]').forEach((enlace) => {
+        const url = ENLACES_PROYECTO[enlace.dataset.enlace];
+        if (url) {
+          enlace.href = url;
+          enlace.target = '_blank';
+          enlace.rel = 'noopener noreferrer';
+        } else {
+          enlace.classList.add('pendiente');
+          enlace.textContent += ': enlace pendiente';
+        }
+      });
+
+      const iframe = porId('iframe-pitch');
+      if (ENLACES_PROYECTO.videoYoutubeId) {
+        iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(ENLACES_PROYECTO.videoYoutubeId)}`;
+      } else {
+        iframe.hidden = true;
+        porId('video-pendiente').hidden = false;
+      }
+    }
+
+    /* Límites oficiales de la Alcaldía de Medellín, simplificados para funcionar sin internet */
+    const MAPA_MEDELLIN = {"ancho":2000,"alto":1724,"oeste":-75.71931327850479,"norte":6.374872060554197,"factorX":8082.0562093299595,"factorY":8130.674428744792,"zonas":[{"zona":"Comuna 1 - Popular","etiqueta":"1","rural":false,"punto":[1420,672],"d":"M1322 699l9 13 4 1 2 3 7 0 3 4 4 4 3 0 0 2 2 0 2 2 7 2 7 1 5-3 2 2 5-2 3 2 3 0 1 2 4 0 12-5 4-1 2-2 9 0 6-4 8 0 3 2 5-2 7 4 4-2 12 1 6 6 7 2 2-17-2-12-2-2-3 2-1-2 6-4 0-2 0-3-5-8 5-2-1-4 2-1-3-9 3-4 2 0-5-6-8-3 5-6 7 2 4-1-1-5-3-4-3-6 4-7-2-1 1-4-5 1-4-2-2-7-7-8-1-4-2 1-6-2-3-7-6-6-12-4-5-7-3-1-4 2-7-4 0 3-16-3-7 6-4-2-3-4-3-1-1 4 1 3-4 8 2 5-2 12-11 21-1 5-3 1-1 4 2 5 0 2 13 7-4 4-5 1-3 7 2 8 5 1-2 5-8-1-5 3-9 2-5 10-2 1-2-2-3 5-7 1z"},{"zona":"Comuna 2 - Santa Cruz","etiqueta":"2","rural":false,"punto":[1326,647],"d":"M1310 526l-1 6 2 12-1 14 3 17-4 18-10 26-7 11-3 14-10 8-11 6-5 9-2 9 11 5 5-1 3 3 4 0 2 8 4 1-1 3 1 1 12 3 4-3 3 2 10 0 3 1 7-4 7-1 3-5 2 2 2-1 5-10 9-2 5-3 8 1 2-5-5-1-2-8 3-7 5-1 4-4-13-7 0-2-2-5 1-4 3-1 1-5 11-21 2-12-2-5 4-8-1-3 1-4 3 1 3 4 4 2 7-6 16 3 0-3-2 1-5-3-7-10-10 2-9-4-2 2-1-3-3 0-4-5-7 2-3-5-8 0-3-3-8 0-15-6z"},{"zona":"Comuna 3 - Manrique","etiqueta":"3","rural":false,"punto":[1401,845],"d":"M1347 720l-2 32 2 9-19 106-5 51-3 4-2 1 3 3 2-1 3 3 5 1 16-7 4-5 7-4 8 2 9 6 4-2 2 6 10 1 3-9 6-1 10 5 17 3 0-3 6 1 5-2 18 5-1-8 3-2-1-3 2-4-2-15 1-4 5-3 5-2 2 1 3-4 6 3 2-2 1 1 9-2 11 2 3 2 9-1-1 0 0-2-5-2-11-15-3-12 2-3-10-7-3 0-5-9-4-2 3-10-1-3 15-7-14-6 5-8-1-2-2 0-1-1-2-12-8-7-4 0-2 3-4 1-3-9 1-6 4-5 0-3 10-2 1-12 4-8 5-4-7-2-6-6-12-1-4 2-7-4-5 2-3-2-8 0-6 4-9 0-2 2-4 1-12 5-4 0-1-2-3 0-3-2-5 2-2-2-5 3-7-1-7-2-2-2-2 0 0-2-3 0z"},{"zona":"Comuna 4 - Aranjuez","etiqueta":"4","rural":false,"punto":[1269,837],"d":"M1261 676l-1 3-11 12-5 8-4 19-4 9-8 8-4 2-2 4-4 24-28 127 63 10 8-1 45 8-5 7 9 0 8 7 2-1 3-4 5-51 19-106-2-9 2-32-3-4-7 0-2-3-4-1-9-13-3-1-10 0-3-2-4 3-12-3-1-1 1-3-4-1-2-8-4 0-3-3-5 1z"},{"zona":"Comuna 5 - Castilla","etiqueta":"5","rural":false,"punto":[1264,572],"d":"M1197 523l-6 19-1 20 4 0 0 7 20 0 2 16-10 21-3-2-4 10-10-1-5 6 1 7-3 6-24 72-18-6-5 13-12 21 14 9 7 1 5 4 5 0 1 4 7 6 6-1 9 8 11 1-1 4-15-4-1 6-8 6 10 9-8 9-17-13-12 13 5 4-5 6-1 10-9 10 0 3 2 8 29 21-5 13-3 13 3-2 13 8 25 4 28-127 4-24 2-4 4-2 8-8 4-9 4-19 5-8 11-12 1-3 2-9 5-9 11-6 10-8 3-14 7-11 10-26 4-18-3-17 1-14-2-12 1-6 7-10-15-7-4 0-4 2-7-1-8 1-3-1-3 1-17 0-2 1-15-8-6 2-4 0-5 4-7-1-8 11-9 1z"},{"zona":"Comuna 6 - Doce de Octubre","etiqueta":"6","rural":false,"punto":[1129,625],"d":"M1074 527l-1 1 0 3 2 4-2 8-3 4 4 4 3 1 0 2 3 0-3 4 2 2-1 2 3 4 8 1 1 2 3 0 2 7 0 7-4 3 0 3-4-2-1 1-2 2-4-2-2 1-4 5 2 3-3 2 1 2-3 3 6 4 0 5-3 3-1-1 0 3-3 3 2 2 3-2-1 3-4 1 3 3 2 5-5 4-2 7-7 5-3 0 6 2 6 13 7-1 8 8-2 4-8 4-2 3 0 8-2 2 0 4 6 6 10 6 2 4 3-1-1 5 3 6 14 8 15 2 12-21 5-13 18 6 24-72 3-6-1-7 5-6 10 1 4-10 3 2 10-21-2-16-20 0 0-7-4 0 1-20 6-19-3 0-2-3-8 2-6-1-3 1-11-1-3-2-1 1-5-3-5 4-13 3-6 4-19 8-7-4-17 1-11-6z"},{"zona":"Comuna 7 - Robledo","etiqueta":"7","rural":false,"punto":[1020,753],"d":"M1022 643l0 1-4 5-3-1-3 2-16-2 2 7-12 2 1 6-4 8-11 4-5-2-1 2 0 2-1 2-11-1-1 2-3 1-3-2-3 4-7 3-6-5-4 1-3 3 7 1 8 15 7 5 1 6-2 3 0 3-3-2 0 4-3 0-7 7-2-2-2 2-4-3-1-3-2 1-3-4 0 5-4 1 5 3 1 6-2 2 0 3-7 0 1 6-2 3-14-18-3 3-7 3-3-3 1 6 7 10-1 3-7 3-4-1-2-4 4 14 7 11 3 2-8 9-25 7-13 0-5-3-8 3-5-1-3 6-9 0-4 1-3 3-8-1-9-9-2 20 3 7 4 1 3 4 5 1 1 3 5 2 2 5-3 7-7 11 13 0 5-3-1-1 8 0 14-5 12 2 8-2 13-10 7-2 11 3 3-1-5-2-12-9 11 3 4-5 7-2 0-1 0-19 7 3 9-1 16 10 3 0 3-4 3 0 17 8 6-1 5 2 7 7 9 2 6 6 11 0 10 9 5 5 2 6 19 22 8 7 23 14 7 10 2 6 7 5 4 9 7 3 15 11 24 6 17-1 21-6 9-19 8-25-25-4-13-8-3 2 3-13 5-13-29-21-2-8 0-3 9-10 1-10 5-6-5-4 12-13 17 13 8-9-10-9 8-6 1-6 15 4 1-4-11-1-9-8-6 1-7-6-1-4-5 0-5-4-7-1-14-9-15-2-14-8-3-6 1-5-3 1-2-4-10-6-6-6 0-4 2-2 0-8 2-3 8-4 2-4-8-8-7 1-6-13-6-2 1 3-2 1-3 4-11-10-3-8-1 3-8 6-3-1z"},{"zona":"Comuna 8 - Villa Hermosa","etiqueta":"8","rural":false,"punto":[1398,1007],"d":"M1318 923l-7-1-29 46 48 34-2 7 2 1 0 8 7 1-3 10-12 20 13 16 4 7 18 3 17 1 5 4 7 2 7 11 14 4 2 3 1 8 6 11 16 6 7 12 6 2 4 4 9 16 4-3 3 0 16 8 6-4 7 1 3 1 4 8 9 3 6 5 18-2 9-4 2 2 6 1 4 4 9 2 3-1-5-1-5-2-2-4-8-2-1-2-5 0 1-3 8-3 4 2 11-10 5-1-1-5-1-4 1-1 3-8-3 3-4-3-2-4-5 0-4-5-3 0-6-14-3-3-2-8-3-2 0-3-20 0-3 4-7 3-7 5-4 6-4-3-10 1-7-8 0-4-5-3-1-11-14-12-6-2 1-5-5-7 3-4 3 0-2-1 1-2-4-10 3-2 7-8 6-4-1-2 3-7 14-1-2-2-2-1-5-5-5-2 2-8-3-2 0-8-7-2 2-7-4-4-1-5-2 1 3-5 11-1 9-8 0-3-13 4-3-4-11 1-1 1-8-3-2-4 1-5-6-2 1-2-2-4 1-5-4-3 0-8-17-3-10-5-6 1-3 9-10-1-2-6-4 2-9-6-8-2-7 4-4 5-16 7-5-1-3-3-2 1z"},{"zona":"Comuna 9 - Buenos Aires","etiqueta":"9","rural":false,"punto":[1321,1137],"d":"M1322 1049l-2-1-3 8-1-3-9 8-2-1-3 7-17 14-3 0-5-4-7 1-7 5-9 9 10 16 1 8-2 7-14 23-8-4-12 8 13 17-7 12 0 12 14 18-4 9 0 3 2 9-3 19-8 9 3 13 3 4 6 0 3 1 2 11 8 7 45 9 3-4-4-10 10-5 8-7 2-5-7-6-7-1-5-3-21-18-3-5 0-3 3-2 5 1 1-1 3-11-1-14 24 1 4-8 3 3 3 1 5-6 3-1 1 2 1-2 4 0 7 3 2 3 3-1-1 2 2 4 7-24 10-5 7 1 1 5-2 23 4-2 4 0 1 2 3 1 6 6 3-5 2 2 5-1 3 1 2 4 8 1 2 4 6-2 3 3 3-3 7-2 0-2 4 3 7 2 3-3 4 1-4-5-7-5 2-10 5 0-2-4 1-5 8 8 4 0 14-3 8-6 5 0 2-2 4 2 1 3 1-1 5 2 7-1 2 9 9-2 2-4 4-2 7 6 3-5 3 0 5 4 0-5 1-5-3-7 3-1 3 0 1-1 4 2 9-1-9-2-4-4-6-1-2-2-9 4-18 2-6-5-9-3-4-8-3-1-7-1-6 4-16-8-3 0-4 3-9-16-4-4-6-2-7-12-16-6-6-11-1-8-2-3-14-4-7-11-7-2-5-4-17-1-18-3-4-7z"},{"zona":"Comuna 10 - La Candelaria","etiqueta":"10","rural":false,"punto":[1220,1016],"d":"M1190 892l-8 25-9 19-47 86-2 8 1 8 21 61 14 42 1 26 16 5 35 26 1 8 6 0 2 8 11 1 3 6 6 2 4-2 0-3 4-9-14-18 0-12 7-12-13-17 12-8 8 4 14-23 2-7-1-8-10-16 9-9 7-5 7-1 5 4 3 0 17-14 3-7 2 1 9-8 1 3 3-8 2 1 12-20 3-10-7-1 0-8-2-1 2-7-48-34 29-46 7 1-8-7-9 0 5-7-45-8-8 1z"},{"zona":"Comuna 11 - Laureles","etiqueta":"11","rural":false,"punto":[1059,1006],"d":"M1012 839l-7 6-29 127-3 8 20-5-3 39-21 1-11-4-12 0-4 59-33-7-5 6-3 12-41-5-7 8-16 0-8 3-6 0 4 1 3 3 1-3 4 0 3 5 2 2 12-2 13 8 6 15 34 1 61-2-4-9 184-7-21-61-1-8 2-8 47-86-21 6-17 1-24-6-15-11-7-3-4-9-7-5-2-6-7-10-23-14-8-7-19-22-2-6z"},{"zona":"Comuna 12 - La América","etiqueta":"12","rural":false,"punto":[901,999],"d":"M961 846l-1 1 3 2-4 3 6 2-4 3 1 5-5-2-8 0-2-1-16 9-4-5 1 3 4 3-6 8 0 4 3 2-1 4-4-2-2-5-4-4 0-2-1 3 5 4-1 1 2 2-2 2 7 6-4 7 3 6-2 8 22 0 5-8 4 2 5 33-14-10-38 15-29 4-6-1-12 19-5-3-4 4 4 2-19 13-17 5-6 9 2 3 3 0 8-8 5-1 16 13 1 4-1 3-15 14-1 6 5 7-11 13 6 2 8 23-2 2-7-2-3 8-3 1-1-2-3 3-3 0 4 1 6 0 8-3 16 0 7-8 41 5 3-12 5-6 33 7 4-59 12 0 11 4 21-1 3-39-20 5 3-8 29-127-3-9-17 4-4 13-5-3-3 10-4-9z"},{"zona":"Comuna 13 - San Javier","etiqueta":"13","rural":false,"punto":[773,1002],"d":"M833 856l-7-3 0 3 12 29 7 9 0 7 4 12-1 5 3 0-4 10-5 4 2 3-2 0-6-9-5-4-1-6-3 4-2 0-1-8-3 1-3-5-3 2-5-3-4-8-3 8-5-3-5 2-4-5 3 5-1 5-2 0 1 3-8-2-6 3-8-4 7 8 2 5-2 8 5 6-5 9 0 6-15-11-4 0-7-7-5-9 0-4-4 0 0-4-3-3 1-4-3-5 2-3-1-1-2 3-3 8 2 5 3 3-33 27 9 2 2 6 5 2 0 2 13 14-3 3-9-6-10 1-1 1 0 3-4 4 5 6-5 8 4 0 6 4 9-1 1 4 2 0 0 9-6 0-2 4-4 1-10-3 4 7 3 4 11 7-8-1-8-8-5 3 10 5-2 4 7 7 1 3 14 4 4 6 9-1 1-3 6-5 6 3 11-2 3 3 5 1 0 2 1 3-3 1 5 4 4 3-5 6 0 1 3 0-2 3-5 3 5 3 0 4 8-1-1 5 3 5 3 1 4-1 4-11 5-3 2 0-1 4 1 3 11 2 3 0 3-3 1 2 3-1 3-8 7 2 2-2-8-23-6-2 11-13-5-7 1-6 15-14 1-3-1-4-16-13-5 1-8 8-3 0-2-3 6-9 17-5 19-13-4-2 4-4 5 3 12-19 6 1 29-4 38-15 14 10-5-33-4-2-5 8-22 0 2-8-3-6 4-7-7-6 2-2-2-2 1-1-5-4 1-3-3 3-4 2-10-3-1 0 2 5-5 2 0 1-3-2 1 5-4 1 2 2-3 2 5 1-4 2-5-1-4 3-4 0-9 5-4-1-2-4 3-4 0-4-4-2 1-3-2-4-7 1 2-5-4-10-4-3 1-2-10-1-1-7zM900 817l8-4 3 2 5 11 6 0 0 3 9-7 6 4 1 4 1 0-1-5-5-3-1-4 2 3 3 1 1-1 2 1 1-2 2 1 7-2 6 5 8 0 4 6 0 2-7 8-6 2 1 3 5 1 8 5 4 9 3-10 5 3 4-13 17-4 3 9 7-6-10-9-11 0-6-6-9-2-7-7-5-2-6 1-17-8-3 0-3 4-3 0-16-10-9 1-7-3z"},{"zona":"Comuna 14 - El Poblado","etiqueta":"14","rural":false,"punto":[1240,1416],"d":"M1161 1167l-34 249-8 29-11 29-8 36 2 7 11 4 9 8 5 21 3 4 21 12 6 2 6 4 2 5 13 6 7 6 8 2 4-2 9 1 10 4 11 12 10 4 2 4 10-1 7 3 2 3 4-1 3-3 3 1 2-2 3 0 16 5-2-3 1-3 2-2 2-4 4 0 1-1 2-4 1-15-3-4 0-6-5-5 1-1 5 1 5-3 8 6 13-1-1-9 1-7-12-4 2-14-1-1 6 1 6-5 5-12 4-2 5 1-1-2 1-4-2-3 0-6-2-12 1-2-2-2-2-8 5-3-2-4 5-2-1-4 1-5 2 0-1-2 5-8 6-7 0-5 3-7-3-3 3-5 3-1-2-10 6-10 10-3-6-8-1-5 3-2 13-2-1-1 2-10 6-6-6-4 3-8 2-3-1-2 2-9 4-3-4-4 2-7-1-2-3 0 2-4 3-3 0-5 3-4-3-3 2-3-3-2-12 6-21 0 0-9-32-29-2 5-8 7-10 5 4 10-3 4-45-9-8-7-2-11-3-1-6 0-3-4-3-13 8-9 3-19-2-9-4 2-6-2-3-6-11-1-2-8-6 0-1-8-35-26z"},{"zona":"Comuna 15 - Guayabal","etiqueta":"15","rural":false,"punto":[1069,1379],"d":"M1119 1445l8-29 34-249-7-2-2-3 1-4-2 0-30-6-17-1 0 12-57 2-4 3-4 13-5 4 0 23-24 128 2 10-8-14-2 3-11 4-8-2-2 4 1 11-1 14 1 5 4 7-5 6-6 0-2 2 4 7 4 2-8 1-2 3 3 1-7 5 5 8 5 5 2 4-1 3 1 2 11 3 3 4 7 5 3 6 6-4 8 4-1 2 3 3 2 1 1-3 5 2 1 14 3 12 2 1 25-14 7-15 35 8z"},{"zona":"Comuna 16 - Belén","etiqueta":"16","rural":false,"punto":[961,1193],"d":"M852 1093l-2 6 2 2-1 1 4 3 7 10 1 5-4 7-10-4-3 1 0 4-8-4-8 0-7-3-2 2-2-2-3 1-6-4-7 5-7-1-7 4-3-1-6 8 3-3 6-1 11 3 11-2 4 1 9 6 12 4 8 0 0 6-5 0 1 5-1 3-1-1-3 10 5 4 12 2-5 2-3 0-2 3-10 1 10 10-8 5 2 4 5-1 7 4 1 2 13 4 4-3 0-4 2-3 3-1 2 2 3-1 3-10 3 0 2 1 2 9-1 8 2 0 1 4-3 0 3 11-2 2-2-4-4 3-4-2-2 0-3 3 3 4-4 3 3 5 2 3-2 2-5-2-2 1 2 3-5 7 7 6 7-1 2 6-3 5-10 7 10 1 3 2 10-1 8 7 5-5 8 4 5 5 7-1 5 7 9 0 3 4-5-3-10 3-3 8 3 4 1 4-5 6 4 3 2 1 5 6-5 4 2 4-5 2-13 6-2-1-6 2-2 3-6 2 5 1 4-3 1 4 12-3-2 3-6 3-2 8 0 3 7 3 3 3-1 7-3-1-3 3-6-4-4 0-5 2-5-2-1 2-4 0 0 2-4-2-3 3 7-1 5 4 7 2 4 4 0 2 2 0 3 3 4 1 1 5 2 0 1 5 4 0 0-3 5-5 7 4 3-1-1 3 3 7 3 3 3 11 3 0 4 3 7-5 11 2 7 0 6 4 1-3-2-4-5-5-5-8 7-5-3-1 2-3 8-1-4-2-4-7 2-2 6 0 5-6-4-7-1-5 1-14-1-11 2-4 8 2 11-4 2-3 8 14-2-10 24-128 0-23 5-4 4-13 4-3 57-2 0-12 17 1 30 6 2 0-1 4 2 3 7 2-1-26-14-42-184 7 4 9-61 2-34-1-6-15z"},{"zona":"Correg. 50 - Palmitas","etiqueta":"Palmitas","rural":true,"punto":[266,261],"d":"M93 948l7-2 5-12 8-8 10-5 10-1 2-2 0-12 2-5 11-3 8-7 7-11 2-13 17-28 3-10 2-2 20-6 13-13 5-3 10 0 12-7 17-25 25-6 18-12 17-5 6-4 6-8 6-10 29-28 10-22 6-25 3-40-7-44 2-17 3-11 19-21 6-9-5-18-1-14-7-13-1-17 1-9 5-6 14-9 13-6 17 2 26-14 14-19 18-9 6-4 6-10-2-15 2-6 3-4 8-5 2-10 0-7-5-22-9-16-2-11 8-23 2-11-1-14-14-47-2-12-4-6-22-15-13-16-7-5-8-9-4-15-15-23-1-6 2-6-10-39-3-6 0-14-2-2-13 7-10 0-24 11-19 3-10 4-6-1-8 11-10 4-14 0-9 2-13-2-15 4-4-2-2-9-5-3-16 8-9 3-12 0-18-4-11 1-12-6-11-11-11-4-5 0-7 4-20 1-20-10-9 4-7-1-5 5-9 0-11 6-12 0-11 8-4 15-15 23-7 8-2 11 3 25 7 5-3 4 1 6 3 4 1 12 3 7-3 9 8 8 4 12 0 2-4 1-3 2 3 9-2 14 4 7 5 3 3 5-10 5-3 4-7-3-3 3-4 0-6 4-1 7-3 6-6 5 4 8-7 3 0 16 4 4 1 4 5 5-2 4 4 2 2 3-2 6 2 7 2 2 8 0 3 10-2 9-7 5-1 3-6 2-1 4-3 1-1 10-4 7 10 18-4 5 2 4-2 15 2 7-1 4 3 3 1 5 4 1 0 4 9 1 1 3 8 1 2 5 6 1 4 7 1 8 11 7-3 5 2 5 7 2 7 7 1 11-2 4-1 7 2 3-3 12 12 22 0 10 9 11 0 9 4 7-4 12-3 3-3 1 0 2 3 3-3 13 7 10 0 4 3 2-1 5 3 6-5 10 2 6-3 1-3 5-3-1-2 2 5 6-4 1 1 2 7 4-1 6-2 3 4 7-3 20 7 5 6 8-2 4 3 12-5 7-6 3-4 26 1 4-2 19 2 4-5 8-2 8-3 17 2 7-4 6-7 37 2 6-2 7 4 10-1 19 1 5z"},{"zona":"Correg. 60 - San Cristóbal","etiqueta":"San Cristóbal","rural":true,"punto":[611,675],"d":"M530 335l-8 5-3 4-2 6 2 15-6 10-6 4-18 9-14 19-26 14-17-2-13 6-14 9-5 6-1 9 1 17 7 13 1 14 5 18-6 9-19 21-3 11-2 17 7 44-3 40-6 25-10 22-29 28-6 10-6 8-6 4-17 5-18 12 1 7 16 22 15 35 14 19 13 8 2 5 9 9 1 3 1 14 10 14 4 17 8 12 12 10 3 6 1 9 5 9 17 8 5 10 14 8 11-16 4-17 3-5 5-2 7 0 8-2 24-22 10-2 17 5 17-4 11 0 14 12 18 28 10 10 21 8 29-2 5 1 14 5 11 8 14 6 12 9 10 3 4-1 2-4 6 0 0-9-2 0-1-4-9 1-6-4-4 0 5-8-5-6 4-4 0-3 1-1 10-1 9 6 3-3-13-14 0-2-5-2-2-6-9-2 33-27-3-3-2-5 3-8 2-3 1 1-2 3 3 5-1 4 3 3 0 4 4 0 0 4 5 9 7 7 4 0 15 11 0-6 5-9-5-6 2-8-2-5-7-8 8 4 6-3 8 2-1-3 2 0 1-5-3-5 4 5 5-2 5 3 3-8 4 8 5 3 3-2 3 5 3-1 1 8 2 0 3-4 1 6 5 4 6 9 2 0-2-3 5-4 4-10-3 0 1-5-4-12 0-7-7-9-12-29 0-3 7 3-3-6-3-2-8 0 1 1-5 3-13 0 7-11 3-7-2-5-5-2-1-3-5-1-3-4-4-1-3-7 2-20 9 9 8 1 3-3 4-1 9 0 3-6 5 1 8-3 5 3 13 0 25-7 8-9-3-2-7-11-4-14 2 4 4 1 7-3 1-3-7-10-1-6 3 3 7-3 3-3 14 18 2-3-1-6 7 0 0-3 2-2-1-6-5-3 4-1 0-5 3 4 2-1 1 3 4 3 2-2 2 2 7-7 3 0 0-4 3 2 0-3 2-3-1-6-7-5-8-15-7-1 3-3 4-1 6 5 7-3 3-4 3 2 3-1 1-2 11 1 1-2 0-2 1-2 5 2 11-4 4-8-1-6 12-2-2-7 16 2 3-2 3 1 4-5-1-1 1 0 6 4 3 1 8-6 1-3 3 8 11 10 3-4 2-1-1-3 3 0 7-5 2-7 5-4-2-5-3-3 4-1 1-3-3 2-2-2 3-3 0-3 1 1 3-3-2-1 0-4 2 0-6-4 3-3-1-2 3-2-2-3 4-5 2-1 4 2 2-2 3-3 2 1 4-3 0-7-2-7-3 0-1-2-8-1-3-4 1-2-2-2 3-4-3 0 0-2-3-1-4-4 3-4 2-8-2-4-3 0 1-1 0-1 2-1 1-1-8 0-18 9-11 3-3-1-3 2-16 0-3 5-5 2-7-1-12 5-16-4-4-5-8-3-13-4-10 3-6-2-2-3-3 0-7-10-12-10-5-6 0-8-7-4-12 3-14-5-21 1-4 4-7 3-18-3-43-11-8 9-9 3-17-13-21-10-14-4-7-4-10 0-8-3-4-6-5-4-2-9-11-13-2-1-12 2-17-8-10-16-9-7-8-16-19-20-16-11-9-2-10-11-7-6zM900 817l0 1-1 5-4 10-3 1-11-3-7 2-13 10-8 2 1 11 2 5 15 17 3 9 7 6 1 4 4-3 5 1 4-2-5-1 3-2-2-2 4-1-1-5 3 2 0-1 5-2-2-5 1 0 7-13 2 2 2-1 0-2-3-1 3 0 5 3 7-5 2 1 1 3 4 5 16-9 2 1-1-5 2-4-2-3 0-5-5-1-3-3 5-6-8 1-6-1-10 3-1-3 2-4 0-3-6 0-5-11-3-2z"},{"zona":"Correg. 70 - Altavista","etiqueta":"Altavista","rural":true,"punto":[674,1217],"d":"M440 992l0 7-5 9 0 5 6 32-3 16 0 3 3 5 7 5 24 14 14 14-9 11-3 6 1 8 6 10 1 15 4 5 12 11 2 14 11 15 2 12 15 17-3 5 0 8 6 15 1 17 7 16-2 5-5 4-1 6 0 9 3 10 0 19 12 15 34 0 30 2 17-1 13 2 7 4 13 8 6 18 4 6 7 4 6 7 8 7 12 2 15 14 2 15 1 2 2 2 0 1 2 2 0 2 1 0 20-3 19 3 5-1 16 1 9-3 14 6 11-2 8-11 10 1 5-3 7 0 2-7 12-4 29-1 7 3 5 6 3 2 9-8 7 5 12 1 6-7 5 3 9-4 2 1 7-3 0-6-11-2-7 5-4-3-3 0-3-11-3-3-3-7 1-3-3 1-7-4-5 5 0 3-4 0-1-5-2 0-1-5-4-1-3-3-2 0 0-2-4-4-7-2-5-4-7 1 3-3 4 2 0-2 4 0 1-2 5 2 5-2 4 0 6 4 3-3 3 1 1-7-3-3-7-3 0-3 2-8 6-3 2-3-12 3-1-4-4 3-5-1 6-2 2-3 6-2 2 1 13-6-1-3 3-3-1-1 5-5-2 0-2-3 1-1-2-1-3 2-1-5 5-6-1-4-4-3 1-1 3-8 10-3 5 3-3-4-9 0-5-7-7 1-5-5-8-4-5 5-8-7-10 1-3-2-10-1 10-7 3-5-2-6-7 1-7-6 5-7-2-3-2-1 2-1 2 1 2-3 3 0-3-5 4-3-3-4 3-3 2 0 4 2 4-3 2 4 2-2-3-11 3 0-1-4-2 0 1-8-2-9-2-1-3 0-3 10-3 1-2-2-3 1-2 3 0 4-4 3-13-4-1-2-7-4-5 1-2-4 8-5-10-10 10-1 2-3 3 0 5-2-12-2-5-4 3-10 1 1 1-3-1-5 5 0 0-6-8 0-12-4-9-6-4-1-11 2-11-3-6 1-3 3 6-8 3 1 7-4 7 1 7-5 6 4 3-1 2 2 2-2 7 3 8 0 8 4 0-4 3-1 10 4 4-7-1-5-7-10-4-3 1-1-2-2 2-6-12 2-2-2-3-5-4 0-1 3-3-3-4-1-4-1-11-2-1-3 1-4-2 0-5 3-4 11-4 1-3-1-3-5 1-5-8 1 0-4-5-3 5-3 2-3-3 0 0-1 5-6-4-3-3 1-1-2-3 1 2-4-2-2 4-2 0-2-5-1-3-3-11 2-6-3-6 5-1 3-9 1-4-6-14-4-1-3-7-7 2-4-10-5 5-3 2-2-4-7-12-9-14-6-11-8-14-5-5-1-29 2-21-8-10-10-18-28-14-12-11 0-17 4-17-5-10 2-24 22-8 2-7 0-5 2-3 5-4 17z"},{"zona":"Correg. 80 - San Antonio Prado","etiqueta":"Prado","rural":true,"punto":[341,1269],"d":"M289 767l-25 6-17 25-12 7-10 0-5 3-13 13-20 6-2 2-3 10-17 28-2 13-7 11-8 7-11 3-2 5 0 12-2 2-10 1-10 5-8 8-5 12-7 2-5 21-6 11-6 6 2 6 6 9-6 6 3 7 1 4-4 16-7 21 1 11 2 4 6 4 19 1 9 3 10 17 14 17 4 11 4 44-2 7-9 23 9 10 0 16 8 7 5 9 5 3 0 9-12 23 7 7 3 5 4 19 1 19 9 14-4 9-18 19-9 17 6 14 12 6 12 12 4 8 8 12-1 5 5 11 1 11 6 2 10 1 11 9 7 0 20 3 10 14 7 6 3 9 20 21 1 4-1 11 7 26 9 20 8 10 3 7 1 16 2 11-6 23-1 25 13 31 8 10 3-7 14-13 9-12 16-5 10 4 10 8 7 7 8 10 13 10 6 0 16-13 4-1 13-9 3-5 13-11 2 0 7-9 7-3 2-3 3-2 25 2-2 8 9 7 4 2 11-2 8 2 19-2 5 5 6 0 6 7 1 5 8 2 9-1-4-22-2-4 1-4-1-5-6-1-6-14 11 3 7-2 1-2 6 2 6-2 3 3 1-1-2-3 3-2 3 2 5-3 2-3 12-1 1-2 5 1 4-3 9-2 1-3 12-1 1-2 3 1 7-9 5-3-6-8 1-7-1-3-8-2-2-11-5-10 5-2 9-8 0-3 4-2 2-9 12-5 6-9 8-5 14-3 5-12 14-14 3-19-16-18-4-18-1 0 0-2-2-2 0-1-2-2-1-2-2-15-15-14-12-2-8-7-6-7-7-4-4-6-6-18-13-8-7-4-13-2-17 1-30-2-34 0-12-15 0-19-3-10 0-9 1-6 5-4 2-5-7-16-1-17-6-15 0-8 3-5-15-17-2-12-11-15-2-14-12-11-4-5-1-15-6-10-1-8 3-6 9-11-14-14-24-14-7-5-3-5 0-3 3-16-6-32 0-5 5-9 0-7-14-8-5-10-17-8-5-9-1-9-3-6-12-10-8-12-4-17-10-14-1-14-1-3-9-9-2-5-13-8-14-19-15-35-16-22z"},{"zona":"Correg. 90 - Santa Elena","etiqueta":"Santa Elena","rural":true,"punto":[1677,972],"d":"M1482 622l-1 4 2 1-4 7 3 6 3 4 1 5-4 1-7-2-5 6 8 3 5 6-2 0-3 4 3 9-2 1 1 4-5 2 5 8 0 3 0 2-6 4 1 2 3-2 2 2 2 12-2 17-5 4-4 8-1 12-10 2 0 3-4 5-1 6 3 9 4-1 2-3 4 0 8 7 2 12 1 1 2 0 1 2-5 8 14 6-15 7 1 3-3 10 4 2 5 9 3 0 10 7-2 3 3 12 11 15 5 2 0 2 1 0-9 1-3-2-11-2-9 2-1-1-2 2-6-3-3 4-2-1-5 2-5 3-1 4 2 15-2 4 1 3-3 2 1 8-18-5-5 2-6-1 0 3 0 8 4 3-1 5 2 4-1 2 6 2-1 5 2 4 8 3 1-1 11-1 3 4 13-4 0 3-9 8-11 1-3 5 2-1 1 5 4 4-2 7 7 2 0 8 3 2-2 8 5 2 5 5 2 1 2 2-14 1-3 7 1 2-6 4-7 8-3 2 4 10-1 2 2 1-3 0-3 4 5 7-1 5 6 2 14 12 1 11 5 3 0 4 7 8 10-1 4 3 4-6 7-5 7-3 3-4 20 0 0 3 3 2 2 8 3 3 6 14 3 0 4 5 5 0 2 4 4 3 3-3-3 8 2 4-2 1 1 5-5 1-11 10-4-2-8 3-1 3 5 0 1 2 8 2 2 4 5 2 5 1-3 1-9 1-4-2-1 1-3 0-3 1 3 7-1 5 0 5-5-4-3 0-3 5-7-6-4 2-2 4-9 2-2-9-7 1-5-2-1 1-1-3-4-2-2 2-5 0-8 6-14 3-4 0-8-8-1 5 2 4-5 0-2 10 7 5 4 5-4-1-3 3-7-2-4-3 0 2-7 2-3 3-3-3-6 2-2-4-8-1-2-4-3-1-5 1-2-2-3 5-6-6-3-1-1-2-4 0-4 2 2-23-1-5-7-1-10 5-7 24-2-4 1-2-3 1-2-3-7-3-4 0-1 2-1-2-3 1-5 6-3-1-3-3-4 8-24-1 1 14-3 11-1 1-5-1-3 2 0 3 3 5 21 18 5 3 7 1 7 6 32 29 0 9 21 0 12-6 3 2-2 3 3 3-3 4 0 5-3 3-2 4 3 0 1 2-2 7 4 4-4 3-2 9 1 2-2 3-3 8 6 4-6 6-2 10 1 1-13 2-3 2 1 5 6 8-10 3-6 10 6-2-1 12-3 0-3 1-3 5 3 3-3 7 0 5-6 7-5 8 1 2-2 0-1 5 1 4-5 2 2 4-5 3 2 8 2 2-1 2 2 12 0 6 2 3-1 4 1 2-5-1-4 2-5 12-6 5-6-1 1 1-2 14 12 4-1 7 1 9-13 1-8-6-5 3-5-1-1 1 5 5 0 6 3 4 18 0-5 3-6 17-2 0-1 2-7-3-1 1-2 5-4-1-2 2-1 3 2 3 3 2 8 1 8-1 11 0 9 3 7-2 8-4 6 1 2-1 11-1 27 7 4 3 4 0 14 3 8 8 5 0 10 5 9 1 7 6 4 6 4 2 7 8 4-12 3-3 4-1 4-3 5-9 8-11 26-13-6-24 8-41 13-22 6-1 3-4-3-21 0-5 7-8 12-21 6-8 6-3 18 0 20-3 18 3 64 21 9 1 8 5 10 12 25 9 18 4 15-1 11-4 1-1-2-10 5-4 6-1 11 1 20 9 31-1 37 6 0-4-4-15 3-5 8-8-1-13 7-8 2-5-1-4-2-5-8-7-1-6-5-3-7-9 1-5-1-11 2-4 0-5-3-12 7-6 3-4 0-3-4-3 4-3 1-5-5-4 1-11-3-5-8-8-17-10-5-7-2-5-7-5-3-5-1-7 5-10-7-19 2-9 6-11-2-8 1-13-3-10-8-12 5-6 11 2 7-4 3-5 8-2 17-9 6 2 6 7 11 2 5-1 13-12 10-7 1-14 3-6 14-7 21-5 5-3 3-6-5-17 12-11 3-10-4-18-12-11 1-16-4-7-4-2-6 4-4 0-12-19-5-1-8-7-6 0-12-2-1 2-9-1-7 4-5-2-3 1-11-10-2-6-3-3 6-10-4-15-4-5-6-2-1-5-6-7-4 0-3-3-9-3-5-7-3-4 2-5-4-6 0-3 3-4 0-5-3-6-8-8-1-7-3-10-7-9-7-3-5 2-6-3 1-3-7-7 4-4 3-13 3-1 15 0 7-14 2-12-2-8-7-4-6-6-8-3-1-2 5-6 2-8-3-15-4-7-7-8-3 5-3-1-2-11-4-8-2-16-4-4-9-4-5-7-1-5 5-4 2-4 4 0 0-6 5-4-6-6 2-6 4-3-6-2-5 2-2-4-6-4-1-7-7-1 0-6-4 4-5 1-1 4-9 2-3-2 0-4-17-15-25-2-24-11-10-8-10 9-9 2-6 6-8 4-10 11-10 28-4 7 1 10-1 11 1 7-4 8-3 2-26 2-5-8-13-7-6-10-15-16-3-7 3-8 1-13-5-7 1-3-9-10-12-7-6-1-3 2-4 4-7 1z"}],"sinAsignar":["M1300 1587l-1 15-2 4 7 3 1-2 2 0 6-17 5-3zM926 1317l-1 1 2 3 2 0-5 5 1 1-3 3 1 3 5-2-2-4 5-4zM868 1234l5 2 2-2-2-3-3 0zM1290 1611l4 1 2-5-4 0z","M922 829l-2 4 1 3 10-3 6 1 8-1-5 6 3 3 5 1 0 5 2 3-2 4 1 5 8 0 5 2-1-5 4-3-6-2 4-3-3-2 1-1-5-1-1-3 6-2 7-8 0-2-4-6-8 0-6-5-7 2-2-1-1 2-2-1-1 1-3-1-2-3 1 4 5 3 1 5-1 0-1-4-6-4zM827 848l3 2 3 6 5-3 1 7 10 1-1 2 4 3 4 10-2 5 7-1 2 4-1 3 4 2 0 4-3 4 2 4 4 1 9-5 4 0-1-4-7-6-3-9-15-17-2-5-1-11-12-2zM927 863l-1-3-2-1-7 5-5-3-3 0 3 1 0 2-2 1-2-2-7 13 10 3 4-2 3-3 0 2 4 4 2 5 4 2 1-4-3-2 0-4 6-8-4-3zM900 818l-7 2-4 5-11-3 12 9 5 2 4-10zM709 1019l-2 2 8 8 8 1-11-7zM1356 1417l2 10 3 0 1-12z"]};
+
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    const MAPA_COMPLETO = Object.freeze({ x: 0, y: 0, w: MAPA_MEDELLIN.ancho, h: MAPA_MEDELLIN.alto });
+    const RADIO_CERCANIA = 60;
+    const trazosZona = new Map();
+    const etiquetasZona = new Map();
+    let vistaMapa = { ...MAPA_COMPLETO };
+    let animacionMapa = 0;
+    let zonaResaltada = null;
+
+    function crearSvg(nombre, atributos = {}) {
+      const elemento = document.createElementNS(SVG_NS, nombre);
+      Object.entries(atributos).forEach(([clave, valor]) => elemento.setAttribute(clave, valor));
+      return elemento;
+    }
+
+    function construirMapa() {
+      const svg = porId('mapa-medellin');
+      svg.setAttribute('viewBox', `0 0 ${MAPA_MEDELLIN.ancho} ${MAPA_MEDELLIN.alto}`);
+      const etiquetas = crearSvg('g', { class: 'mapa-etiquetas' });
+
+      MAPA_MEDELLIN.sinAsignar.forEach((d) => svg.append(crearSvg('path', { d, class: 'zona-sin-asignar' })));
+      MAPA_MEDELLIN.zonas.forEach((zona) => {
+        const trazo = crearSvg('path', { d: zona.d, class: `zona${zona.rural ? ' zona-rural' : ''}`, 'data-zona': zona.zona });
+        const titulo = crearSvg('title');
+        titulo.textContent = zona.zona;
+        trazo.append(titulo);
+        svg.append(trazo);
+        trazosZona.set(zona.zona, trazo);
+
+        const etiqueta = crearSvg('text', { class: 'mapa-etiqueta', x: zona.punto[0], y: zona.punto[1] });
+        etiqueta.textContent = zona.etiqueta;
+        etiquetas.append(etiqueta);
+        etiquetasZona.set(zona.zona, etiqueta);
+      });
+
+      svg.append(etiquetas, crearSvg('circle', { id: 'mapa-marcador', class: 'mapa-marcador', r: 0 }));
+      aplicarVista(vistaMapa);
+    }
+
+    function aplicarVista(vista) {
+      vistaMapa = vista;
+      const svg = porId('mapa-medellin');
+      svg.setAttribute('viewBox', `${vista.x} ${vista.y} ${vista.w} ${vista.h}`);
+      svg.classList.toggle('con-zoom', vista.w < MAPA_COMPLETO.w);
+      const escala = vista.w / (svg.clientWidth || MAPA_COMPLETO.w);
+      svg.querySelector('.mapa-etiquetas').style.fontSize = `${12 * escala}px`;
+      const marcador = porId('mapa-marcador');
+      if (marcador.dataset.visible) marcador.setAttribute('r', 8 * escala);
+    }
+
+    function limitarVista({ x, y, w }) {
+      const ancho = Math.min(MAPA_COMPLETO.w, Math.max(240, w));
+      const alto = ancho * (MAPA_COMPLETO.h / MAPA_COMPLETO.w);
+      return {
+        x: Math.min(MAPA_COMPLETO.w - ancho, Math.max(0, x)),
+        y: Math.min(MAPA_COMPLETO.h - alto, Math.max(0, y)),
+        w: ancho,
+        h: alto
+      };
+    }
+
+    function moverVista(destino) {
+      cancelAnimationFrame(animacionMapa);
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        aplicarVista(destino);
+        return;
+      }
+      const origen = { ...vistaMapa };
+      const inicio = performance.now();
+      const paso = (ahora) => {
+        const t = Math.min(1, (ahora - inicio) / 350);
+        const avance = 1 - (1 - t) ** 3;
+        aplicarVista({
+          x: origen.x + (destino.x - origen.x) * avance,
+          y: origen.y + (destino.y - origen.y) * avance,
+          w: origen.w + (destino.w - origen.w) * avance,
+          h: origen.h + (destino.h - origen.h) * avance
+        });
+        if (t < 1) animacionMapa = requestAnimationFrame(paso);
+      };
+      animacionMapa = requestAnimationFrame(paso);
+    }
+
+    function zoomMapa(factor) {
+      const w = vistaMapa.w * factor;
+      const h = vistaMapa.h * factor;
+      moverVista(limitarVista({ x: vistaMapa.x + (vistaMapa.w - w) / 2, y: vistaMapa.y + (vistaMapa.h - h) / 2, w }));
+    }
+
+    function enfocarZona(zona) {
+      const caja = trazosZona.get(zona).getBBox();
+      const proporcion = MAPA_COMPLETO.w / MAPA_COMPLETO.h;
+      const w = Math.max(caja.width * 1.5, caja.height * 1.5 * proporcion, 420);
+      const h = w / proporcion;
+      moverVista(limitarVista({ x: caja.x + caja.width / 2 - w / 2, y: caja.y + caja.height / 2 - h / 2, w }));
+    }
+
+    function resaltarZona(zona) {
+      if (zonaResaltada) {
+        trazosZona.get(zonaResaltada).classList.remove('zona-activa');
+        etiquetasZona.get(zonaResaltada).classList.remove('mapa-etiqueta-activa');
+      }
+      zonaResaltada = zona;
+      trazosZona.get(zona).classList.add('zona-activa');
+      etiquetasZona.get(zona).classList.add('mapa-etiqueta-activa');
+      porId('mapa-nombre').textContent = zona;
+    }
+
+    function elegirZona(zona) {
+      porId('input-busqueda').value = '';
+      mostrarHorario(rutas.find((ruta) => ruta.zona === zona));
+      actualizarBuscador();
+      enfocarZona(zona);
+      porId('panel-ubicacion').hidden = false;
+    }
+
+    function activarArrastreMapa() {
+      const svg = porId('mapa-medellin');
+      let arrastre = null;
+      let huboArrastre = false;
+
+      svg.addEventListener('pointerdown', (evento) => {
+        huboArrastre = false;
+        if (vistaMapa.w < MAPA_COMPLETO.w) arrastre = { x: evento.clientX, y: evento.clientY, vista: { ...vistaMapa }, id: evento.pointerId, activo: false };
+      });
+      svg.addEventListener('pointermove', (evento) => {
+        if (!arrastre) return;
+        const dx = evento.clientX - arrastre.x;
+        const dy = evento.clientY - arrastre.y;
+        if (!arrastre.activo && Math.hypot(dx, dy) < 6) return;
+        if (!arrastre.activo) {
+          arrastre.activo = true;
+          huboArrastre = true;
+          svg.setPointerCapture(arrastre.id);
+        }
+        const escala = arrastre.vista.w / svg.clientWidth;
+        cancelAnimationFrame(animacionMapa);
+        aplicarVista(limitarVista({ x: arrastre.vista.x - dx * escala, y: arrastre.vista.y - dy * escala, w: arrastre.vista.w }));
+      });
+      const soltar = () => { arrastre = null; };
+      svg.addEventListener('pointerup', soltar);
+      svg.addEventListener('pointercancel', soltar);
+
+      svg.addEventListener('click', (evento) => {
+        if (huboArrastre) {
+          huboArrastre = false;
+          return;
+        }
+        const trazo = evento.target.closest('[data-zona]');
+        if (trazo) {
+          porId('estado-ubicacion').textContent = '';
+          elegirZona(trazo.dataset.zona);
+          porId('panel-ubicacion').scrollIntoView({ block: 'nearest' });
+        }
+      });
+      svg.addEventListener('pointerover', (evento) => {
+        const trazo = evento.target.closest('[data-zona]');
+        if (trazo) porId('mapa-nombre').textContent = trazo.dataset.zona;
+      });
+      svg.addEventListener('pointerleave', () => {
+        if (zonaResaltada) porId('mapa-nombre').textContent = zonaResaltada;
+      });
+    }
+
+    function puntoEnMapa(latitud, longitud) {
+      const punto = porId('mapa-medellin').createSVGPoint();
+      punto.x = (longitud - MAPA_MEDELLIN.oeste) * MAPA_MEDELLIN.factorX;
+      punto.y = (MAPA_MEDELLIN.norte - latitud) * MAPA_MEDELLIN.factorY;
+      return punto;
+    }
+
+    function zonaMasCercana(punto) {
+      let mejor = null;
+      let distancia = Infinity;
+      trazosZona.forEach((trazo, zona) => {
+        const largo = trazo.getTotalLength();
+        for (let recorrido = 0; recorrido < largo; recorrido += 12) {
+          const borde = trazo.getPointAtLength(recorrido);
+          const d = Math.hypot(borde.x - punto.x, borde.y - punto.y);
+          if (d < distancia) {
+            distancia = d;
+            mejor = zona;
+          }
+        }
+      });
+      return { zona: mejor, distancia };
+    }
+
+    function localizarZona(punto) {
+      for (const [zona, trazo] of trazosZona) {
+        if (trazo.isPointInFill(punto)) return { zona, exacta: true };
+      }
+      const fuera = punto.x < -RADIO_CERCANIA || punto.y < -RADIO_CERCANIA || punto.x > MAPA_COMPLETO.w + RADIO_CERCANIA || punto.y > MAPA_COMPLETO.h + RADIO_CERCANIA;
+      if (fuera) return null;
+      const sinAsignar = [...document.querySelectorAll('.zona-sin-asignar')].some((trazo) => trazo.isPointInFill(punto));
+      const cercana = zonaMasCercana(punto);
+      return sinAsignar || cercana.distancia <= RADIO_CERCANIA ? { zona: cercana.zona, exacta: false } : null;
+    }
+
+    function ubicacionObtenida({ coords }) {
+      const punto = puntoEnMapa(coords.latitude, coords.longitude);
+      const resultado = localizarZona(punto);
+      restaurarBotonUbicacion();
+
+      if (!resultado) {
+        porId('estado-ubicacion').textContent = 'Tu ubicación está fuera de Medellín. Toca tu zona en el mapa o ingrésala manualmente.';
+        return;
+      }
+
+      const marcador = porId('mapa-marcador');
+      marcador.dataset.visible = 'si';
+      marcador.setAttribute('cx', punto.x);
+      marcador.setAttribute('cy', punto.y);
+      elegirZona(resultado.zona);
+
+      const aproximada = !resultado.exacta || coords.accuracy > 1000;
+      porId('estado-ubicacion').textContent = aproximada
+        ? `Tu ubicación es aproximada y te acerca a ${resultado.zona}. Confirma que sea tu zona.`
+        : `Estás en ${resultado.zona}.`;
+
+      const mapa = document.querySelector('.hero-mapa');
+      const borde = mapa.getBoundingClientRect().top;
+      if (borde < 0 || borde > innerHeight * 0.4) mapa.scrollIntoView({ block: 'start' });
+    }
+
+    function ubicacionFallida(error) {
+      restaurarBotonUbicacion();
+      porId('estado-ubicacion').textContent = error && error.code === 1
+        ? 'No tenemos permiso para usar tu ubicación. Toca tu zona en el mapa o ingrésala manualmente.'
+        : 'No se pudo obtener tu ubicación. Toca tu zona en el mapa o ingrésala manualmente.';
+    }
+
+    function restaurarBotonUbicacion() {
+      const boton = porId('btn-mi-horario');
+      boton.disabled = false;
+      boton.textContent = '¿Cuál es mi horario?';
+    }
+
+    function pedirUbicacion() {
+      if (!('geolocation' in navigator)) {
+        ubicacionFallida(null);
+        return;
+      }
+      const boton = porId('btn-mi-horario');
+      boton.disabled = true;
+      boton.textContent = 'Buscando tu ubicación…';
+      porId('estado-ubicacion').textContent = '';
+      navigator.geolocation.getCurrentPosition(ubicacionObtenida, ubicacionFallida, { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 });
+    }
+
+    /* Hoja carta: un solo diseño alimenta la vista previa y el PDF */
+    const ANCHOS_HELVETICA = [278,278,355,556,556,889,667,191,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,278,278,584,584,584,556,1015,667,667,722,722,667,611,778,722,278,500,667,556,833,722,778,667,778,722,667,611,722,667,944,667,667,611,278,278,278,469,556,333,556,556,500,556,556,278,556,556,222,222,500,222,833,556,556,556,556,333,500,278,556,500,722,500,500,500,334,260,334,584];
+    const ANCHOS_HELVETICA_NEGRITA = [278,333,474,556,556,889,722,238,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,333,333,584,584,584,611,975,722,722,722,722,667,611,778,722,278,556,722,611,833,722,778,667,778,722,667,611,722,667,944,667,667,611,333,278,333,584,556,333,556,611,556,611,556,333,611,611,278,278,556,278,889,611,611,611,611,389,556,333,611,556,778,556,556,500,389,280,389,584];
+    const PAGINA = Object.freeze({ ancho: 612, alto: 792, margen: 42.5 });
+    const BOLSA_CUERPO = [[18, 14], [10, 20, 6, 30, 6, 40], [6, 48, 12, 52, 24, 52], [36, 52, 42, 48, 42, 40], [42, 30, 38, 20, 30, 14]];
+    const BOLSA_NUDO = [[18, 14], [14, 5], [18, 7, 21, 7, 24, 5], [27, 7, 30, 7, 34, 5], [30, 14]];
+    const GUIA_BOLSAS = Object.freeze([
+      { titulo: 'Bolsa blanca', tipo: 'Aprovechables limpios:', detalle: 'papel, cartón, plástico, metal, vidrio.', relleno: [1, 1, 1] },
+      { titulo: 'Bolsa verde', tipo: 'Orgánicos aprovechables:', detalle: 'restos de comida, poda.', relleno: [0.18, 0.49, 0.2] },
+      { titulo: 'Bolsa negra', tipo: 'No aprovechables:', detalle: 'papel higiénico, servilletas usadas, cartones contaminados.', relleno: [0, 0, 0] }
+    ]);
+
+    function anchoTexto(texto, tamano, negrita) {
+      const tabla = negrita ? ANCHOS_HELVETICA_NEGRITA : ANCHOS_HELVETICA;
+      const base = texto.normalize('NFD').replace(/[̀-ͯ]/g, '');
+      let total = 0;
+      for (const caracter of base) total += tabla[caracter.charCodeAt(0) - 32] ?? 556;
+      return total * tamano / 1000;
+    }
+
+    function partirPalabra(palabra, tamano, negrita, maximo) {
+      const piezas = [];
+      let resto = palabra;
+      while (anchoTexto(resto, tamano, negrita) > maximo) {
+        let corte = resto.length - 1;
+        while (corte > 1 && anchoTexto(resto.slice(0, corte), tamano, negrita) > maximo) corte -= 1;
+        piezas.push(resto.slice(0, corte));
+        resto = resto.slice(corte);
+      }
+      piezas.push(resto);
+      return piezas;
+    }
+
+    function envolverTexto(segmentos, tamano, maximo) {
+      const espacio = anchoTexto(' ', tamano, false);
+      const palabras = segmentos.flatMap(({ texto, negrita }) => texto.split(/\s+/).filter(Boolean)
+        .flatMap((palabra) => partirPalabra(palabra, tamano, negrita, maximo).map((pieza) => ({ texto: pieza, negrita }))));
+      const lineas = [];
+      let linea = [];
+      let ancho = 0;
+      palabras.forEach((palabra) => {
+        const medida = anchoTexto(palabra.texto, tamano, palabra.negrita);
+        if (linea.length && ancho + espacio + medida > maximo) {
+          lineas.push(linea);
+          linea = [];
+          ancho = 0;
+        }
+        ancho += (linea.length ? espacio : 0) + medida;
+        linea.push(palabra);
+      });
+      if (linea.length) lineas.push(linea);
+      return lineas;
+    }
+
+    function disenarHoja(ruta) {
+      const izquierda = PAGINA.margen;
+      const anchoUtil = PAGINA.ancho - PAGINA.margen * 2;
+      const trazos = [];
+      let y = PAGINA.margen;
+
+      const escribir = (segmentos, tamano, x = izquierda, maximo = anchoUtil) => {
+        envolverTexto(segmentos, tamano, maximo).forEach((linea) => {
+          let cursor = x;
+          const base = y + tamano * 0.95;
+          linea.forEach((palabra, indice) => {
+            const continuacion = indice > 0 && linea[indice - 1].negrita === palabra.negrita;
+            const previo = trazos[trazos.length - 1];
+            if (indice > 0) cursor += anchoTexto(' ', tamano, false);
+            if (continuacion) {
+              previo.texto += ` ${palabra.texto}`;
+            } else {
+              trazos.push({ tipo: 'texto', x: cursor, y: base, tamano, negrita: palabra.negrita, texto: palabra.texto });
+            }
+            cursor += anchoTexto(palabra.texto, tamano, palabra.negrita);
+          });
+          y += tamano * 1.2;
+        });
+      };
+      const fuerte = (texto) => [{ texto, negrita: true }];
+      const normal = (texto) => [{ texto, negrita: false }];
+      const regla = () => {
+        y += 7;
+        trazos.push({ tipo: 'linea', x1: izquierda, x2: izquierda + anchoUtil, y });
+        y += 7;
+      };
+
+      escribir(fuerte(ruta.zona), 26);
+      escribir(fuerte(ruta.barrio), 24);
+      if (ruta.comunitaria) escribir(normal('Ruta aportada por la comunidad, sin verificar.'), 20);
+      regla();
+      escribir(fuerte('Basura ordinaria'), 24);
+      escribir(normal('Emvarias'), 20);
+      escribir(fuerte(formatearDias(ruta.diasBasura)), 20);
+      escribir(normal(formatearHoras(ruta.horasBasura)), 20);
+      regla();
+      escribir(fuerte('Reciclaje'), 24);
+      escribir(normal(ruta.entidadReciclaje), 20);
+      escribir(fuerte(formatearDias(ruta.diasReciclaje)), 20);
+      escribir(normal(formatearHoras(ruta.horasReciclaje)), 20);
+      regla();
+      escribir([{ texto: 'Punto de referencia:', negrita: false }, { texto: ruta.referencia, negrita: true }], 20);
+      regla();
+      escribir(fuerte('Las 3 bolsas de la Resolución 2184 de 2019'), 24);
+
+      GUIA_BOLSAS.forEach((bolsa) => {
+        y += 5;
+        const inicio = y;
+        trazos.push({ tipo: 'bolsa', x: izquierda, y: inicio, relleno: bolsa.relleno });
+        escribir(fuerte(bolsa.titulo), 24, izquierda + 44, anchoUtil - 44);
+        escribir([{ texto: bolsa.tipo, negrita: true }, { texto: bolsa.detalle, negrita: false }], 20, izquierda + 44, anchoUtil - 44);
+        y = Math.max(y, inicio + 42);
+      });
+      return trazos;
+    }
+
+    function curvaSvg(puntos) {
+      const [[x, y], ...resto] = puntos;
+      return `M${x} ${y}${resto.map((p) => (p.length === 2 ? `L${p[0]} ${p[1]}` : `C${p.join(' ')}`)).join('')}Z`;
+    }
+
+    function pintarVistaPrevia(trazos) {
+      const hoja = porId('hoja-previa');
+      hoja.replaceChildren(...trazos.map((trazo) => {
+        if (trazo.tipo === 'texto') {
+          const texto = crearSvg('text', { x: trazo.x, y: trazo.y, 'font-size': trazo.tamano, 'font-weight': trazo.negrita ? 700 : 400, fill: '#000000' });
+          texto.textContent = trazo.texto;
+          return texto;
+        }
+        if (trazo.tipo === 'linea') return crearSvg('line', { x1: trazo.x1, x2: trazo.x2, y1: trazo.y, y2: trazo.y, stroke: '#000000', 'stroke-width': 2 });
+        const relleno = `rgb(${trazo.relleno.map((c) => Math.round(c * 255)).join(' ')})`;
+        const grupo = crearSvg('g', { transform: `translate(${trazo.x} ${trazo.y}) scale(0.71)`, fill: relleno, stroke: '#000000', 'stroke-width': 2 });
+        grupo.append(crearSvg('path', { d: curvaSvg(BOLSA_CUERPO) }), crearSvg('path', { d: curvaSvg(BOLSA_NUDO) }));
+        return grupo;
+      }));
+    }
+
+    function cadenaPdf(texto) {
+      let salida = '';
+      for (const caracter of texto.normalize('NFC')) {
+        const codigo = caracter.codePointAt(0);
+        if (caracter === '(' || caracter === ')' || caracter === '\\') salida += `\\${caracter}`;
+        else if (codigo >= 32 && codigo < 127) salida += caracter;
+        else if (codigo >= 160 && codigo < 256) salida += `\\${codigo.toString(8).padStart(3, '0')}`;
+        else salida += '?';
+      }
+      return `(${salida})`;
+    }
+
+    function curvaPdf(puntos, x, y) {
+      const X = (valor) => (x + valor * 0.71).toFixed(2);
+      const Y = (valor) => (PAGINA.alto - y - valor * 0.71).toFixed(2);
+      return `${puntos.map((p, i) => {
+        const pares = [];
+        for (let n = 0; n < p.length; n += 2) pares.push(`${X(p[n])} ${Y(p[n + 1])}`);
+        return `${pares.join(' ')} ${i === 0 ? 'm' : p.length === 2 ? 'l' : 'c'}`;
+      }).join('\n')}\nh B`;
+    }
+
+    function construirPdf(trazos) {
+      const contenido = ['0 0 0 RG 0 0 0 rg'];
+      trazos.forEach((trazo) => {
+        if (trazo.tipo === 'texto') {
+          contenido.push(`0 0 0 rg BT /${trazo.negrita ? 'F2' : 'F1'} ${trazo.tamano} Tf ${trazo.x.toFixed(2)} ${(PAGINA.alto - trazo.y).toFixed(2)} Td ${cadenaPdf(trazo.texto)} Tj ET`);
+        } else if (trazo.tipo === 'linea') {
+          const y = (PAGINA.alto - trazo.y).toFixed(2);
+          contenido.push(`2 w ${trazo.x1} ${y} m ${trazo.x2} ${y} l S`);
+        } else {
+          contenido.push(`1.4 w ${trazo.relleno.join(' ')} rg`, curvaPdf(BOLSA_CUERPO, trazo.x, trazo.y), curvaPdf(BOLSA_NUDO, trazo.x, trazo.y));
+        }
+      });
+      const flujo = contenido.join('\n');
+      const fuente = (nombre) => `<< /Type /Font /Subtype /Type1 /BaseFont /${nombre} /Encoding /WinAnsiEncoding >>`;
+      const objetos = [
+        '<< /Type /Catalog /Pages 2 0 R >>',
+        '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+        `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PAGINA.ancho} ${PAGINA.alto}] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 4 0 R >>`,
+        `<< /Length ${flujo.length} >>\nstream\n${flujo}\nendstream`,
+        fuente('Helvetica'),
+        fuente('Helvetica-Bold')
+      ];
+      let pdf = '%PDF-1.4\n';
+      const posiciones = objetos.map((objeto, indice) => {
+        const posicion = pdf.length;
+        pdf += `${indice + 1} 0 obj\n${objeto}\nendobj\n`;
+        return posicion;
+      });
+      const xref = pdf.length;
+      pdf += `xref\n0 ${objetos.length + 1}\n0000000000 65535 f \n`;
+      posiciones.forEach((posicion) => { pdf += `${String(posicion).padStart(10, '0')} 00000 n \n`; });
+      pdf += `trailer\n<< /Size ${objetos.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF\n`;
+      return new Blob([pdf], { type: 'application/pdf' });
+    }
+
+    function nombreArchivo(ruta) {
+      return `horario-${normalizar(ruta.zona).replace(/[^a-z0-9]+/g, '-')}.pdf`;
+    }
+
+    function abrirVistaPrevia() {
+      pintarVistaPrevia(disenarHoja(rutaActual));
+      porId('estado-descarga').textContent = '';
+      porId('vista-previa').showModal();
+    }
+
+    function descargarPdf() {
+      const nombre = nombreArchivo(rutaActual);
+      const url = URL.createObjectURL(construirPdf(disenarHoja(rutaActual)));
+      const enlace = document.createElement('a');
+      enlace.href = url;
+      enlace.download = nombre;
+      document.body.append(enlace);
+      enlace.click();
+      enlace.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+      porId('estado-descarga').textContent = `Listo: ${nombre} quedó en tus descargas.`;
+    }
+
+    function activarUbicacionYDescarga() {
+      porId('btn-mi-horario').addEventListener('click', pedirUbicacion);
+      porId('mapa-acercar').addEventListener('click', () => zoomMapa(0.6));
+      porId('mapa-alejar').addEventListener('click', () => zoomMapa(1 / 0.6));
+      porId('mapa-completo').addEventListener('click', () => moverVista({ ...MAPA_COMPLETO }));
+      activarArrastreMapa();
+      new ResizeObserver(() => aplicarVista(vistaMapa)).observe(porId('mapa-medellin'));
+
+      document.querySelectorAll('.js-manual').forEach((enlace) => {
+        enlace.addEventListener('click', () => porId('select-zona').focus({ preventScroll: true }));
+      });
+      document.querySelectorAll('.js-vista-previa').forEach((boton) => boton.addEventListener('click', abrirVistaPrevia));
+      porId('previa-descargar').addEventListener('click', descargarPdf);
+      porId('previa-cerrar').addEventListener('click', () => porId('vista-previa').close());
+      porId('previa-imprimir').addEventListener('click', () => {
+        porId('vista-previa').close();
+        window.print();
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      construirMapa();
+      activarUbicacionYDescarga();
+      llenarSelect(
+        porId('form-zona'),
+        ZONAS_OFICIALES.map((zona) => ({ valor: zona, texto: zona })),
+        ''
+      );
+      porId('form-zona').prepend(new Option('Elige una opción', '', true, true));
+
+      mostrarHorario(rutas.find((ruta) => ruta.zona === ZONA_PREDETERMINADA));
+      actualizarBuscador();
+      activarEnlaces();
+
+      porId('input-busqueda').addEventListener('input', actualizarBuscador);
+      porId('select-zona').addEventListener('change', zonaCambiada);
+      porId('select-barrio').addEventListener('change', barrioCambiado);
+      porId('coincidencias').addEventListener('click', coincidenciaElegida);
+      porId('form-comunitario').addEventListener('submit', guardarRuta);
+    });
+  </script>
+</body>
+</html>
