@@ -258,6 +258,10 @@
     .etiqueta-via { font-weight: 500; fill: #3B4452; }
     .mapa-volver { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0; border: 0; background: none; color: var(--color-primary-fiduciario); font-family: var(--font-body); font-size: 1em; font-weight: 600; text-decoration: underline; cursor: pointer; }
     .mapa-creditos { display: block; }
+    .zona:focus, .sector:focus { outline: none; }
+    .panel-cabecera { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; }
+    .cambiar-comuna { flex: none; width: 11em; max-width: 100%; min-height: 2.75rem; padding: 0.35rem 0.6rem; border: 2px solid var(--color-primary); border-radius: 0.5rem; background: var(--color-surface); color: var(--color-primary); font-family: var(--font-body); font-size: 0.95em; font-weight: 600; cursor: pointer; }
+    .cambiar-comuna:hover { background: var(--color-bg-alt); }
     .panel-elegir { margin-top: 0.75rem; }
     .panel-tramos { display: grid; gap: 0.4rem; margin-top: 0.75rem; }
     .panel-tramos strong { display: block; }
@@ -580,6 +584,7 @@
     .integrante-enlaces .pendiente { border: 0; text-decoration: none; opacity: 0.85; }
 
     @media (min-width: 40rem) {
+      .panel-cabecera { flex-wrap: nowrap; }
       .form-rejilla { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
       .equipo-tarjetas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       #form-comunitario > .form-rejilla { margin: 0; }
@@ -735,7 +740,10 @@
           <figcaption><span id="mapa-ayuda">Toca tu comuna o corregimiento para ver sus sectores y calles.</span> <span class="mapa-creditos">Límites: Alcaldía de Medellín. Calles: © colaboradores de OpenStreetMap.</span></figcaption>
         </figure>
         <div id="panel-ubicacion" class="panel-ubicacion" hidden>
-          <h2 id="panel-zona"></h2>
+          <div class="panel-cabecera">
+            <h2 id="panel-zona"></h2>
+            <select id="panel-comuna" class="cambiar-comuna" aria-label="Cambiar de comuna o corregimiento"></select>
+          </div>
           <p id="panel-barrio" class="panel-barrio"></p>
           <div id="panel-elegir" class="campo panel-elegir" hidden>
             <label for="panel-sector">Elige tu sector</label>
@@ -1909,6 +1917,17 @@
         if (boton) elegirTramo(boton.dataset.ruta);
       });
       porId('mapa-volver').addEventListener('click', volverCiudad);
+
+      const cambiarComuna = porId('panel-comuna');
+      cambiarComuna.replaceChildren(new Option('Cambiar comuna', ''), ...ZONAS_OFICIALES.map((zona) => new Option(zona, zona)));
+      cambiarComuna.addEventListener('change', () => {
+        const zona = cambiarComuna.value;
+        if (!zona) return;
+        cambiarComuna.value = '';
+        porId('estado-ubicacion').textContent = '';
+        elegirZona(zona);
+        verPanel();
+      });
     }
 
     function activarEnMapa(objetivo) {
