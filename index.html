@@ -2276,12 +2276,6 @@
       return horas ? formatearHoras(horas) : 'Consulta a Emvarias';
     }
 
-    function momentoDelDia(horas) {
-      const hora = Number((horas || '').slice(0, 2));
-      if (hora < 12) return 'en la mañana';
-      return hora < 19 ? 'en la tarde' : 'en la noche';
-    }
-
     function lineaTerritorial(ruta) {
       const numero = ruta.zona.match(/\d+/)[0];
       const lugar = /^correg/i.test(ruta.zona) ? `Corregimiento ${numero}` : ruta.zona;
@@ -2333,10 +2327,6 @@
         circulo(x + 7, y + 7, 6.2, '#FFFFFF', '#DC2626', 1.7);
         linea([[x + 7, y + 3.6], [x + 7, y + 7], [x + 9.8, y + 8.6]], '#DC2626', 1.5);
       };
-      const iconoPin = (x, y) => {
-        forma([[x + 2.6, y + 4], [x + 8.4, y + 4], [x + 5.5, y + 12.5]], '#DC2626');
-        circulo(x + 5.5, y + 3.6, 3.2, '#DC2626', '#DC2626', 0.3);
-      };
       const iconoAlerta = (x, y) => {
         forma([[x + 6.5, y], [x + 13, y + 11.5], [x, y + 11.5]], '#F59E0B');
         poner({ tipo: 'texto', x: x + 5.2, y: y + 10, tamano: 8.5, negrita: true, color: TINTA, texto: '!' });
@@ -2352,10 +2342,10 @@
       /* Bloque 1: cabecera territorial y estado */
       let y = izquierda;
       const cabecera = rect(izquierda, y, anchoUtil, 0, { relleno: '#F0FDF4', borde: '#166534', grosor: 1.6 });
-      let c = parrafo('ECOHORARIOS BARRIALES • FICHA DE RECOLECCIÓN PARA LA NEVERA', izquierda, y + 12, anchoUtil, 12, { negrita: true, color: '#166534', centro: true });
+      let c = parrafo('ECOHORARIOS BARRIALES', izquierda, y + 12, anchoUtil, 12, { negrita: true, color: '#166534', centro: true });
       c = parrafo(ruta.barrio, izquierda + 12, c + 4, anchoUtil - 24, 24, { negrita: true, centro: true });
       c = parrafo(lineaTerritorial(ruta), izquierda + 16, c + 4, anchoUtil - 32, 13.5, { color: GRIS_TEXTO, centro: true });
-      const estado = ruta.comunitaria ? 'RUTA APORTADA POR LA COMUNIDAD, SIN VERIFICAR' : 'HORARIO BARRIAL DE REFERENCIA — EN PROCESO DE CONFIRMACIÓN COMUNITARIA';
+      const estado = ruta.comunitaria ? 'RUTA APORTADA POR LA COMUNIDAD, SIN VERIFICAR' : 'HORARIO BARRIAL DE REFERENCIA';
       const anchoEstado = anchoTexto(estado, 9.5, true);
       const anchoPastilla = anchoEstado + 38;
       const xPastilla = izquierda + (anchoUtil - anchoPastilla) / 2;
@@ -2392,25 +2382,20 @@
         a = parrafo('VENTANA HORARIA:', interior, a, anchoTexto2, 11, { negrita: true });
         iconoReloj(interior, a + 6);
         a = parrafo(datos.horas, interior + 20, a + 4, anchoTexto2 - 20, 17, { negrita: true });
-        a += 11;
-        iconoPin(interior, a + 1);
-        a = parrafo(datos.regla, interior + 15, a, anchoTexto2 - 15, 12, { italica: true, color: GRIS_TEXTO });
-        return { fondo, fin: a + 12 };
+        return { fondo, fin: a + 14 };
       };
 
       const mitad = anchoUtil / 2;
       const izquierdaTarjeta = tarjeta(izquierda, mitad, {
         fondo: '#FFFBEB', tono: AMBAR, tonoTexto: '#B45309', tonoActivo: AMBAR, icono: iconoCamion,
         titulo: 'BASURA ORDINARIA', operador: 'Operador oficial: Emvarias - EPM', rotulo: 'DÍAS DE RECOLECCIÓN:',
-        dias: diasFicha(ruta.diasBasura), diasCrudos: ruta.diasBasura, horas: horasFicha(ruta.horasBasura),
-        regla: ruta.horasBasura ? `Regla de oro: Saca las bolsas cerradas ${momentoDelDia(ruta.horasBasura)} del día indicado. No las saques el día anterior.` : 'Regla de oro: Confirma tu horario con Emvarias por WhatsApp: 304 403 7188.'
+        dias: diasFicha(ruta.diasBasura), diasCrudos: ruta.diasBasura, horas: horasFicha(ruta.horasBasura)
       });
       const unDia = diasDeLaSemana(ruta.diasReciclaje).length === 1;
       const derechaTarjeta = tarjeta(izquierda + mitad, mitad, {
         fondo: '#F0FDF4', tono: VERDE_FICHA, tonoTexto: '#15803D', tonoActivo: VERDE_FICHA, icono: iconoReciclaje,
         titulo: 'RUTA DE RECICLAJE', operador: `Asociación: ${ruta.entidadReciclaje}`, rotulo: unDia ? 'DÍA EXCLUSIVO DE RECICLAJE:' : 'DÍAS DE RECICLAJE:',
-        dias: diasFicha(ruta.diasReciclaje), diasCrudos: ruta.diasReciclaje, horas: horasFicha(ruta.horasReciclaje),
-        regla: 'Regla de oro: Entrega en bolsa blanca o amarrado directamente al reciclador.'
+        dias: diasFicha(ruta.diasReciclaje), diasCrudos: ruta.diasReciclaje, horas: horasFicha(ruta.horasReciclaje)
       });
       const finTarjetas = Math.max(izquierdaTarjeta.fin, derechaTarjeta.fin);
       izquierdaTarjeta.fondo.h = finTarjetas - y;
@@ -2418,7 +2403,7 @@
       y = finTarjetas + 13;
 
       /* Bloque 3: guía de separación */
-      y = parrafo('GUÍA DE SEPARACIÓN EN LA FUENTE — CÓDIGO DE COLORES (RESOLUCIÓN 2184 DE 2019)', izquierda, y, anchoUtil, 11.5, { negrita: true }) + 6;
+      y = parrafo('CÓDIGO DE COLORES - RESOLUCIÓN 2184 DE 2019', izquierda, y, anchoUtil, 11.5, { negrita: true }) + 6;
       const tercio = anchoUtil / 3;
       const cajas = GUIA_BOLSAS.map((bolsa, indice) => {
         const x = izquierda + tercio * indice;
@@ -2448,8 +2433,7 @@
       const xAviso = izquierda + (anchoUtil - anchoAviso - 20) / 2;
       iconoTijeras(xAviso, y + 9, GRIS_TEXTO);
       poner({ tipo: 'texto', x: xAviso + 20, y: y + 18, tamano: 9.5, negrita: true, color: GRIS_TEXTO, texto: aviso });
-      const finPie = parrafo('EcoHorarios Barriales • Institución Universitaria Pascual Bravo', izquierda, y + 25, anchoUtil, 9.5, { color: GRIS_TEXTO, centro: true });
-      pie.h = finPie + 8 - y;
+      pie.h = 28;
       return trazos;
     }
 
