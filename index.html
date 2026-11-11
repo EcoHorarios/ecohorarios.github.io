@@ -240,6 +240,37 @@
       pointer-events: none;
     }
     .mapa-norte svg { width: 1.25rem; height: 1.25rem; fill: var(--color-primary-dark); }
+    #mapa-medellin.en-comuna .mapa-etiquetas { display: none; }
+    #mapa-medellin.en-comuna .zona { fill: #EDEFE8; stroke-width: 0.75px; }
+    .sector { fill: #F7F9F5; stroke: var(--color-primary); stroke-width: 1.25px; vector-effect: non-scaling-stroke; cursor: pointer; }
+    .sector-sin-horario { fill: #EDE7DD; }
+    .sector:hover { fill: #DDEBD6; }
+    .sector-activo, .sector-activo:hover { fill: #A9D3A6; stroke-width: 2.25px; }
+    .sector:focus-visible { outline: none; box-shadow: none; stroke: var(--color-accent); stroke-width: 3px; }
+    .capa-vias { pointer-events: none; }
+    .via { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+    .via-p { stroke: #5B6472; stroke-width: 2.5px; }
+    .via-m { stroke: #7C8592; stroke-width: 1.6px; }
+    .via-b { stroke: #9AA2AE; stroke-width: 1px; }
+    .via-t { stroke: #A8977A; stroke-width: 0.9px; stroke-dasharray: 3 3; }
+    .capa-textos { pointer-events: none; font-family: var(--font-body); text-anchor: middle; dominant-baseline: central; fill: var(--color-primary-dark); paint-order: stroke; stroke: var(--color-surface); stroke-width: 0.3em; stroke-linejoin: round; }
+    .etiqueta-sector { font-weight: 700; }
+    .etiqueta-via { font-weight: 500; fill: #3B4452; }
+    .mapa-volver { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0; border: 0; background: none; color: var(--color-primary-fiduciario); font-family: var(--font-body); font-size: 1em; font-weight: 600; text-decoration: underline; cursor: pointer; }
+    .mapa-creditos { display: block; }
+    .panel-elegir { margin-top: 0.75rem; }
+    .panel-tramos { display: grid; gap: 0.4rem; margin-top: 0.75rem; }
+    .panel-tramos strong { display: block; }
+    .tramo { min-height: 2.75rem; padding: 0.5rem 0.75rem; border: 2px solid var(--color-primary); border-radius: 0.5rem; background: var(--color-surface); color: var(--color-text-dark); font-family: var(--font-body); font-size: 0.95em; text-align: left; cursor: pointer; }
+    .tramo:hover, .tramo[aria-pressed="true"] { background: var(--color-primary); color: var(--color-surface); }
+    .panel-ubicacion .res-aviso { margin-top: 0.75rem; }
+    .direccion-ayuda { color: var(--color-text-muted); font-size: 0.9em; }
+    .direccion-sugerida { font-weight: 600; }
+    .direccion-posible { padding-left: 0.6rem; border-left: 4px solid var(--color-primary); }
+    .tramo-confirmar { justify-self: start; }
+    .tramo-no-se { border-style: dashed; border-color: var(--color-text-muted); }
+    .res-tramo { font-weight: 600; }
+    .nota-referencia { margin-top: 0.2rem; color: var(--color-text-muted); font-size: 0.85em; }
     .mapa figcaption { margin-top: 0.4rem; color: var(--color-text-muted); font-size: 0.875em; }
 
     .panel-ubicacion {
@@ -641,7 +672,7 @@
       .res-bloques { display: block; margin: 0; }
       .res-bloque { margin-top: 8pt; padding-top: 4pt; border-top: 2pt solid #000000; }
       .res-bloque h4 { font-size: 24pt; }
-      .res-entidad, .res-dias, .res-horas { margin: 0; font-size: 20pt; line-height: 1.2; }
+      .res-entidad, .res-dias, .res-horas, .res-tramo, .nota-referencia { margin: 0; font-size: 20pt; line-height: 1.2; }
       .res-dias { font-weight: 700; }
       .res-referencia { margin-top: 8pt; padding-top: 4pt; border-top: 2pt solid #000000; font-size: 20pt; }
 
@@ -700,11 +731,19 @@
               <button type="button" id="mapa-completo" aria-label="Ver toda Medellín"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8M5 9.500V21h14V9.500M10 21v-6h4v6"/></svg></button>
             </div>
           </div>
-          <figcaption>Toca una zona para ver su horario. Límites: Alcaldía de Medellín.</figcaption>
+          <button type="button" id="mapa-volver" class="mapa-volver" hidden>Ver todas las comunas</button>
+          <figcaption><span id="mapa-ayuda">Toca tu comuna o corregimiento para ver sus sectores y calles.</span> <span class="mapa-creditos">Límites: Alcaldía de Medellín. Calles: © colaboradores de OpenStreetMap.</span></figcaption>
         </figure>
         <div id="panel-ubicacion" class="panel-ubicacion" hidden>
           <h2 id="panel-zona"></h2>
           <p id="panel-barrio" class="panel-barrio"></p>
+          <div id="panel-elegir" class="campo panel-elegir" hidden>
+            <label for="panel-sector">Elige tu sector</label>
+            <select id="panel-sector"></select>
+          </div>
+          <div id="panel-tramos" class="panel-tramos" hidden></div>
+          <p id="panel-aviso" class="res-aviso" hidden></p>
+          <div id="panel-horario">
           <div class="proxima js-proxima"></div>
           <div class="panel-bloques">
             <div>
@@ -718,12 +757,14 @@
               <p id="panel-entidad" class="res-entidad"></p>
               <p id="panel-dias-reciclaje" class="res-dias"></p>
               <p id="panel-horas-reciclaje" class="res-horas"></p>
+              <p class="nota-referencia js-nota-reciclaje">Referencia de la comuna, sin confirmar</p>
             </div>
           </div>
           <div class="panel-acciones">
             <button type="button" class="boton js-vista-previa">Descargar horario</button>
             <a class="boton boton-secundario js-whatsapp" target="_blank" rel="noopener noreferrer">Compartir por WhatsApp</a>
             <a class="opcion-manual js-manual" href="#buscador">¿No es tu zona? Cámbiala</a>
+          </div>
           </div>
         </div>
       </div>
@@ -822,7 +863,11 @@
               <label for="select-barrio">Barrio o sector</label>
               <select id="select-barrio"></select>
             </div>
-            <p class="nota-prototipo">Prototipo académico. Los horarios pueden cambiar en festivos.</p>
+            <div id="campo-tramo" class="campo" hidden>
+              <label for="select-tramo">Dirección de tu casa</label>
+              <select id="select-tramo"></select>
+            </div>
+            <p class="nota-prototipo">Horarios de basura publicados por Emvarias, consultados el 10 de noviembre de 2026. Son franjas de servicio, no la hora exacta del camión. Para confirmar tu dirección, escribe al WhatsApp de Emvarias 304 403 7188.</p>
           </div>
 
           <article id="resultado-horario" aria-live="polite" aria-labelledby="res-zona">
@@ -830,6 +875,7 @@
             <span class="iman iman-der" aria-hidden="true"></span>
             <h3 id="res-zona"></h3>
             <p id="res-barrio"></p>
+            <p id="res-tramo" class="res-tramo" hidden></p>
             <p id="res-aviso" class="res-aviso" hidden>Ruta aportada por la comunidad, sin verificar.</p>
             <div class="proxima js-proxima"></div>
             <div class="res-bloques">
@@ -844,9 +890,10 @@
                 <p id="res-entidad" class="res-entidad"></p>
                 <p id="res-dias-reciclaje" class="res-dias"></p>
                 <p id="res-horas-reciclaje" class="res-horas"></p>
+                <p class="nota-referencia js-nota-reciclaje">Referencia de la comuna, sin confirmar</p>
               </section>
             </div>
-            <p class="res-referencia">Punto de referencia: <strong id="res-referencia"></strong></p>
+            <p id="res-referencia-linea" class="res-referencia">Punto de referencia: <strong id="res-referencia"></strong></p>
           </article>
         </div>
       </div>
@@ -1047,8 +1094,24 @@
     const ZONAS_OFICIALES = [...new Set(DATASET_OFICIAL.map((ruta) => ruta.zona))];
     const NOMBRES_DIAS = { lun: 'lunes', mar: 'martes', mie: 'miércoles', jue: 'jueves', vie: 'viernes', sab: 'sábado', dom: 'domingo' };
 
-    /* Copia de trabajo: el dataset oficial nunca se altera */
-    const rutas = [...DATASET_OFICIAL];
+    /* Horarios publicados por Emvarias para cada sector. El dataset territorial se conserva intacto. */
+    const SECTORES = [["0109",0,"Aldea Pablo VI",[["","Mar-Vie","15:00-03:00",0]]],["0112",0,"Carpinelo",[["Resto del barrio","Mié-Sáb","15:00-03:00",0],["Sobre la carrera 23, entre las calles 97 y 102B","Mar-Vie","13:00-15:00",0]]],["0108",0,"El Compromiso",[["","Mar-Vie","15:00-03:00",0]]],["0104",0,"Granizal",[["","Mié-Sáb","15:00-03:00",0]]],["0111",0,"La Avanzada",[["","Mié-Sáb","15:00-03:00",0]]],["0110",0,"La Esperanza No.2",[["","Mar-Vie","15:00-03:00",0]]],["0105",0,"Moscú No.2",[["","Mié-Sáb","15:00-03:00",0]]],["0103",0,"Popular",[["Resto del barrio","Mié-Sáb","15:00-03:00",0],["Entre las calles 111 y 124, entre las carreras 46 y 43A; y sobre la calle 126, entre las carreras 43A y 42E","Mié-Sáb","13:00-15:00",0],["Sobre la carrera 42B, entre las calles 106 y 118; sobre la carrera 42B, entre las calles 118 y 121; y entre las calles 121 y 107B, entre las carreras 32 y 29","Mié-Sáb","20:00-22:00",0]]],["0107",0,"San Pablo",[["De Calle 93b a Calle 97","Mar-Vie","15:00-03:00",3],["De Calle 97a a Calle 102","Mié-Sáb","15:00-03:00",3]]],["0101",0,"Santo Domingo Savio No.1",[["","Mié-Sáb","15:00-03:00",0]]],["0102",0,"Santo Domingo Savio No.2",[["","Mié-Sáb","15:00-03:00",0]]],["0106",0,"Villa Guadalupe",[["De Carrera 39 a Carrera 42b","Mar-Vie","15:00-03:00",3],["De Carrera 43 a Carrera 48","Lun-Jue","15:00-03:00",3]]],["0206",1,"Andalucía",[["","Mié-Sáb","15:00-03:00",0]]],["0205",1,"La Francia",[["","Mié-Sáb","15:00-03:00",0]]],["0204",1,"La Frontera",[["","Mié-Sáb","15:00-03:00",0]]],["0201",1,"La Isla",[["","Mié-Sáb","15:00-03:00",0]]],["0211",1,"La Rosa",[["Entre las carreras 48 y 50, y entre las calles 97A y 99. No incluye la calle 99","Lun-Jue","19:00-21:00",0]]],["0209",1,"Moscú No.1",[["Resto del barrio","Mié-Sáb","15:00-03:00",0],["En la calle 100, entre las carreras 44A y 46A","Lun-Jue","19:00-21:00",0]]],["0203",1,"Pablo VI",[["","Mié-Sáb","15:00-03:00",0]]],["0202",1,"Playón de Los Comuneros",[["","Mié-Sáb","15:00-03:00",0]]],["0210",1,"Santa Cruz",[["","Mié-Sáb","15:00-03:00",0]]],["0208",1,"Villa Niza",[["","Mié-Sáb","15:00-03:00",0]]],["0207",1,"Villa del Socorro",[["","Mié-Sáb","15:00-03:00",0]]],["0303",2,"Campo Valdés No.2",[["Resto del barrio","Mar-Vie","15:00-03:00",0],["Entre la carrera 45 y la carrera 41, vía Santo Domingo, excluyendo la carrera 45 y la vía Santo Domingo; y entre las calles 67 y 79, excluyendo la calle 79","Lun-Jue","13:00-15:00",0]]],["0306",2,"El Pomar",[["Resto del barrio","Mar-Vie","15:00-03:00",0],["Entre la carrera 45 y la carrera 41, vía Santo Domingo, excluyendo la carrera 45 y la vía Santo Domingo; y entre las calles 67 y 79, excluyendo la calle 79","Lun-Jue","13:00-15:00",0]]],["0305",2,"El Raizal",[["","Mar-Vie","15:00-03:00",0]]],["0311",2,"La Cruz",[["Resto del barrio","Mar-Vie","06:00-18:00",0],["Entre las carreras 28 y 23C, y entre las calles 71 y 81B","Mar-Vie","20:00-22:00",0]]],["0301",2,"La Salle",[["","Mar-Vie","15:00-03:00",0]]],["0302",2,"Las Granjas",[["","Mar-Vie","15:00-03:00",0]]],["0307",2,"Manrique Central No.2",[["Resto del barrio","Mar-Vie","15:00-03:00",0],["Entre la carrera 45 y la carrera 41, vía Santo Domingo, excluyendo la carrera 45 y la vía Santo Domingo; y entre las calles 67 y 79, excluyendo la calle 79","Lun-Jue","13:00-15:00",0]]],["0308",2,"Manrique Oriental",[["","Mar-Vie","15:00-03:00",0]]],["0313",2,"María Cano-Carambolas",[["","Mar-Vie","15:00-03:00",0]]],["0312",2,"Oriente",[["Resto del barrio","Mar-Vie","15:00-03:00",0],["Sobre la carrera 22, entre las calles 85B y 86B","Mar-Vie","13:00-15:00",0]]],["0314",2,"San José La Cima No.1",[["","Mar-Vie","15:00-03:00",0]]],["0315",2,"San José La Cima No.2",[["","Mar-Vie","15:00-03:00",0]]],["0304",2,"Santa Inés",[["","Mar-Vie","15:00-03:00",0]]],["0309",2,"Versalles No.1",[["","Mar-Vie","15:00-03:00",0]]],["0310",2,"Versalles No.2",[["Resto del barrio","Mar-Vie","15:00-03:00",0],["Sobre la carrera 27, entre las calles 69 y 71, sector UVA de los Sueños; y sobre la calle 71B, entre las carreras 24 y 25","Mar-Vie","19:00-21:00",0]]],["0413",3,"Aranjuez",[["","Lun-Jue","15:00-03:00",0]]],["0401",3,"Berlín",[["","Lun-Jue","15:00-03:00",0]]],["0404",3,"Bermejal-Los Álamos",[["","Lun-Jue","15:00-03:00",0]]],["0414",3,"Brasilia",[["","Lun-Jue","15:00-03:00",0]]],["0410",3,"Campo Valdés No.1",[["","Lun-Jue","15:00-03:00",0]]],["Inst_10",3,"Jardín Botánico",[["","Lun-Jue","15:00-03:00",0]]],["0412",3,"La Piñuela",[["","Lun-Jue","15:00-03:00",0]]],["0411",3,"Las Esmeraldas",[["","Lun-Jue","15:00-03:00",0]]],["0409",3,"Manrique Central No.1",[["","Lun-Jue","15:00-03:00",0]]],["0415",3,"Miranda",[["","Lun-Jue","15:00-03:00",0]]],["0405",3,"Moravia",[["","Lun-Jue","15:00-03:00",0]]],["0403",3,"Palermo",[["Resto del barrio","Lun-Jue","15:00-03:00",0],["Puerto nuevo, ubicado entre las calles 93F y 95, entre las carreras 55 y 55A, junto a la Estación de Policía de Aranjuez","Lun-Jue","13:00-15:00",0]]],["Inst_9",3,"Parque Norte",[["","Lun-Jue","15:00-23:00",0]]],["0402",3,"San Isidro",[["","Lun-Jue","15:00-03:00",0]]],["0408",3,"San Pedro",[["","Lun-Jue","15:00-03:00",0]]],["0407",3,"Sevilla",[["","Lun-Jue","15:00-03:00",0]]],["Inst_11",3,"Universidad de Antioquia",[["","Lun-Jue","15:00-23:00",0]]],["0514",4,"Alfonso López",[["De Carrera 64c a Carrera 71a","Lun-Jue","15:00-03:00",0],["De Carrera 71b a Carrera 73b","Mar-Vie","15:00-03:00",0]]],["0508",4,"Belalcázar",[["","Lun-Jue","15:00-03:00",0]]],["0505",4,"Boyacá",[["","Lun-Jue","15:00-03:00",0]]],["0517",4,"Caribe",[["","Lun-Jue","15:00-03:00",0]]],["0511",4,"Castilla",[["","Lun-Jue","15:00-03:00",0]]],["Inst_3",4,"Cementerio Universal",[["","Lun-Jue","15:00-03:00",0]]],["0519",4,"El Progreso",[["","Lun-Jue","15:00-03:00",0]]],["0503",4,"Florencia",[["De Carrera 65 a Carrera 74","Lun-Jue","15:00-03:00",0],["De Carrera 74 a Carrera 76","Mar-Vie","15:00-03:00",0]]],["0513",4,"Francisco Antonio Zea",[["","Lun-Jue","15:00-03:00",0]]],["0509",4,"Girardot",[["","Lun-Jue","15:00-03:00",0]]],["0507",4,"Héctor Abad Gómez",[["","Lun-Jue","15:00-03:00",0]]],["0502",4,"Las Brisas",[["","Lun-Jue","15:00-03:00",0]]],["Inst_2",4,"Oleoducto",[["","Lun-Jue","15:00-03:00",0]]],["Inst_1",4,"Plaza de Ferias",[["","Lun-Jue","15:00-03:00",0]]],["0504",4,"Tejelo",[["De Carrera 65 a Carrera 74","Lun-Jue","15:00-03:00",0],["De Carrera 74 a Carrera 76","Mar-Vie","15:00-03:00",0]]],["Inst_4",4,"Terminal de Transporte",[["","Lun-Jue","15:00-23:00",0]]],["0501",4,"Toscana",[["","Lun-Jue","15:00-03:00",0]]],["0510",4,"Tricentenario",[["","Lun-Jue","15:00-03:00",0]]],["0602",5,"Doce de Octubre No.1",[["Carrera 80 a Carrera 82","Mar-Vie","15:00-03:00",2],["Carrera 82 a Carrera 83a","Mié-Sáb","15:00-03:00",2]]],["0603",5,"Doce de Octubre No.2",[["De Carrera 76a a Carrera 79a","Mar-Vie","15:00-03:00",2],["De Carrera 80 a Carrera 83","Mié-Sáb","15:00-03:00",2]]],["0612",5,"El Triunfo",[["","Mié-Sáb","15:00-03:00",0]]],["0607",5,"Kennedy",[["","Mar-Vie","06:00-18:00",0]]],["0605",5,"La Esperanza",[["","Mar-Vie","15:00-03:00",3]]],["0610",5,"Mirador del Doce",[["","Mié-Sáb","06:00-18:00",0]]],["0604",5,"Pedregal",[["","Mar-Vie","15:00-03:00",0]]],["0609",5,"Picachito",[["","Mié-Sáb","15:00-03:00",0]]],["0608",5,"Picacho",[["","Mié-Sáb","15:00-03:00",0]]],["0611",5,"Progreso No.2",[["","Mié-Sáb","15:00-03:00",0]]],["0606",5,"San Martín de Porres",[["De Carrera 75 a Carrera 79","Mar-Vie","15:00-03:00",0],["De Carrera 80 a Carrera 81","Mié-Sáb","15:00-03:00",0]]],["0601",5,"Santander",[["","Mar-Vie","15:00-03:00",0]]],["0708",6,"Altamira",[["Carrera 70 a Carrera 71a","Lun-Jue","15:00-03:00",0],["Carrera 72a a Carrera 80","Mar-Vie","15:00-03:00",0]]],["0713",6,"Aures No.1",[["","Mié-Sáb","15:00-03:00",0]]],["0712",6,"Aures No.2",[["","Mié-Sáb","15:00-03:00",0]]],["0702",6,"B. Cerro El Volador",[["","Lun-Jue","15:00-03:00",3]]],["0714",6,"Bello Horizonte",[["De Calle 77d a Calle 78","Mar-Vie","15:00-03:00",2],["De Calle 77a a Calle 77d","Mié-Sáb","15:00-03:00",2]]],["0707",6,"Bosques de San Pablo",[["De Carrera 69 a Carrera 72","Lun-Jue","15:00-03:00",0],["De Carrera 72a a Carrera 80","Mar-Vie","15:00-03:00",0]]],["0718",6,"Cucaracho",[["","Mié-Sáb","15:00-03:00",2]]],["0709",6,"Córdoba",[["De Carrera 65 a Carrera 72B","Lun-Jue","15:00-03:00",0],["De Carrera 71B a Carrera 72G","Mar-Vie","15:00-03:00",0]]],["Inst_7",6,"Ecoparque Cerro El Volador",[]],["0711",6,"El Diamante",[["","Mar-Vie","15:00-03:00",0]]],["Inst_6",6,"Facultad Veterinaria y Zootecnia U.de.A.",[]],["Inst_5",6,"Facultad de Minas",[]],["0705",6,"Facultad de Minas U. Nacional",[["","Mar-Vie","15:00-03:00",3]]],["0719",6,"Fuente Clara",[["","Lun-Jue","15:00-03:00",0]]],["0706",6,"La Pilarica",[["","Mar-Vie","15:00-03:00",0]]],["0710",6,"López de  Mesa",[["","Mar-Vie","15:00-03:00",0]]],["0724",6,"Monteclaro",[["","Mié-Sáb","15:00-03:00",0]]],["0725",6,"Nueva Villa de La Iguaná",[["","Lun-Jue","15:00-03:00",3]]],["0722",6,"Olaya Herrera",[["","Mar-Vie","06:00-18:00",0]]],["0723",6,"Pajarito",[["Sector La Huerta","Lun-Jue","15:00-03:00",0],["Resto del barrio","Mar-Vie","06:00-19:00",0]]],["0716",6,"Palenque",[["","Mié-Sáb","15:00-03:00",0]]],["0717",6,"Robledo",[["","Mié-Sáb","15:00-03:00",0]]],["0703",6,"San Germán",[["","Lun-Jue","15:00-03:00",2]]],["0720",6,"Santa Margarita",[["Carrera 105 a Carrera 110","Lun-Jue","15:00-03:00",0],["Carrera 103 a Carrera 105","Mié-Sáb","15:00-03:00",0]]],["Inst_8",6,"Universidad Nacional",[["","Lun-Jue","15:00-23:00",0]]],["0715",6,"Villa Flora",[["","Mié-Sáb","15:00-03:00",0]]],["0805",7,"Batallón Girardot",[["","Mar-Vie","21:00-09:00",0]]],["0810",7,"El Pinal",[["De Calle 52 a Calle 56a","Mar-Vie","21:00-09:00",0],["De Calle 56b a Calle 56f","Mié-Sáb","21:00-09:00",0]]],["0808",7,"Enciso",[["","Mar-Vie","21:00-09:00",0]]],["0804",7,"La Ladera",[["","Mar-Vie","21:00-09:00",0]]],["0812",7,"La Libertad",[["","Mié-Sáb","21:00-09:00",0]]],["0802",7,"La Mansión",[["","Mar-Vie","21:00-09:00",0]]],["0817",7,"La Sierra",[["","Mié-Sáb","21:00-09:00",0]]],["0815",7,"Las Estancias",[["","Mié-Sáb","21:00-09:00",0]]],["0806",7,"Llanaditas",[["","Mié-Sáb","21:00-09:00",0]]],["0807",7,"Los Mangos",[["Carrera 21 a Carrera 28","Mar-Vie","21:00-09:00",0],["De Carrera 18c a Carrera 20","Mié-Sáb","21:00-09:00",0]]],["0814",7,"San Antonio",[["","Mié-Sáb","21:00-09:00",0]]],["0803",7,"San Miguel",[["","Mar-Vie","15:00-03:00",0]]],["0809",7,"Sucre",[["","Mar-Vie","21:00-09:00",0]]],["0811",7,"Trece de Noviembre",[["","Mié-Sáb","15:00-03:00",0]]],["0801",7,"Villa Hermosa",[["","Mar-Vie","21:00-09:00",0]]],["0819",7,"Villa Lilliam",[["","Mié-Sáb","21:00-09:00",0]]],["0816",7,"Villa Turbay",[["","Mié-Sáb","21:00-09:00",0]]],["0813",7,"Villatina",[["","Mié-Sáb","21:00-09:00",0]]],["0905",8,"Alejandro Echavarría",[["De Carrera 18 a Carrera 28","Mar-Vie","21:00-09:00",0],["De Carrera 15 a Carrera 17c","Mié-Sáb","21:00-09:00",0]]],["0914",8,"Asomadera No.1",[["","Lun-Jue","21:00-09:00",0]]],["0915",8,"Asomadera No.2",[["","Lun-Jue","06:00-18:00",0]]],["0916",8,"Asomadera No.3",[["","Lun-Jue","06:00-18:00",0]]],["0906",8,"Barrio Caicedo",[["","Mar-Vie","21:00-09:00",0]]],["0902",8,"Barrios de Jesús",[["","Mié-Sáb","21:00-09:00",0]]],["0903",8,"Bomboná No.2",[["","Mié-Sáb","21:00-09:00",0]]],["0907",8,"Buenos Aires",[["","Lun-Jue","21:00-09:00",0]]],["0909",8,"Cataluña",[["","Lun-Jue","21:00-09:00",0]]],["0912",8,"El Salvador",[["","Lun-Jue","21:00-09:00",0]]],["0911",8,"Gerona",[["","Lun-Jue","21:00-09:00",0]]],["0901",8,"Juan Pablo II",[["","Mié-Sáb","21:00-09:00",0]]],["0910",8,"La Milagrosa",[["","Lun-Jue","21:00-09:00",0]]],["0913",8,"Loreto",[["","Lun-Jue","06:00-18:00",0]]],["0904",8,"Los Cerros El Vergel",[["Carrera 11c a Carrera 18","Mié-Sáb","21:00-09:00",0],["Carrera 18 a Carrera 20","Lun-Jue","21:00-09:00",0]]],["0908",8,"Miraflores",[["","Lun-Jue","21:00-09:00",0]]],["0917",8,"Ocho de Marzo",[["","Mié-Sáb","21:00-09:00",0]]],["1013",9,"Barrio Colón",[["","Lun-Mar-Mié-Jue-Vie-Sáb","08:00-20:00",0]]],["1015",9,"Bomboná No.1",[["Carrera 37 a Carrera 41","Lun-Jue","21:00-09:00",3],["Carrera 42 a Carrera 43","Lun-Mar-Mié-Jue-Vie-Sáb","06:00-18:00",3]]],["1016",9,"Boston",[["De Calle 49 a Calle 53","Lun-Mar-Mié-Jue-Vie-Sáb","06:00-18:00",0],["De Calle 54 a Calle 58","Mar-Vie","21:00-09:00",0]]],["1011",9,"Calle Nueva",[["","Lun-Mar-Mié-Jue-Vie-Sáb","08:00-20:00",0]]],["Inst_17",9,"Centro Administrativo",[]],["1008",9,"Corazón de Jesús",[["","Lun-Mar-Mié-Jue-Vie-Sáb","08:00-20:00",0]]],["1004",9,"El Chagualo",[["","Mar-Jue-Sáb","08:00-20:00",0]]],["1005",9,"Estación Villa",[["","Lun-Mar-Mié-Jue-Vie-Sáb","08:00-20:00",0]]],["1007",9,"Guayaquil",[["","Lun-Mar-Mié-Jue-Vie-Sáb","08:00-20:00",0]]],["Inst_12",9,"Hospital San Vicente de Paúl",[]],["1003",9,"Jesús Nazareno",[["","Lun-Mié-Jue","08:00-20:00",0]]],["Inst_16",9,"La Alpujarra",[["","Lun-Mar-Mié-Jue-Vie-Sáb","08:00-20:00",0]]],["1019",9,"La Candelaria",[["","Lun-Mar-Mié-Jue-Vie-Sáb","08:00-20:00",0]]],["1014",9,"Las Palmas",[["Carrera 38c a Carrera 43c","Lun-Jue","21:00-09:00",3],["Carrera 44 a Carrera 45","Lun-Mar-Mié-Jue-Vie-Sáb","08:00-20:00",3]]],["1017",9,"Los Ángeles",[["","Mar-Vie","21:00-09:00",0]]],["1012",9,"Perpetuo Socorro",[["","Lun-Mar-Mié-Jue-Vie-Sáb","08:00-20:00",0]]],["1001",9,"Prado",[["De Calle 58 a Calle 63","Lun-Mié-Vie","08:00-20:00",0],["De Calle 63 a Calle 67","Mar-Jue-Sáb","08:00-20:00",0]]],["1006",9,"San Benito",[["","Lun-Mar-Mié-Jue-Vie-Sáb","08:00-20:00",0]]],["1020",9,"San Diego",[["Carrera 30 a Carrera 42b","Lun-Jue","06:00-18:00",0],["Carrera 42b a Carrera 43a","Lun-Mar-Mié-Jue-Vie-Sáb","06:00-18:00",0]]],["1018",9,"Villa Nueva",[["","Lun-Mar-Mié-Jue-Vie-Sáb","08:00-20:00",0]]],["Inst_13",10,"Batallón Cuarta Brigada",[]],["1107",10,"Bolivariana",[["","Lun-Jue","06:00-18:00",0]]],["1101",10,"Carlos E. Restrepo",[["","Lun-Jue","06:00-18:00",0]]],["1115",10,"Cuarta Brigada",[]],["1112",10,"El Velódromo",[["","Lun-Jue","06:00-18:00",0]]],["1113",10,"Estadio",[["","Lun-Jue","06:00-18:00",0]]],["1117",10,"Florida Nueva",[["","Lun-Jue","06:00-18:00",0]]],["1110",10,"La Castellana",[["","Mar-Vie","06:00-18:00",0]]],["1109",10,"Las Acacias",[["","Lun-Jue","06:00-18:00",0]]],["1108",10,"Laureles",[["","Lun-Jue","06:00-18:00",0]]],["1111",10,"Lorena",[["","Lun-Jue","06:00-18:00",0]]],["1114",10,"Los Colores",[["","Lun-Jue","06:00-18:00",0]]],["1105",10,"Los Conquistadores",[["","Lun-Jue","06:00-18:00",0]]],["1103",10,"Naranjal",[["","Lun-Jue","06:00-18:00",3]]],["1104",10,"San Joaquín",[["","Lun-Jue","06:00-18:00",0]]],["1102",10,"Suramericana",[["","Lun-Jue","06:00-18:00",0]]],["Inst_14",10,"U.D. Atanasio Girardot",[["","Lun-Jue","06:00-18:00",0]]],["Inst_15",10,"U.P.B",[["","Lun-Jue","06:00-18:00",0]]],["1210",11,"Barrio Cristóbal",[["","Mar-Vie","06:00-18:00",0]]],["1202",11,"Calasanz",[["","Mar-Vie","06:00-18:00",0]]],["1213",11,"Calasanz Parte Alta",[["","Mar-Vie","06:00-18:00",0]]],["1208",11,"Campo Alegre",[["","Mié-Sáb","06:00-18:00",0]]],["1207",11,"El Danubio",[["De Carrera 89 a Carrera 92","Mar-Vie","06:00-18:00",0],["De Carrera 92 a Carrera 93","Mié-Sáb","06:00-18:00",0]]],["1201",11,"Ferrini",[["","Mar-Vie","06:00-18:00",0]]],["1204",11,"La América",[["","Mar-Vie","06:00-18:00",0]]],["1205",11,"La Floresta",[["","Mar-Vie","06:00-18:00",0]]],["1203",11,"Los Pinos",[["","Lun-Jue","06:00-18:00",0]]],["1206",11,"Santa Lucía",[["","Mar-Vie","06:00-18:00",0]]],["1209",11,"Santa Mónica",[["De Carrera 89 a Carrera 92","Mar-Vie","06:00-18:00",0],["De Carrera 92 a Carrera 94","Mié-Sáb","06:00-18:00",0]]],["1212",11,"Santa Teresita",[["","Mar-Vie","06:00-18:00",0]]],["1211",11,"Simón Bolívar",[["","Mar-Vie","06:00-18:00",0]]],["1318",12,"Antonio Nariño",[["","Mié-Sáb","06:00-18:00",0]]],["1311",12,"Belencito",[["","Mié-Sáb","06:00-18:00",0]]],["1312",12,"Betania",[["De Calle 32 a Calle 34aa","Mar-Vie","06:00-18:00",0],["De Calle 34b a Calle 35","Mié-Sáb","06:00-18:00",0]]],["1302",12,"Blanquizal",[["","Mar-Vie","06:00-18:00",0]]],["1317",12,"Eduardo Santos",[["","Mié-Sáb","06:00-18:00",3]]],["1313",12,"El Corazón",[["","Mié-Sáb","06:00-18:00",0]]],["1301",12,"El Pesebre",[["","Mar-Vie","06:00-18:00",0]]],["1316",12,"El Salado",[["","Mié-Sáb","06:00-18:00",3]]],["1319",12,"El Socorro",[["","Mié-Sáb","06:00-18:00",3]]],["1307",12,"Juan XXIII La Quiebra",[["","Mié-Sáb","06:00-18:00",0]]],["1306",12,"La Pradera",[["","Mié-Sáb","06:00-18:00",0]]],["1314",12,"Las Independencias",[["","Mié-Sáb","06:00-18:00",3]]],["1304",12,"Los Alcázares",[["De Carrera 82 a Carrera 87","Mar-Vie","06:00-18:00",0],["De Carrera 87a a Carrera 93","Mié-Sáb","06:00-18:00",0]]],["1305",12,"Metropolitano",[["","Mié-Sáb","06:00-18:00",0]]],["1315",12,"Nuevos Conquistadores",[["","Mié-Sáb","06:00-18:00",0]]],["1309",12,"San Javier No.1",[["","Mié-Sáb","06:00-18:00",0]]],["1308",12,"San Javier No.2",[["","Mié-Sáb","06:00-18:00",0]]],["1303",12,"Santa Rosa de Lima",[["","Mar-Vie","06:00-18:00",0]]],["1310",12,"Veinte de Julio",[["","Mié-Sáb","06:00-18:00",0]]],["1416",13,"Alejandría",[["Calle 1 a Calle 3 s","Mar-Vie","06:00-18:00",0],["Calle 3s a Calle 5s","Mié-Sáb","06:00-18:00",0]]],["1408",13,"Altos del Poblado",[["","Lun-Jue","06:00-18:00",0]]],["1420",13,"Astorga",[["","Mié-Sáb","06:00-18:00",0]]],["1401",13,"Barrio Colombia",[["","Lun-Mié-Vie","08:00-20:00",0]]],["1404",13,"Castropol",[["","Lun-Jue","06:00-18:00",0]]],["1414",13,"El Castillo",[["Carrera 34 a Carrera 43a","Mié-Sáb","06:00-18:00",0],["Transversal Inf. a Carrera 34","Mar-Vie","06:00-18:00",0]]],["1413",13,"El Diamante No.2",[["Transversal inf. a Carrera 35","Mar-Vie","06:00-18:00",0],["Carrera 36 a Carrera 43a","Mié-Sáb","06:00-18:00",0]]],["1418",13,"El Poblado",[["","Lun-Mar-Mié-Jue-Vie-Sáb","06:00-18:00",0]]],["1409",13,"El Tesoro",[["","Mar-Vie","06:00-18:00",0]]],["1422",13,"La Aguacatala",[["","Mié-Sáb","06:00-18:00",0]]],["1417",13,"La Florida",[["","Lun-Jue","06:00-18:00",0]]],["1405",13,"Lalinde",[["","Lun-Jue","06:00-18:00",0]]],["1406",13,"Las Lomas No.1",[["","Lun-Jue","06:00-18:00",0]]],["1407",13,"Las Lomas No.2",[["","Lun-Jue","06:00-18:00",0]]],["1411",13,"Los Balsos No.1",[["","Mar-Vie","06:00-18:00",0]]],["1415",13,"Los Balsos No.2",[["","Mié-Sáb","06:00-18:00",0]]],["1410",13,"Los Naranjos",[["","Mar-Vie","06:00-18:00",0]]],["1419",13,"Manila",[["","Mié-Sáb","06:00-18:00",0]]],["1421",13,"Patio Bonito",[["","Mié-Sáb","06:00-18:00",0]]],["1412",13,"San Lucas",[["","Mar-Vie","06:00-18:00",0]]],["1423",13,"Santa María de Los Ángeles",[["","Mié-Sáb","06:00-18:00",0]]],["1403",13,"Villa Carlota",[["","Mar-Jue-Sáb","08:00-20:00",0]]],["1507",14,"Campo Amor",[["","Mar-Vie","06:00-18:00",0]]],["1509",14,"Cristo Rey",[["","Mar-Vie","06:00-18:00",0]]],["Inst_20",14,"El Rodeo",[["","Mar-Vie","06:00-18:00",0]]],["1510",14,"Guayabal",[["","Mar-Vie","06:00-18:00",0]]],["1511",14,"La Colina",[["","Mar-Vie","06:00-18:00",0]]],["Inst_19",14,"Parque Juan Pablo II",[["","Lun-Jue","06:00-18:00",0]]],["1504",14,"Santa Fé",[["De Carrera 50 a 65C","Mar-Vie","06:00-18:00",0],["De Carrera 65d a Carrera 67","Lun-Jue","06:00-18:00",0]]],["1502",14,"Tenche",[["","Mar-Vie","06:00-18:00",0]]],["1503",14,"Trinidad",[["De Carrera 52 a Carrera 65 y De Cra 65 a Carrera 65d entre Calle 26 y Calle 29","Mar-Vie","06:00-18:00",0],["De Carrera 65 a Carrera 66B entre Calle 20 y Calle 26","Lun-Jue","06:00-18:00",0]]],["1613",15,"Altavista",[["Carrera 81b a Carrera 83","Lun-Jue","06:00-18:00",0],["Carrera 83 a Carrera 84f","Mié-Sáb","06:00-18:00",0]]],["1603",15,"Belén",[["","Lun-Jue","06:00-18:00",0]]],["Inst_18",15,"Cerro Nutibara",[["","Mar-Vie","06:00-18:00",0]]],["1621",15,"Cerro Nutibara",[["","Mar-Vie","06:00-18:00",0]]],["1607",15,"Diego Echavarría",[["","Lun-Jue","06:00-18:00",0]]],["1620",15,"El Nogal-Los Almendros",[["","Lun-Jue","06:00-18:00",0]]],["1610",15,"El Rincón",[["","Mié-Sáb","06:00-18:00",0]]],["1601",15,"Fátima",[["","Lun-Jue","06:00-18:00",0]]],["1604",15,"Granada",[["","Lun-Jue","06:00-18:00",0]]],["1612",15,"La Gloria",[["De Carrera 76 a Carrera 79","Lun-Jue","06:00-18:00",0],["De Carrera 79 a Carrera 84f","Mié-Sáb","06:00-18:00",0]]],["1609",15,"La Hondonada",[["Carrera 79 a Carrera 79d","Mar-Vie","06:00-18:00",0],["Carrera 79d a Carrera 83","Mié-Sáb","06:00-18:00",0]]],["1611",15,"La Loma de Los Bernal",[["La Loma De los Bernal Diagonal .79 a Diagonal 79a","Lun-Jue","06:00-18:00",0],["La Loma De los Bernal Diagonal 80 a Carrera 84f","Mié-Sáb","06:00-18:00",0]]],["1608",15,"La Mota",[["De Diagonal 75b a Carrera 75d","Lun-Jue","06:00-18:00",0],["De Carrera 75d a Carrera 79","Mié-Sáb","06:00-18:00",0]]],["1614",15,"La Palma",[["","Lun-Jue","06:00-18:00",0]]],["1617",15,"Las Mercedes",[["","Mar-Vie","06:00-18:00",0]]],["1606",15,"Las Playas",[["","Lun-Jue","06:00-18:00",0]]],["1616",15,"Las Violetas",[["","Mié-Sáb","06:00-18:00",0]]],["1615",15,"Los Alpes",[["Calle 26 a Calle 30","Mié-Sáb","06:00-18:00",0],["Calle 30 a Calle 31b","Lun-Jue","06:00-18:00",0]]],["1619",15,"Miravalle",[["","Lun-Jue","06:00-18:00",0]]],["1618",15,"Nueva Villa del Aburrá",[["","Lun-Jue","06:00-18:00",0]]],["1602",15,"Rosales",[["","Lun-Jue","06:00-18:00",0]]],["1605",15,"San Bernardo",[["","Lun-Jue","06:00-18:00",0]]],["5007",16,"La Aldea",[["","Mié-Sáb","06:00-19:00",0]]],["5006",16,"La Frisola",[["","Lun-Jue","06:00-19:00",0]]],["5002",16,"La Sucia",[]],["5001",16,"La Suiza",[["","Lun-Jue","06:00-19:00",0]]],["5004",16,"Palmitas Sector Central",[["","Mié-Sáb","06:00-19:00",0]]],["5008",16,"Potrera Miserenga",[["","Mié-Sáb","06:00-19:00",0]]],["5003",16,"Urquitá",[["","Mié-Sáb","06:00-19:00",0]]],["5005",16,"Volcana Guayabal",[["","Mié-Sáb","06:00-19:00",0]]],["6006",17,"Boquerón",[["","Mié-Sáb","06:00-19:00",0]]],["AUC1",17,"Cabecera Urbana Corregimiento San Cristóbal",[["Cabecera Urbana San Cristobal Carrera 124 a Carrera 131","Mar-Jue-Sáb","06:00-19:00",0],["Cabecera Urbana San Cristobal Carrera 135 a Carrera 137","Lun-Mié-Vie","06:00-19:00",0]]],["AE3",17,"Eduardo Santos",[]],["6010",17,"El Carmelo",[]],["6017",17,"El Llano",[["","Mié-Sáb","06:00-19:00",0],["","Mar-Jue-Sáb","06:00-19:00",0]]],["6002",17,"El Patio",[["","Lun-Jue","06:00-19:00",0],["","Lun-Mié-Vie","06:00-19:00",0]]],["6011",17,"El Picacho",[]],["6003",17,"El Uvito",[["","Lun-Jue","06:00-19:00",0]]],["6004",17,"La Cuchilla",[]],["6008",17,"La Ilusión",[]],["6014",17,"La Loma",[["","Lun-Jue","06:00-19:00",0]]],["6001",17,"La Palma",[]],["6015",17,"Las Playas",[["","Lun-Jue","06:00-19:00",0]]],["6005",17,"Naranjal",[["","Mar-Jue-Sáb","06:00-19:00",0]]],["6012",17,"Pajarito",[]],["6013",17,"Pedregal Alto",[["","Mar-Jue-Sáb","06:00-19:00",0]]],["6007",17,"San José de La Montaña",[["","Mié-Sáb","06:00-19:00",0]]],["6016",17,"Travesías",[["","Mié-Sáb","06:00-19:00",0],["","Mar-Jue-Sáb","06:00-19:00",0]]],["6009",17,"Yolombo",[]],["AE1",17,"Área de Expansión Pajarito",[]],["AE2",17,"Área de Expansión San Cristóbal",[]],["7002",18,"Aguas Frías",[["","Mié-Sáb","06:00-19:00",0]]],["7005",18,"Altavista Sector Central",[["","Mié-Sáb","06:00-19:00",0]]],["7001",18,"Buga Patio Bonito",[["","Mié-Sáb","06:00-19:00",0]]],["7003",18,"El Corazón El Morro",[]],["7008",18,"El Jardín",[]],["7006",18,"La Esperanza",[["","Mié-Sáb","06:00-19:00",0]]],["7007",18,"San José del Manzanillo",[["","Lun-Jue","06:00-19:00",0]]],["7004",18,"San Pablo",[["","Mié-Sáb","06:00-19:00",0]]],["AE5",18,"Área de Expansión Altavista",[]],["AE6",18,"Área de Expansión Belén Rincón",[]],["AE4",18,"Área de Expansión El Noral",[]],["8005",19,"El Astillero",[["","Lun-Mié-Vie","06:00-19:00",0]]],["8006",19,"El Salado",[["","Lun-Mié-Vie","06:00-19:00",0]]],["8001",19,"La Florida",[["","Mar-Jue-Sáb","06:00-19:00",0]]],["8007",19,"La Verde",[["","Mar-Vie","06:00-19:00",0]]],["8003",19,"Montañita",[["","Mar-Vie","06:00-19:00",0]]],["8002",19,"Potrerito",[["","Lun-Mié-Vie","06:00-19:00",0]]],["AUC2",19,"San Antonio de Prado",[["Cabecera entre Calle 2 y Calle 5d","Mar-Jue-Sáb","06:00-19:00",0],["Cabecera Carrera 6 a Carrera 1","Lun-Mié-Vie","06:00-19:00",0]]],["8008",19,"San José",[]],["8004",19,"Yarumalito",[["","Lun-Mié-Vie","06:00-19:00",0]]],["AE7",19,"Área de Expansión San Antonio de Prado",[]],["9004",20,"Barro Blanco",[["","Mar-Jue-Sáb","06:00-19:00",0]]],["9007",20,"El Cerro",[["","Lun-Mié-Vie","06:00-19:00",0]]],["9008",20,"El Llano SE",[["","Lun-Mié-Vie","06:00-19:00",0]]],["9005",20,"El Placer",[["","Mar-Jue-Sáb","06:00-19:00",0]]],["9009",20,"El Plan",[["","Lun-Mié-Vie","06:00-19:00",0]]],["9001",20,"Las Palmas",[]],["9011",20,"Mazo",[]],["9002",20,"Media Luna",[["","Mar-Jue-Sáb","06:00-19:00",0]]],["9010",20,"Piedra Gorda",[["","Mar-Jue-Sáb","06:00-19:00",0]]],["9003",20,"Piedras Blancas - Matasano",[["","Mar-Jue-Sáb","06:00-19:00",0]]],["9006",20,"Santa Elena Sector Central",[["","Lun-Mié-Vie","06:00-19:00",0]]]];
+    const AVISOS_HORARIO = Object.freeze({
+      2: 'Emvarias anunció cambios en 2026 para algunos puntos de este sector. Confirma tu dirección por WhatsApp: 304 403 7188.',
+      3: 'Dato de Emvarias de noviembre de 2025. Confirma tu dirección por WhatsApp: 304 403 7188.'
+    });
+
+    function construirRutas() {
+      return SECTORES.flatMap(([codigo, indiceZona, barrio, opciones]) => {
+        const zona = ZONAS_OFICIALES[indiceZona];
+        const general = DATASET_OFICIAL.find((ruta) => ruta.zona === zona);
+        const base = { zona, barrio, sector: codigo, diasReciclaje: general.diasReciclaje, horasReciclaje: general.horasReciclaje, entidadReciclaje: general.entidadReciclaje, referencia: '', reciclajeReferencia: true };
+        if (!opciones.length) return [Object.freeze({ ...base, id: codigo, tramo: '', diasBasura: '', horasBasura: '', aviso: '' })];
+        return opciones.map(([tramo, dias, horas, marca], indice) => Object.freeze({ ...base, id: `${codigo}-${indice}`, tramo, diasBasura: dias, horasBasura: horas, aviso: AVISOS_HORARIO[marca] || '' }));
+      });
+    }
+
+    const rutas = construirRutas();
     let rutaActual = null;
     let totalComunitarias = 0;
 
@@ -1067,6 +1130,7 @@
     function formatearDias(dias) {
       const partes = nombresDeDias(dias);
       if (!partes) return dias;
+      if (partes.length === 6) return 'Lunes a sábado';
       const texto = partes.length > 1 ? `${partes.slice(0, -1).join(', ')} y ${partes[partes.length - 1]}` : partes[0];
       return texto.charAt(0).toUpperCase() + texto.slice(1);
     }
@@ -1085,7 +1149,7 @@
     function rutasCoincidentes() {
       const termino = normalizar(porId('input-busqueda').value);
       if (!termino) return rutas;
-      return rutas.filter((ruta) => normalizar(`${ruta.barrio} ${ruta.zona} ${ruta.entidadReciclaje}`).includes(termino));
+      return rutas.filter((ruta) => normalizar(`${ruta.barrio} ${ruta.zona} ${ruta.entidadReciclaje} ${ruta.tramo || ''}`).includes(termino));
     }
 
     function llenarSelect(select, opciones, valor) {
@@ -1093,14 +1157,45 @@
       select.value = valor;
     }
 
+    function textoDireccion(ruta) {
+      const original = ruta.tramo || '';
+      if (!original) return 'Todo el sector';
+      if (/^resto del barrio$/i.test(original)) return 'En otra parte del barrio';
+      const rango = original.match(/^(.*?)(?:de\s+)?(carrera|calle)\s+(\d+[a-z]*)\s+a\s+(?:carrera\s+|calle\s+)?(\d+[a-z]*)$/i);
+      if (rango && !/entre/i.test(original)) {
+        const prefijo = rango[1].trim();
+        const eje = rango[2].toLowerCase();
+        const frase = `entre las ${eje}s ${rango[3].toUpperCase()} y ${rango[4].toUpperCase()}`;
+        return prefijo ? `${prefijo}: ${frase}` : frase.charAt(0).toUpperCase() + frase.slice(1);
+      }
+      return original.charAt(0).toUpperCase() + original.slice(1);
+    }
+
+    const claveSector = (ruta) => String(ruta.sector || ruta.id);
+    const rutasDeSector = (clave) => rutas.filter((ruta) => claveSector(ruta) === clave);
+    const textoDias = (ruta) => (ruta.diasBasura ? formatearDias(ruta.diasBasura) : 'Horario por confirmar');
+    const textoHoras = (ruta) => (ruta.horasBasura ? formatearHoras(ruta.horasBasura) : 'Consulta a Emvarias por WhatsApp: 304 403 7188');
+
+    function sectoresUnicos(lista) {
+      const vistos = new Map();
+      lista.forEach((ruta) => { if (!vistos.has(claveSector(ruta))) vistos.set(claveSector(ruta), ruta); });
+      return [...vistos.values()];
+    }
+
+    function poblarTramos() {
+      const propias = rutasDeSector(claveSector(rutaActual));
+      porId('campo-tramo').hidden = propias.length < 2;
+      llenarSelect(porId('select-tramo'), propias.map((ruta) => ({ valor: String(ruta.id), texto: textoDireccion(ruta) })), String(rutaActual.id));
+    }
+
     function poblarBarrios(lista) {
       const zona = porId('select-zona').value;
-      const barrios = lista.filter((ruta) => ruta.zona === zona);
       llenarSelect(
         porId('select-barrio'),
-        barrios.map((ruta) => ({ valor: String(ruta.id), texto: ruta.barrio })),
-        String(rutaActual.id)
+        sectoresUnicos(lista.filter((ruta) => ruta.zona === zona)).map((ruta) => ({ valor: claveSector(ruta), texto: ruta.barrio })),
+        claveSector(rutaActual)
       );
+      poblarTramos();
     }
 
     function poblarSelectores(lista) {
@@ -1113,22 +1208,32 @@
       rutaActual = ruta;
       porId('res-zona').textContent = ruta.zona;
       porId('res-barrio').textContent = ruta.barrio;
-      porId('res-aviso').hidden = !ruta.comunitaria;
-      porId('res-dias-basura').textContent = formatearDias(ruta.diasBasura);
-      porId('res-horas-basura').textContent = formatearHoras(ruta.horasBasura);
+      porId('res-tramo').hidden = !ruta.tramo;
+      porId('res-tramo').textContent = ruta.tramo ? `Aplica para: ${textoDireccion(ruta)}` : '';
+      const aviso = ruta.comunitaria ? 'Ruta aportada por la comunidad, sin verificar.' : ruta.aviso || '';
+      porId('res-aviso').hidden = !aviso;
+      porId('res-aviso').textContent = aviso;
+      porId('panel-aviso').hidden = !aviso;
+      porId('panel-aviso').textContent = aviso;
+      porId('res-dias-basura').textContent = textoDias(ruta);
+      porId('res-horas-basura').textContent = textoHoras(ruta);
       porId('res-entidad').textContent = ruta.entidadReciclaje;
       porId('res-dias-reciclaje').textContent = formatearDias(ruta.diasReciclaje);
       porId('res-horas-reciclaje').textContent = formatearHoras(ruta.horasReciclaje);
       porId('res-referencia').textContent = ruta.referencia;
-      porId('print-resumen').textContent = `${ruta.zona}, ${ruta.barrio}`;
+      porId('res-referencia-linea').hidden = !ruta.referencia;
+      document.querySelectorAll('.js-nota-reciclaje').forEach((nota) => { nota.hidden = !ruta.reciclajeReferencia; });
+      porId('print-resumen').textContent = `${ruta.zona}, ${ruta.barrio}${ruta.tramo ? `, ${textoDireccion(ruta)}` : ''}`;
       porId('panel-zona').textContent = ruta.zona;
       porId('panel-barrio').textContent = ruta.barrio;
-      porId('panel-dias-basura').textContent = formatearDias(ruta.diasBasura);
-      porId('panel-horas-basura').textContent = formatearHoras(ruta.horasBasura);
+      porId('panel-dias-basura').textContent = textoDias(ruta);
+      porId('panel-horas-basura').textContent = textoHoras(ruta);
       porId('panel-entidad').textContent = ruta.entidadReciclaje;
       porId('panel-dias-reciclaje').textContent = formatearDias(ruta.diasReciclaje);
       porId('panel-horas-reciclaje').textContent = formatearHoras(ruta.horasReciclaje);
       resaltarZona(ruta.zona);
+      resaltarSector(claveSector(ruta));
+      pintarOpcionesPanel(ruta);
       pintarProximaRecoleccion(ruta);
       actualizarWhatsApp(ruta);
 
@@ -1138,15 +1243,17 @@
       hoja.classList.add('hoja-nueva');
     }
 
+    const MAXIMO_COINCIDENCIAS = 12;
+
     function pintarCoincidencias(lista) {
       const contenedor = porId('coincidencias');
-      const botones = lista.map((ruta) => {
+      const botones = sectoresUnicos(lista).slice(0, MAXIMO_COINCIDENCIAS).map((ruta) => {
         const boton = document.createElement('button');
         boton.type = 'button';
         boton.className = 'coincidencia';
         boton.dataset.id = String(ruta.id);
         boton.textContent = `${ruta.zona}: ${ruta.barrio}`;
-        boton.setAttribute('aria-pressed', String(ruta === rutaActual));
+        boton.setAttribute('aria-pressed', String(claveSector(ruta) === claveSector(rutaActual)));
         return boton;
       });
       contenedor.replaceChildren(...botones);
@@ -1165,7 +1272,8 @@
       if (!texto) {
         estado.textContent = '';
       } else if (coincidentes.length) {
-        estado.textContent = coincidentes.length === 1 ? '1 ruta encontrada.' : `${coincidentes.length} rutas encontradas.`;
+        const total = sectoresUnicos(coincidentes).length;
+        estado.textContent = total === 1 ? '1 sector encontrado.' : `${total} sectores encontrados${total > MAXIMO_COINCIDENCIAS ? `. Se muestran ${MAXIMO_COINCIDENCIAS}: escribe más para afinar.` : '.'}`;
       } else {
         estado.textContent = `No hay rutas para «${texto}». Revisa cómo está escrito o busca por comuna, barrio o cooperativa. La hoja sigue mostrando el último horario.`;
       }
@@ -1174,13 +1282,19 @@
     function zonaCambiada() {
       const coincidentes = rutasCoincidentes();
       const lista = coincidentes.length ? coincidentes : rutas;
-      mostrarHorario(lista.find((ruta) => ruta.zona === porId('select-zona').value));
+      const enZona = lista.filter((ruta) => ruta.zona === porId('select-zona').value);
+      mostrarHorario(enZona.find((ruta) => ruta.diasBasura) || enZona[0]);
       poblarBarrios(lista);
       pintarCoincidencias(porId('input-busqueda').value.trim() ? coincidentes : []);
     }
 
+    function tramoCambiado() {
+      mostrarHorario(rutas.find((ruta) => String(ruta.id) === porId('select-tramo').value));
+    }
+
     function barrioCambiado() {
-      mostrarHorario(rutas.find((ruta) => String(ruta.id) === porId('select-barrio').value));
+      mostrarHorario(rutasDeSector(porId('select-barrio').value)[0]);
+      poblarTramos();
       const coincidentes = rutasCoincidentes();
       pintarCoincidencias(porId('input-busqueda').value.trim() ? coincidentes : []);
     }
@@ -1210,18 +1324,19 @@
         horasReciclaje: leer('horasReciclaje'),
         entidadReciclaje: leer('entidadReciclaje'),
         referencia: leer('referencia'),
+        tramo: '',
         comunitaria: true
       });
 
-      const posicion = rutas.findIndex((ruta) => ruta.zona === nueva.zona && normalizar(ruta.barrio) === normalizar(nueva.barrio));
-      if (posicion >= 0) rutas.splice(posicion, 1);
+      const previas = rutas.filter((ruta) => ruta.zona === nueva.zona && normalizar(ruta.barrio) === normalizar(nueva.barrio));
+      previas.forEach((ruta) => rutas.splice(rutas.indexOf(ruta), 1));
       rutas.unshift(nueva);
 
       porId('input-busqueda').value = '';
       mostrarHorario(nueva);
       actualizarBuscador();
       formulario.reset();
-      porId('estado-formulario').textContent = `Ruta ${posicion >= 0 ? 'actualizada' : 'guardada'}: ${nueva.zona}, ${nueva.barrio}. Ya aparece en el buscador.`;
+      porId('estado-formulario').textContent = `Ruta ${previas.length ? 'actualizada' : 'guardada'}: ${nueva.zona}, ${nueva.barrio}. Ya aparece en el buscador.`;
     }
 
     function activarEnlaces() {
@@ -1287,7 +1402,7 @@
     }
 
     function fraseProxima(proxima) {
-      if (proxima.enCurso) return `Está pasando ahora, hasta ${conArticulo(proxima.hasta)}`;
+      if (proxima.enCurso) return `En horario de recolección hasta ${conArticulo(proxima.hasta)}`;
       if (proxima.desfase === 0) return `Hoy desde ${conArticulo(proxima.desde)}`;
       if (proxima.desfase === 1) return `Mañana ${proxima.dia} desde ${conArticulo(proxima.desde)}`;
       return `El ${proxima.dia} desde ${conArticulo(proxima.desde)}`;
@@ -1295,7 +1410,7 @@
 
     function pintarProximaRecoleccion(ruta) {
       const basura = proximaRecoleccion(ruta.diasBasura, ruta.horasBasura);
-      const reciclaje = proximaRecoleccion(ruta.diasReciclaje, ruta.horasReciclaje);
+      const reciclaje = ruta.reciclajeReferencia ? null : proximaRecoleccion(ruta.diasReciclaje, ruta.horasReciclaje);
       document.querySelectorAll('.js-proxima').forEach((caja) => {
         if (!basura && !reciclaje) {
           caja.replaceChildren();
@@ -1314,9 +1429,9 @@
 
     function actualizarWhatsApp(ruta) {
       const mensaje = [
-        `Horario de recolección en ${ruta.zona} (${ruta.barrio}):`,
-        `Basura: ${formatearDias(ruta.diasBasura)}, ${formatearHoras(ruta.horasBasura)}`,
-        `Reciclaje con ${ruta.entidadReciclaje}: ${formatearDias(ruta.diasReciclaje)}, ${formatearHoras(ruta.horasReciclaje)}`,
+        `Horario de recolección en ${ruta.zona}, ${ruta.barrio}${ruta.tramo ? ` (${textoDireccion(ruta)})` : ''}:`,
+        `Basura: ${textoDias(ruta)}, ${textoHoras(ruta)}`,
+        `Reciclaje${ruta.reciclajeReferencia ? ' (referencia de la comuna, sin confirmar)' : ''} con ${ruta.entidadReciclaje}: ${formatearDias(ruta.diasReciclaje)}, ${formatearHoras(ruta.horasReciclaje)}`,
         `Consulta el de tu barrio: ${URL_PUBLICA}`
       ].join('\n');
       const destino = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
@@ -1374,10 +1489,15 @@
       svg.querySelector('.mapa-etiquetas').style.fontSize = `${12 * escala}px`;
       const marcador = porId('mapa-marcador');
       if (marcador.dataset.visible) marcador.setAttribute('r', 8 * escala);
+      const textos = svg.querySelector('.capa-textos');
+      if (textos) {
+        textos.style.fontSize = `${11.5 * escala * ESCALA_COMUNA}px`;
+        programarEtiquetas();
+      }
     }
 
     function limitarVista({ x, y, w }) {
-      const ancho = Math.min(MAPA_COMPLETO.w, Math.max(240, w));
+      const ancho = Math.min(MAPA_COMPLETO.w, Math.max(70, w));
       const alto = ancho * (MAPA_COMPLETO.h / MAPA_COMPLETO.w);
       return {
         x: Math.min(MAPA_COMPLETO.w - ancho, Math.max(0, x)),
@@ -1434,12 +1554,375 @@
       porId('mapa-nombre').textContent = zona;
     }
 
-    function elegirZona(zona) {
-      porId('input-busqueda').value = '';
-      mostrarHorario(rutas.find((ruta) => ruta.zona === zona));
-      actualizarBuscador();
+    /* Segundo nivel: sectores y calles de la comuna elegida */
+    const ESCALA_COMUNA = 4;
+    const CACHE_COMUNAS = 'ecohorarios-comunas-v1';
+    const NIVEL_VIA = Object.freeze({ 0: 800, 1: 460, 2: 300, 3: 220 });
+    const trazosSector = new Map();
+    let etiquetasMapa = [];
+    let comunaAbierta = null;
+    let datosComuna = null;
+    let pedidoComuna = 0;
+    let sectorResaltado = null;
+    let temporizadorEtiquetas = 0;
+
+    function archivoComuna(zona) {
+      return `comunas/${zona.match(/\d+/)[0].padStart(2, '0')}.json`;
+    }
+
+    async function descargarComuna(zona) {
+      const url = archivoComuna(zona);
+      if ('caches' in window) {
+        const almacen = await caches.open(CACHE_COMUNAS).catch(() => null);
+        if (almacen) {
+          const guardada = await almacen.match(url);
+          if (guardada) return guardada.json();
+          const respuesta = await fetch(url);
+          if (!respuesta.ok) throw new Error('sin archivo');
+          await almacen.put(url, respuesta.clone()).catch(() => {});
+          return respuesta.json();
+        }
+      }
+      const respuesta = await fetch(url);
+      if (!respuesta.ok) throw new Error('sin archivo');
+      return respuesta.json();
+    }
+
+    function quitarCapaComuna() {
+      const svg = porId('mapa-medellin');
+      const capa = svg.querySelector('#capa-comuna');
+      if (capa) capa.remove();
+      svg.classList.remove('en-comuna');
+      trazosSector.clear();
+      etiquetasMapa = [];
+      comunaAbierta = null;
+      datosComuna = null;
+      sectorResaltado = null;
+    }
+
+    function pintarCapaComuna(zona, datos) {
+      quitarCapaComuna();
+      const svg = porId('mapa-medellin');
+      const capa = crearSvg('g', { id: 'capa-comuna', transform: `scale(${1 / ESCALA_COMUNA})` });
+      const nombres = new Map(SECTORES.map(([codigo, , nombre, opciones]) => [codigo, { nombre, conHorario: opciones.length > 0 }]));
+      const etiquetas = [];
+      const textos = crearSvg('g', { class: 'capa-textos' });
+
+      datos.s.forEach(([codigo, d, x, y]) => {
+        const info = nombres.get(codigo);
+        if (!info) return;
+        const trazo = crearSvg('path', { d, class: `sector${info.conHorario ? '' : ' sector-sin-horario'}`, 'data-sector': codigo, 'data-nombre': info.nombre, tabindex: 0, role: 'button', 'aria-label': info.nombre });
+        capa.append(trazo);
+        trazosSector.set(codigo, trazo);
+        const texto = crearSvg('text', { class: 'etiqueta-sector', x, y });
+        texto.textContent = info.nombre;
+        textos.append(texto);
+        etiquetas.push({ el: texto, x, y, ancho: info.nombre.length, angulo: 0, nivel: -1 });
+      });
+
+      const vias = crearSvg('g', { class: 'capa-vias' });
+      ['t', 'b', 'm', 'p'].forEach((clase) => {
+        if (datos.v[clase]) vias.append(crearSvg('path', { d: datos.v[clase], class: `via via-${clase}` }));
+      });
+      capa.append(vias);
+
+      datos.e.slice().sort((a, b) => a[4] - b[4]).forEach(([nombre, x, y, angulo, nivel]) => {
+        const texto = crearSvg('text', { class: 'etiqueta-via', x, y, transform: `rotate(${angulo} ${x} ${y})` });
+        texto.textContent = nombre;
+        texto.style.display = 'none';
+        textos.append(texto);
+        etiquetas.push({ el: texto, x, y, ancho: nombre.length, angulo, nivel });
+      });
+      capa.append(textos);
+
+      svg.insertBefore(capa, svg.querySelector('.mapa-etiquetas'));
+      svg.classList.add('en-comuna');
+      etiquetasMapa = etiquetas;
+      comunaAbierta = zona;
+      datosComuna = datos;
+      porId('mapa-volver').hidden = false;
+      porId('mapa-ayuda').textContent = 'Toca tu sector. Acerca y arrastra el mapa para ver las calles.';
+      aplicarVista(vistaMapa);
+      if (rutaActual && rutaActual.zona === zona) resaltarSector(claveSector(rutaActual));
+    }
+
+    function programarEtiquetas() {
+      clearTimeout(temporizadorEtiquetas);
+      temporizadorEtiquetas = setTimeout(ordenarEtiquetas, 90);
+    }
+
+    function ordenarEtiquetas() {
+      const svg = porId('mapa-medellin');
+      const anchoPx = svg.clientWidth;
+      if (!anchoPx) return;
+      const escala = vistaMapa.w / anchoPx;
+      const altoPx = vistaMapa.h / escala;
+      const ocupados = [];
+      etiquetasMapa.forEach((etiqueta) => {
+        const px = (etiqueta.x / ESCALA_COMUNA - vistaMapa.x) / escala;
+        const py = (etiqueta.y / ESCALA_COMUNA - vistaMapa.y) / escala;
+        const permitida = etiqueta.nivel < 0 || vistaMapa.w < NIVEL_VIA[etiqueta.nivel];
+        let visible = permitida && px > 8 && py > 8 && px < anchoPx - 8 && py < altoPx - 8;
+        if (visible) {
+          const largo = etiqueta.ancho * 6.3;
+          const rad = Math.abs(etiqueta.angulo) * Math.PI / 180;
+          const mediaX = (largo * Math.cos(rad) + 14 * Math.sin(rad)) / 2;
+          const mediaY = (largo * Math.sin(rad) + 14 * Math.cos(rad)) / 2;
+          const caja = [px - mediaX, py - mediaY, px + mediaX, py + mediaY];
+          visible = !ocupados.some((o) => caja[0] < o[2] && caja[2] > o[0] && caja[1] < o[3] && caja[3] > o[1]);
+          if (visible) ocupados.push(caja);
+        }
+        etiqueta.el.style.display = visible ? '' : 'none';
+      });
+    }
+
+    async function abrirComuna(zona) {
+      if (comunaAbierta === zona) return true;
+      const pedido = ++pedidoComuna;
       enfocarZona(zona);
+      porId('mapa-ayuda').textContent = 'Cargando los sectores y las calles…';
+      try {
+        const datos = await descargarComuna(zona);
+        if (pedido !== pedidoComuna) return false;
+        pintarCapaComuna(zona, datos);
+        return true;
+      } catch (error) {
+        if (pedido === pedidoComuna) porId('mapa-ayuda').textContent = 'No se pudieron cargar las calles. Elige tu sector en la lista.';
+        return false;
+      }
+    }
+
+    function volverCiudad() {
+      pedidoComuna += 1;
+      quitarCapaComuna();
+      porId('mapa-volver').hidden = true;
+      porId('mapa-ayuda').textContent = 'Toca tu comuna o corregimiento para ver sus sectores y calles.';
+      moverVista({ ...MAPA_COMPLETO });
+    }
+
+    function resaltarSector(clave) {
+      if (sectorResaltado && trazosSector.has(sectorResaltado)) trazosSector.get(sectorResaltado).classList.remove('sector-activo');
+      sectorResaltado = trazosSector.has(clave) ? clave : null;
+      if (sectorResaltado) {
+        const trazo = trazosSector.get(sectorResaltado);
+        trazo.classList.add('sector-activo');
+        porId('mapa-nombre').textContent = trazo.dataset.nombre;
+      }
+    }
+
+    function enfocarSector(codigo) {
+      const trazo = trazosSector.get(codigo);
+      if (!trazo) return;
+      const caja = trazo.getBBox();
+      const proporcion = MAPA_COMPLETO.w / MAPA_COMPLETO.h;
+      const ancho = caja.width / ESCALA_COMUNA;
+      const alto = caja.height / ESCALA_COMUNA;
+      const w = Math.max(ancho * 1.5, alto * 1.5 * proporcion, 170);
+      const h = w / proporcion;
+      moverVista(limitarVista({ x: caja.x / ESCALA_COMUNA + ancho / 2 - w / 2, y: caja.y / ESCALA_COMUNA + alto / 2 - h / 2, w }));
+    }
+
+    function pintarOpcionesPanel(ruta) {
+      const clave = claveSector(ruta);
+      const propias = rutasDeSector(clave);
+      const select = porId('panel-sector');
+      if ([...select.options].some((opcion) => opcion.value === clave)) select.value = clave;
+      const contenedor = porId('panel-tramos');
+      contenedor.hidden = propias.length < 2;
+      if (propias.length < 2) {
+        contenedor.replaceChildren();
+        return;
+      }
+      const crear = (etiqueta, clase, texto) => {
+        const elemento = document.createElement(etiqueta);
+        if (clase) elemento.className = clase;
+        elemento.textContent = texto;
+        return elemento;
+      };
+      const piezas = [
+        crear('strong', '', '¿Cuál es la dirección de tu casa?'),
+        crear('p', 'direccion-ayuda', 'Búscala en tu recibo de servicios, por ejemplo Carrera 70 # 45-20.')
+      ];
+      const hayCandidata = sugerencia && sugerencia.clave === clave && !tramoElegido && !verPosibles;
+      if (hayCandidata) {
+        piezas.push(crear('p', 'direccion-sugerida', `Por tu ubicación, parece que vives cerca de la ${sugerencia.calle}: ${textoDireccion(rutas.find((candidata) => String(candidata.id) === sugerencia.rutaId))}.`));
+        const confirmar = crear('button', 'boton tramo-confirmar', 'Sí, esa es mi dirección');
+        confirmar.type = 'button';
+        confirmar.dataset.ruta = sugerencia.rutaId;
+        piezas.push(confirmar);
+        piezas.push(crear('p', 'direccion-ayuda', 'Si no es, elige la tuya:'));
+      }
+      propias.forEach((propia) => {
+        const boton = crear('button', 'tramo', textoDireccion(propia));
+        boton.type = 'button';
+        boton.dataset.ruta = String(propia.id);
+        boton.setAttribute('aria-pressed', String(tramoElegido && propia === ruta));
+        piezas.push(boton);
+      });
+      const noSe = crear('button', 'tramo tramo-no-se', 'No sé mi dirección');
+      noSe.type = 'button';
+      noSe.setAttribute('aria-pressed', String(verPosibles));
+      piezas.push(noSe);
+      if (verPosibles) {
+        piezas.push(crear('p', 'direccion-ayuda', 'En este sector hay varios horarios posibles:'));
+        propias.forEach((propia) => piezas.push(crear('p', 'direccion-posible', `${textoDireccion(propia)}. ${textoDias(propia)}, ${textoHoras(propia)}`)));
+        const confirmaWa = crear('a', '', 'Confirma tu dirección con Emvarias por WhatsApp: 304 403 7188');
+        confirmaWa.href = 'https://wa.me/573044037188';
+        confirmaWa.target = '_blank';
+        confirmaWa.rel = 'noopener noreferrer';
+        piezas.push(confirmaWa);
+      }
+      contenedor.replaceChildren(...piezas);
+    }
+
+    const PRECISION_EXACTA = 50;
+    const DISTANCIA_CALLE = 50;
+    let sugerencia = null;
+    let verPosibles = false;
+
+    function valorNomenclatura(texto) {
+      const partes = String(texto).toLowerCase().match(/^(\d+)([a-z]*)/);
+      if (!partes) return null;
+      return [...partes[2]].reduce((suma, letra, indice) => suma + (letra.charCodeAt(0) - 96) / 27 ** (indice + 1), Number(partes[1]));
+    }
+
+    function reglasDireccion(ruta) {
+      const reglas = [];
+      const patron = /(carreras?|calles?)\s+(\d+[a-z]*)(?:\s+(?:y|a)\s+(?:las?\s+)?(?:carreras?\s+|calles?\s+)?(\d+[a-z]*))?/gi;
+      for (const m of (ruta.tramo || '').matchAll(patron)) {
+        const eje = m[1].toLowerCase().startsWith('carrera') ? 'carrera' : 'calle';
+        const a = valorNomenclatura(m[2]);
+        const b = m[3] ? valorNomenclatura(m[3]) : a;
+        reglas.push({ eje, min: Math.min(a, b), max: Math.max(a, b) });
+      }
+      return reglas;
+    }
+
+    function calleMasCercana(eje, x, y) {
+      let mejor = null;
+      (datosComuna ? datosComuna.n || [] : []).forEach(([nombre, puntos]) => {
+        const partes = nombre.match(/^(carrera|cra\.?|cr\.?|kr\.?|calle|cl\.?)\s*(\d+\s*[a-z]*)/i);
+        if (!partes || (/^c(alle|l)/i.test(partes[1]) ? 'calle' : 'carrera') !== eje) return;
+        for (let i = 2; i < puntos.length; i += 2) {
+          const ax = puntos[i - 2], ay = puntos[i - 1], dx = puntos[i] - ax, dy = puntos[i + 1] - ay;
+          const t = Math.max(0, Math.min(1, ((x - ax) * dx + (y - ay) * dy) / (dx * dx + dy * dy || 1)));
+          const d = Math.hypot(x - ax - t * dx, y - ay - t * dy);
+          if (!mejor || d < mejor.distancia) mejor = { nombre, distancia: d, valor: valorNomenclatura(partes[2].replace(/\s+/g, '')) };
+        }
+      });
+      return mejor && mejor.distancia <= DISTANCIA_CALLE ? mejor : null;
+    }
+
+    function sugerirDireccion(codigo, punto, precision) {
+      const propias = rutasDeSector(codigo);
+      if (propias.length < 2 || precision > PRECISION_EXACTA) return;
+      const x = punto.x * ESCALA_COMUNA;
+      const y = punto.y * ESCALA_COMUNA;
+      const cerca = { carrera: calleMasCercana('carrera', x, y), calle: calleMasCercana('calle', x, y) };
+      if (propias.some((ruta) => /;|exclu|no incluye|sobre|v[ií]a/i.test(ruta.tramo || ''))) return;
+      const conReglas = propias.map((ruta) => ({ ruta, reglas: reglasDireccion(ruta) }));
+      const evaluables = conReglas.filter(({ reglas }) => reglas.length && reglas.every((regla) => cerca[regla.eje]));
+      const coinciden = evaluables.filter(({ reglas }) => reglas.every((regla) => cerca[regla.eje].valor >= regla.min - 0.02 && cerca[regla.eje].valor <= regla.max + 0.02));
+      let elegida = coinciden.length === 1 ? coinciden[0] : null;
+      if (!elegida && !coinciden.length) {
+        const sinReglas = conReglas.filter(({ reglas }) => !reglas.length);
+        const todasMedidas = conReglas.filter(({ reglas }) => reglas.length).length === evaluables.length;
+        if (todasMedidas && evaluables.length && sinReglas.length === 1 && /resto/i.test(sinReglas[0].ruta.tramo)) elegida = sinReglas[0];
+      }
+      if (!elegida) return;
+      const ejePrincipal = elegida.reglas.length ? elegida.reglas[0].eje : (cerca.carrera ? 'carrera' : 'calle');
+      const referencia = cerca[ejePrincipal];
+      if (!referencia) return;
+      sugerencia = { clave: codigo, rutaId: String(elegida.ruta.id), calle: referencia.nombre };
+      pintarOpcionesPanel(rutaActual);
+    }
+
+    let tramoElegido = false;
+
+    function prepararPanelZona(zona) {
+      const panel = porId('panel-ubicacion');
+      const select = porId('panel-sector');
+      const sectores = sectoresUnicos(rutas.filter((ruta) => ruta.zona === zona));
+      select.replaceChildren(new Option('Selecciona', ''), ...sectores.map((ruta) => new Option(ruta.barrio, claveSector(ruta))));
+      select.value = '';
+      porId('panel-zona').textContent = zona;
+      porId('panel-barrio').textContent = '';
+      porId('panel-elegir').hidden = false;
+      porId('panel-tramos').hidden = true;
+      porId('panel-aviso').hidden = true;
+      porId('panel-horario').hidden = true;
+      panel.hidden = false;
+    }
+
+    async function elegirZona(zona) {
+      porId('input-busqueda').value = '';
+      resaltarZona(zona);
+      prepararPanelZona(zona);
+      return abrirComuna(zona);
+    }
+
+    function elegirSector(clave) {
+      const propias = rutasDeSector(clave);
+      if (!propias.length) return;
+      if (porId('panel-sector').options.length < 2 || propias[0].zona !== porId('panel-zona').textContent) prepararPanelZona(propias[0].zona);
+      porId('input-busqueda').value = '';
+      tramoElegido = propias.length === 1;
+      sugerencia = null;
+      verPosibles = false;
+      mostrarHorario(propias[0]);
+      actualizarBuscador();
+      porId('panel-horario').hidden = !tramoElegido;
+      if (!tramoElegido) porId('panel-aviso').hidden = true;
       porId('panel-ubicacion').hidden = false;
+    }
+
+    function elegirTramo(id) {
+      const ruta = rutas.find((candidata) => String(candidata.id) === id);
+      if (!ruta) return;
+      tramoElegido = true;
+      verPosibles = false;
+      mostrarHorario(ruta);
+      actualizarBuscador();
+      porId('panel-horario').hidden = false;
+    }
+
+    function verPanel() {
+      porId('panel-ubicacion').scrollIntoView({ block: 'nearest' });
+    }
+
+    function activarPanelSectores() {
+      porId('panel-sector').addEventListener('change', (evento) => {
+        if (!evento.target.value) return;
+        elegirSector(evento.target.value);
+        enfocarSector(evento.target.value);
+      });
+      porId('panel-tramos').addEventListener('click', (evento) => {
+        if (evento.target.closest('.tramo-no-se')) {
+          verPosibles = !verPosibles;
+          tramoElegido = false;
+          porId('panel-horario').hidden = true;
+          porId('panel-aviso').hidden = true;
+          pintarOpcionesPanel(rutaActual);
+          return;
+        }
+        const boton = evento.target.closest('.tramo, .tramo-confirmar');
+        if (boton) elegirTramo(boton.dataset.ruta);
+      });
+      porId('mapa-volver').addEventListener('click', volverCiudad);
+    }
+
+    function activarEnMapa(objetivo) {
+      const sector = objetivo.closest('[data-sector]');
+      const zona = objetivo.closest('[data-zona]');
+      if (!sector && !zona) return;
+      porId('estado-ubicacion').textContent = '';
+      if (sector) {
+        elegirSector(sector.dataset.sector);
+        enfocarSector(sector.dataset.sector);
+      } else {
+        elegirZona(zona.dataset.zona);
+      }
+      verPanel();
     }
 
     function activarArrastreMapa() {
@@ -1474,27 +1957,23 @@
           huboArrastre = false;
           return;
         }
-        const trazo = evento.target.closest('[data-zona]');
-        if (trazo) {
-          porId('estado-ubicacion').textContent = '';
-          elegirZona(trazo.dataset.zona);
-          porId('panel-ubicacion').scrollIntoView({ block: 'nearest' });
-        }
+        activarEnMapa(evento.target);
       });
       svg.addEventListener('keydown', (evento) => {
-        const trazo = evento.target.closest('[data-zona]');
-        if (!trazo || (evento.key !== 'Enter' && evento.key !== ' ')) return;
+        if (evento.key !== 'Enter' && evento.key !== ' ') return;
+        if (!evento.target.closest('[data-zona], [data-sector]')) return;
         evento.preventDefault();
-        porId('estado-ubicacion').textContent = '';
-        elegirZona(trazo.dataset.zona);
-        porId('panel-ubicacion').scrollIntoView({ block: 'nearest' });
+        activarEnMapa(evento.target);
       });
       svg.addEventListener('pointerover', (evento) => {
+        const sector = evento.target.closest('[data-sector]');
         const trazo = evento.target.closest('[data-zona]');
-        if (trazo) porId('mapa-nombre').textContent = trazo.dataset.zona;
+        if (sector) porId('mapa-nombre').textContent = sector.dataset.nombre;
+        else if (trazo) porId('mapa-nombre').textContent = trazo.dataset.zona;
       });
       svg.addEventListener('pointerleave', () => {
-        if (zonaResaltada) porId('mapa-nombre').textContent = zonaResaltada;
+        const activo = sectorResaltado && trazosSector.get(sectorResaltado);
+        porId('mapa-nombre').textContent = activo ? activo.dataset.nombre : zonaResaltada || '';
       });
     }
 
@@ -1533,7 +2012,30 @@
       return sinAsignar || cercana.distancia <= RADIO_CERCANIA ? { zona: cercana.zona, exacta: false } : null;
     }
 
-    function ubicacionObtenida({ coords }) {
+    function localizarSector(punto) {
+      const local = porId('mapa-medellin').createSVGPoint();
+      local.x = punto.x * ESCALA_COMUNA;
+      local.y = punto.y * ESCALA_COMUNA;
+      for (const [codigo, trazo] of trazosSector) {
+        if (trazo.isPointInFill(local)) return { codigo, exacta: true };
+      }
+      let mejor = null;
+      let distancia = Infinity;
+      trazosSector.forEach((trazo, codigo) => {
+        const largo = trazo.getTotalLength();
+        for (let recorrido = 0; recorrido < largo; recorrido += 40) {
+          const borde = trazo.getPointAtLength(recorrido);
+          const d = Math.hypot(borde.x - local.x, borde.y - local.y);
+          if (d < distancia) {
+            distancia = d;
+            mejor = codigo;
+          }
+        }
+      });
+      return mejor && distancia <= RADIO_CERCANIA * ESCALA_COMUNA ? { codigo: mejor, exacta: false } : null;
+    }
+
+    async function ubicacionObtenida({ coords }) {
       const punto = puntoEnMapa(coords.latitude, coords.longitude);
       const resultado = localizarZona(punto);
       restaurarBotonUbicacion();
@@ -1547,12 +2049,21 @@
       marcador.dataset.visible = 'si';
       marcador.setAttribute('cx', punto.x);
       marcador.setAttribute('cy', punto.y);
-      elegirZona(resultado.zona);
+      const abierta = await elegirZona(resultado.zona);
+      const sector = abierta ? localizarSector(punto) : null;
+      if (sector) {
+        elegirSector(sector.codigo);
+        enfocarSector(sector.codigo);
+        sugerirDireccion(sector.codigo, punto, coords.accuracy);
+      }
 
-      const aproximada = !resultado.exacta || coords.accuracy > 1000;
+      const nombreSector = sector ? trazosSector.get(sector.codigo).dataset.nombre : '';
+      const lugar = nombreSector ? `${resultado.zona}, ${nombreSector}` : resultado.zona;
+      const aproximada = !resultado.exacta || coords.accuracy > 1000 || (sector && !sector.exacta);
+      const pendiente = sector ? '' : ' Elige tu sector en la lista.';
       porId('estado-ubicacion').textContent = aproximada
-        ? `Tu ubicación es aproximada y te acerca a ${resultado.zona}. Confirma que sea tu zona.`
-        : `Estás en ${resultado.zona}.`;
+        ? `Tu ubicación es aproximada y te acerca a ${lugar}. Confirma que sea tu zona.${pendiente}`
+        : `Estás en ${lugar}.${pendiente}`;
 
       const mapa = document.querySelector('.hero-mapa');
       const borde = mapa.getBoundingClientRect().top;
@@ -1672,20 +2183,24 @@
 
       escribir(fuerte(ruta.zona), 26);
       escribir(fuerte(ruta.barrio), 24);
+      if (ruta.tramo) escribir(normal(`Aplica para: ${textoDireccion(ruta)}`), 20);
       if (ruta.comunitaria) escribir(normal('Ruta aportada por la comunidad, sin verificar.'), 20);
       regla();
       escribir(fuerte('Basura ordinaria'), 24);
       escribir(normal('Emvarias'), 20);
-      escribir(fuerte(formatearDias(ruta.diasBasura)), 20);
-      escribir(normal(formatearHoras(ruta.horasBasura)), 20);
+      escribir(fuerte(textoDias(ruta)), 20);
+      escribir(normal(textoHoras(ruta)), 20);
       regla();
       escribir(fuerte('Reciclaje'), 24);
       escribir(normal(ruta.entidadReciclaje), 20);
       escribir(fuerte(formatearDias(ruta.diasReciclaje)), 20);
       escribir(normal(formatearHoras(ruta.horasReciclaje)), 20);
+      if (ruta.reciclajeReferencia) escribir(normal('Referencia de la comuna, sin confirmar'), 20);
       regla();
-      escribir([{ texto: 'Punto de referencia:', negrita: false }, { texto: ruta.referencia, negrita: true }], 20);
-      regla();
+      if (ruta.referencia) {
+        escribir([{ texto: 'Punto de referencia:', negrita: false }, { texto: ruta.referencia, negrita: true }], 20);
+        regla();
+      }
       escribir(fuerte('Las 3 bolsas de la Resolución 2184 de 2019'), 24);
 
       GUIA_BOLSAS.forEach((bolsa) => {
@@ -1804,7 +2319,8 @@
       porId('btn-mi-horario').addEventListener('click', pedirUbicacion);
       porId('mapa-acercar').addEventListener('click', () => zoomMapa(0.6));
       porId('mapa-alejar').addEventListener('click', () => zoomMapa(1 / 0.6));
-      porId('mapa-completo').addEventListener('click', () => moverVista({ ...MAPA_COMPLETO }));
+      porId('mapa-completo').addEventListener('click', volverCiudad);
+      activarPanelSectores();
       activarArrastreMapa();
       new ResizeObserver(() => aplicarVista(vistaMapa)).observe(porId('mapa-medellin'));
 
@@ -1830,13 +2346,14 @@
       );
       porId('form-zona').prepend(new Option('Elige una opción', '', true, true));
 
-      mostrarHorario(rutas.find((ruta) => ruta.zona === ZONA_PREDETERMINADA));
+      mostrarHorario(rutas.find((ruta) => ruta.zona === ZONA_PREDETERMINADA && ruta.barrio === 'La Pilarica'));
       actualizarBuscador();
       activarEnlaces();
 
       porId('input-busqueda').addEventListener('input', actualizarBuscador);
       porId('select-zona').addEventListener('change', zonaCambiada);
       porId('select-barrio').addEventListener('change', barrioCambiado);
+      porId('select-tramo').addEventListener('change', tramoCambiado);
       porId('coincidencias').addEventListener('click', coincidenciaElegida);
       porId('form-comunitario').addEventListener('submit', guardarRuta);
     });
