@@ -308,6 +308,7 @@
     }
     #vista-previa::backdrop { background: rgba(15, 33, 82, 0.72); }
     #vista-previa h2 { font-size: var(--text-h3); max-width: none; }
+    #ficha-impresion { display: none; font-family: Helvetica, Arial, "Liberation Sans", sans-serif; }
     #hoja-previa {
       display: block;
       height: min(62dvh, calc((100vw - 3rem) * 1.294));
@@ -708,73 +709,44 @@
       .pasos,
       .buscador-cabecera,
       .buscador-controles,
-      .reciclaje-cabecera,
+      .reciclaje-guia,
       .print-action-box,
       .registro-rutas,
       .pitch-video,
       .ensayo-doc,
       .equipo-footer,
-      .iman,
-      .proxima,
-      .etiqueta-alerta { display: none !important; }
+      #resultado-horario > *:not(#ficha-impresion) { display: none !important; }
 
-      *, *::before, *::after {
-        color: #000000 !important;
-        background: #FFFFFF !important;
-        box-shadow: none !important;
-        text-shadow: none !important;
-        animation: none !important;
-      }
-
-      html, body { margin: 0; height: auto; font-size: 20pt; line-height: 1.2; }
+      html, body { margin: 0; height: auto; background: #FFFFFF !important; }
 
       main,
       .contenedor,
       .buscador-prototipo,
-      .reciclaje-guia,
-      .buscador-rejilla,
-      .bolsas {
+      .buscador-rejilla {
         display: block;
         width: auto;
         margin: 0;
         padding: 0;
+        background: #FFFFFF !important;
       }
 
       #resultado-horario {
         padding: 0;
         border-radius: 0;
+        background: #FFFFFF !important;
+        box-shadow: none !important;
+        animation: none !important;
         break-inside: avoid;
         page-break-inside: avoid;
       }
-      #res-zona { font-size: 26pt; line-height: 1.15; }
-      #res-barrio { margin: 0; font-size: 24pt; font-weight: 700; line-height: 1.15; }
-      .res-aviso { margin-top: 4pt; padding: 0; border: 0; font-size: 20pt; }
-      .res-bloques { display: block; margin: 0; }
-      .res-bloque { margin-top: 8pt; padding-top: 4pt; border-top: 2pt solid #000000; }
-      .res-bloque h4 { font-size: 24pt; }
-      .res-entidad, .res-dias, .res-horas, .res-tramo, .nota-referencia { margin: 0; font-size: 20pt; line-height: 1.2; }
-      .res-dias { font-weight: 700; }
-      .res-referencia { margin-top: 8pt; padding-top: 4pt; border-top: 2pt solid #000000; font-size: 20pt; }
 
-      .reciclaje-guia {
-        margin-top: 10pt;
-        padding-top: 6pt;
-        border-top: 2pt solid #000000;
-        break-inside: avoid;
-        page-break-inside: avoid;
-      }
-      .reciclaje-titulo { font-size: 24pt; max-width: none; }
-      .bolsa { display: flex; flex-direction: row; gap: 10pt; margin-top: 6pt; padding: 0; break-inside: avoid; }
-      .bolsa svg {
-        width: 34pt;
-        height: 40pt;
+      #ficha-impresion {
+        display: block;
+        width: 100%;
+        height: 703pt;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
-      .icono-verde, .icono-negra { stroke: #000000; }
-      .icono-blanca { stroke: #000000; }
-      .bolsa h3 { font-size: 24pt; }
-      .bolsa p { margin: 0; font-size: 20pt; line-height: 1.15; }
     }
   </style>
 </head>
@@ -958,6 +930,7 @@
           <article id="resultado-horario" aria-live="polite" aria-labelledby="res-zona">
             <span class="iman iman-izq" aria-hidden="true"></span>
             <span class="iman iman-der" aria-hidden="true"></span>
+            <svg id="ficha-impresion" viewBox="42.5 42.5 527 707" aria-hidden="true"></svg>
             <h3 id="res-zona"></h3>
             <p id="res-barrio"></p>
             <p id="res-tramo" class="res-tramo" hidden></p>
@@ -1318,6 +1291,7 @@
       porId('panel-horas-reciclaje').textContent = formatearHoras(ruta.horasReciclaje);
       resaltarZona(ruta.zona);
       resaltarSector(claveSector(ruta));
+      pintarHoja(porId('ficha-impresion'), disenarHoja(ruta));
       pintarOpcionesPanel(ruta);
       pintarProximaRecoleccion(ruta);
       actualizarWhatsApp(ruta);
@@ -2226,19 +2200,23 @@
     const ANCHOS_HELVETICA = [278,278,355,556,556,889,667,191,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,278,278,584,584,584,556,1015,667,667,722,722,667,611,778,722,278,500,667,556,833,722,778,667,778,722,667,611,722,667,944,667,667,611,278,278,278,469,556,333,556,556,500,556,556,278,556,556,222,222,500,222,833,556,556,556,556,333,500,278,556,500,722,500,500,500,334,260,334,584];
     const ANCHOS_HELVETICA_NEGRITA = [278,333,474,556,556,889,722,238,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,333,333,584,584,584,611,975,722,722,722,722,667,611,778,722,278,556,722,611,833,722,778,667,778,722,667,611,722,667,944,667,667,611,333,278,333,584,556,333,556,611,556,611,556,333,611,611,278,278,556,278,889,611,611,611,611,389,556,333,611,556,778,556,556,500,389,280,389,584];
     const PAGINA = Object.freeze({ ancho: 612, alto: 792, margen: 42.5 });
-    const BOLSA_CUERPO = [[18, 14], [10, 20, 6, 30, 6, 40], [6, 48, 12, 52, 24, 52], [36, 52, 42, 48, 42, 40], [42, 30, 38, 20, 30, 14]];
-    const BOLSA_NUDO = [[18, 14], [14, 5], [18, 7, 21, 7, 24, 5], [27, 7, 30, 7, 34, 5], [30, 14]];
+    const TINTA = '#0F172A';
+    const GRIS_TEXTO = '#475569';
+    const AMBAR = '#D97706';
+    const VERDE_FICHA = '#16A34A';
+    const DIAS_CORTOS = Object.freeze([['LUN', 'lunes'], ['MAR', 'martes'], ['MIÉ', 'miércoles'], ['JUE', 'jueves'], ['VIE', 'viernes'], ['SÁB', 'sábado'], ['DOM', 'domingo']]);
+    const ANCHOS_ESPECIALES = Object.freeze({ '•': 350, '—': 1000 });
     const GUIA_BOLSAS = Object.freeze([
-      { titulo: 'Bolsa blanca', tipo: 'Aprovechables limpios:', detalle: 'papel, cartón, plástico, metal, vidrio.', relleno: [1, 1, 1] },
-      { titulo: 'Bolsa verde', tipo: 'Orgánicos aprovechables:', detalle: 'restos de comida, poda.', relleno: [0.18, 0.49, 0.2] },
-      { titulo: 'Bolsa negra', tipo: 'No aprovechables:', detalle: 'papel higiénico, servilletas usadas, cartones contaminados.', relleno: [0, 0, 0] }
+      { titulo: 'BOLSA BLANCA', tipo: 'Aprovechables limpios', items: ['Plástico y botellas PET', 'Cartón y papel seco', 'Metales y latas de aluminio', 'Envases de vidrio'], nota: 'Deben estar limpios y secos', fondo: '#FFFFFF', borde: '#64748B', punto: '#FFFFFF', color: TINTA },
+      { titulo: 'BOLSA VERDE', tipo: 'Orgánicos aprovechables', items: ['Restos de comida cruda', 'Cáscaras de fruta y verdura', 'Poda de jardín y hojas secas', 'Residuos agrícolas'], nota: 'Ideales para abono y compostaje', fondo: '#F0FDF4', borde: VERDE_FICHA, punto: VERDE_FICHA, color: '#166534' },
+      { titulo: 'BOLSA NEGRA', tipo: 'No aprovechables', items: ['Papel higiénico y pañuelos', 'Servilletas usadas', 'Pañales y tapabocas', 'Empaques sucios'], nota: 'Va en el camión ordinario de Emvarias', fondo: '#F8FAFC', borde: TINTA, punto: TINTA, color: TINTA }
     ]);
 
     function anchoTexto(texto, tamano, negrita) {
       const tabla = negrita ? ANCHOS_HELVETICA_NEGRITA : ANCHOS_HELVETICA;
       const base = texto.normalize('NFD').replace(/[̀-ͯ]/g, '');
       let total = 0;
-      for (const caracter of base) total += tabla[caracter.charCodeAt(0) - 32] ?? 556;
+      for (const caracter of base) total += ANCHOS_ESPECIALES[caracter] ?? tabla[caracter.charCodeAt(0) - 32] ?? 556;
       return total * tamano / 1000;
     }
 
@@ -2276,90 +2254,223 @@
       return lineas;
     }
 
+    const capital = (texto) => texto.charAt(0).toUpperCase() + texto.slice(1);
+
+    function diasDeLaSemana(dias) {
+      if (!dias) return [];
+      return normalizar(dias) === 'todos los dias' ? DIAS_CORTOS.map(([, nombre]) => nombre) : nombresDeDias(dias) || [];
+    }
+
+    function diasFicha(dias) {
+      if (!dias) return 'Horario por confirmar';
+      const nombres = diasDeLaSemana(dias);
+      if (!nombres.length) return dias;
+      if (nombres.length === 7) return 'Todos los días';
+      if (nombres.length === 6) return 'Lunes a Sábado';
+      const titulos = nombres.map(capital);
+      if (titulos.length === 1) return `Solo los ${titulos[0]}${titulos[0].endsWith('s') ? '' : 's'}`;
+      return `${titulos.slice(0, -1).join(', ')} y ${titulos[titulos.length - 1]}`;
+    }
+
+    function horasFicha(horas) {
+      return horas ? formatearHoras(horas) : 'Consulta a Emvarias';
+    }
+
+    function momentoDelDia(horas) {
+      const hora = Number((horas || '').slice(0, 2));
+      if (hora < 12) return 'en la mañana';
+      return hora < 19 ? 'en la tarde' : 'en la noche';
+    }
+
+    function lineaTerritorial(ruta) {
+      const numero = ruta.zona.match(/\d+/)[0];
+      const lugar = /^correg/i.test(ruta.zona) ? `Corregimiento ${numero}` : ruta.zona;
+      if (!ruta.tramo) return `${lugar} | Sector: ${ruta.barrio}`;
+      const direccion = textoDireccion(ruta)
+        .replace(/^([^:]+):\s*(entre .+)$/i, '$1 ($2)')
+        .replace(/^(\S+)\s+(entre .+)$/i, '$1 ($2)')
+        .replace(/\b(\d+)([a-z]+)\b/g, (_, n, l) => n + l.toUpperCase());
+      return `${lugar} | Sector: ${direccion}`;
+    }
+
     function disenarHoja(ruta) {
       const izquierda = PAGINA.margen;
       const anchoUtil = PAGINA.ancho - PAGINA.margen * 2;
       const trazos = [];
-      let y = PAGINA.margen;
+      const poner = (trazo) => { trazos.push(trazo); return trazo; };
+      const parrafo = (texto, x, cima, maximo, tamano, opciones = {}) => {
+        let c = cima;
+        envolverTexto([{ texto, negrita: !!opciones.negrita }], tamano, maximo).forEach((palabras) => {
+          const linea = palabras.map((p) => p.texto).join(' ');
+          const medida = anchoTexto(linea, tamano, !!opciones.negrita);
+          poner({ tipo: 'texto', x: opciones.centro ? x + (maximo - medida) / 2 : x, y: c + tamano * 0.95, tamano, negrita: !!opciones.negrita, italica: !!opciones.italica, color: opciones.color || TINTA, texto: linea });
+          c += tamano * 1.22;
+        });
+        return c;
+      };
 
-      const escribir = (segmentos, tamano, x = izquierda, maximo = anchoUtil) => {
-        envolverTexto(segmentos, tamano, maximo).forEach((linea) => {
-          let cursor = x;
-          const base = y + tamano * 0.95;
-          linea.forEach((palabra, indice) => {
-            const continuacion = indice > 0 && linea[indice - 1].negrita === palabra.negrita;
-            const previo = trazos[trazos.length - 1];
-            if (indice > 0) cursor += anchoTexto(' ', tamano, false);
-            if (continuacion) {
-              previo.texto += ` ${palabra.texto}`;
-            } else {
-              trazos.push({ tipo: 'texto', x: cursor, y: base, tamano, negrita: palabra.negrita, texto: palabra.texto });
-            }
-            cursor += anchoTexto(palabra.texto, tamano, palabra.negrita);
-          });
-          y += tamano * 1.2;
+      const circulo = (cx, cy, r, relleno, borde, grosor = 1) => poner({ tipo: 'circulo', cx, cy, r, relleno, borde, grosor });
+      const rect = (x, y, w, h, opciones = {}) => poner({ tipo: 'rect', x, y, w, h, r: 0, ...opciones });
+      const linea = (puntos, borde, grosor) => poner({ tipo: 'poli', puntos, borde, grosor, abierta: true });
+      const forma = (puntos, relleno) => poner({ tipo: 'poli', puntos, relleno });
+
+      const iconoCamion = (x, y, c) => {
+        rect(x, y + 3, 11, 9, { relleno: c });
+        forma([[x + 12, y + 5.5], [x + 15.5, y + 5.5], [x + 18, y + 9], [x + 18, y + 12], [x + 12, y + 12]], c);
+        circulo(x + 4, y + 13, 2.3, c, '#FFFFFF', 0.9);
+        circulo(x + 14, y + 13, 2.3, c, '#FFFFFF', 0.9);
+      };
+      const iconoReciclaje = (x, y, c) => {
+        const cx = x + 8, cy = y + 8, radio = 6.3;
+        const punto = (grados, r = radio) => [cx + Math.cos(grados * Math.PI / 180) * r, cy + Math.sin(grados * Math.PI / 180) * r];
+        [-90, 30, 150].forEach((inicio) => {
+          const arco = [0, 20, 40, 60, 80].map((paso) => punto(inicio + paso));
+          linea(arco, c, 2.3);
+          forma([punto(inicio + 106), punto(inicio + 82, radio + 3.6), punto(inicio + 82, radio - 3.6)], c);
         });
       };
-      const fuerte = (texto) => [{ texto, negrita: true }];
-      const normal = (texto) => [{ texto, negrita: false }];
-      const regla = () => {
-        y += 7;
-        trazos.push({ tipo: 'linea', x1: izquierda, x2: izquierda + anchoUtil, y });
-        y += 7;
+      const iconoReloj = (x, y) => {
+        circulo(x + 7, y + 7, 6.2, '#FFFFFF', '#DC2626', 1.7);
+        linea([[x + 7, y + 3.6], [x + 7, y + 7], [x + 9.8, y + 8.6]], '#DC2626', 1.5);
+      };
+      const iconoPin = (x, y) => {
+        forma([[x + 2.6, y + 4], [x + 8.4, y + 4], [x + 5.5, y + 12.5]], '#DC2626');
+        circulo(x + 5.5, y + 3.6, 3.2, '#DC2626', '#DC2626', 0.3);
+      };
+      const iconoAlerta = (x, y) => {
+        forma([[x + 6.5, y], [x + 13, y + 11.5], [x, y + 11.5]], '#F59E0B');
+        poner({ tipo: 'texto', x: x + 5.2, y: y + 10, tamano: 8.5, negrita: true, color: TINTA, texto: '!' });
+      };
+      const iconoTijeras = (x, y, c) => {
+        circulo(x + 2.5, y + 2.7, 2.1, null, c, 1.1);
+        circulo(x + 2.5, y + 9.3, 2.1, null, c, 1.1);
+        linea([[x + 4.2, y + 3.8], [x + 14, y + 9.8]], c, 1.1);
+        linea([[x + 4.2, y + 8.2], [x + 14, y + 2.2]], c, 1.1);
+      };
+      const iconoCheck = (x, y, c) => linea([[x, y + 5], [x + 3, y + 8], [x + 8.5, y + 1.5]], c, 1.8);
+
+      /* Bloque 1: cabecera territorial y estado */
+      let y = izquierda;
+      const cabecera = rect(izquierda, y, anchoUtil, 0, { relleno: '#F0FDF4', borde: '#166534', grosor: 1.6 });
+      let c = parrafo('ECOHORARIOS BARRIALES • FICHA DE RECOLECCIÓN PARA LA NEVERA', izquierda, y + 12, anchoUtil, 12, { negrita: true, color: '#166534', centro: true });
+      c = parrafo(ruta.barrio, izquierda + 12, c + 4, anchoUtil - 24, 24, { negrita: true, centro: true });
+      c = parrafo(lineaTerritorial(ruta), izquierda + 16, c + 4, anchoUtil - 32, 13.5, { color: GRIS_TEXTO, centro: true });
+      const estado = ruta.comunitaria ? 'RUTA APORTADA POR LA COMUNIDAD, SIN VERIFICAR' : 'HORARIO BARRIAL DE REFERENCIA — EN PROCESO DE CONFIRMACIÓN COMUNITARIA';
+      const anchoEstado = anchoTexto(estado, 9.5, true);
+      const anchoPastilla = anchoEstado + 38;
+      const xPastilla = izquierda + (anchoUtil - anchoPastilla) / 2;
+      c += 7;
+      rect(xPastilla, c, anchoPastilla, 21, { relleno: '#FEF3C7', r: 10.5 });
+      iconoAlerta(xPastilla + 12, c + 4.5);
+      poner({ tipo: 'texto', x: xPastilla + 30, y: c + 14.2, tamano: 9.5, negrita: true, color: '#92400E', texto: estado });
+      c += 21;
+      if (ruta.aviso) c = parrafo(ruta.aviso, izquierda + 16, c + 5, anchoUtil - 32, 10, { color: '#92400E', centro: true });
+      cabecera.h = c + 11 - y;
+      y += cabecera.h + 13;
+
+      /* Bloque 2: tarjetas de servicio */
+      const tarjeta = (x, ancho, datos) => {
+        const fondo = rect(x, y, ancho, 0, { relleno: datos.fondo, borde: '#E2E8F0', grosor: 0.8 });
+        rect(x, y, ancho, 3.5, { relleno: datos.tono });
+        const interior = x + 13;
+        const anchoTexto2 = ancho - 26;
+        datos.icono(interior, y + 13, datos.tono);
+        poner({ tipo: 'texto', x: interior + 24, y: y + 26, tamano: 15.5, negrita: true, color: datos.tonoTexto, texto: datos.titulo });
+        let a = parrafo(datos.operador, interior, y + 36, anchoTexto2, 12, { color: GRIS_TEXTO });
+        a = parrafo(datos.rotulo, interior, a + 10, anchoTexto2, 11, { negrita: true });
+        a = parrafo(datos.dias, interior, a + 4, anchoTexto2, 18, { negrita: true, color: datos.tonoTexto });
+        a += 10;
+        const celda = ancho / 7;
+        const activos = diasDeLaSemana(datos.diasCrudos);
+        DIAS_CORTOS.forEach(([corto, nombre], indice) => {
+          const activo = activos.includes(nombre);
+          rect(x + celda * indice, a, celda, 31, { relleno: activo ? datos.tonoActivo : '#F3F4F6', borde: '#FFFFFF', grosor: 1 });
+          const medida = anchoTexto(corto, 11.5, true);
+          poner({ tipo: 'texto', x: x + celda * indice + (celda - medida) / 2, y: a + 20, tamano: 11.5, negrita: true, color: activo ? '#FFFFFF' : '#4B5563', texto: corto });
+        });
+        a += 31 + 15;
+        a = parrafo('VENTANA HORARIA:', interior, a, anchoTexto2, 11, { negrita: true });
+        iconoReloj(interior, a + 6);
+        a = parrafo(datos.horas, interior + 20, a + 4, anchoTexto2 - 20, 17, { negrita: true });
+        a += 11;
+        iconoPin(interior, a + 1);
+        a = parrafo(datos.regla, interior + 15, a, anchoTexto2 - 15, 12, { italica: true, color: GRIS_TEXTO });
+        return { fondo, fin: a + 12 };
       };
 
-      escribir(fuerte(ruta.zona), 26);
-      escribir(fuerte(ruta.barrio), 24);
-      if (ruta.tramo) escribir(normal(`Aplica para: ${textoDireccion(ruta)}`), 20);
-      if (ruta.comunitaria) escribir(normal('Ruta aportada por la comunidad, sin verificar.'), 20);
-      regla();
-      escribir(fuerte('Basura ordinaria'), 24);
-      escribir(normal('Emvarias'), 20);
-      escribir(fuerte(textoDias(ruta)), 20);
-      escribir(normal(textoHoras(ruta)), 20);
-      regla();
-      escribir(fuerte('Reciclaje'), 24);
-      escribir(normal(ruta.entidadReciclaje), 20);
-      escribir(fuerte(formatearDias(ruta.diasReciclaje)), 20);
-      escribir(normal(formatearHoras(ruta.horasReciclaje)), 20);
-      if (ruta.reciclajeReferencia) escribir(normal('Referencia de la comuna, sin confirmar'), 20);
-      regla();
-      if (ruta.referencia) {
-        escribir([{ texto: 'Punto de referencia:', negrita: false }, { texto: ruta.referencia, negrita: true }], 20);
-        regla();
-      }
-      escribir(fuerte('Las 3 bolsas de la Resolución 2184 de 2019'), 24);
-
-      GUIA_BOLSAS.forEach((bolsa) => {
-        y += 5;
-        const inicio = y;
-        trazos.push({ tipo: 'bolsa', x: izquierda, y: inicio, relleno: bolsa.relleno });
-        escribir(fuerte(bolsa.titulo), 24, izquierda + 44, anchoUtil - 44);
-        escribir([{ texto: bolsa.tipo, negrita: true }, { texto: bolsa.detalle, negrita: false }], 20, izquierda + 44, anchoUtil - 44);
-        y = Math.max(y, inicio + 42);
+      const mitad = anchoUtil / 2;
+      const izquierdaTarjeta = tarjeta(izquierda, mitad, {
+        fondo: '#FFFBEB', tono: AMBAR, tonoTexto: '#B45309', tonoActivo: AMBAR, icono: iconoCamion,
+        titulo: 'BASURA ORDINARIA', operador: 'Operador oficial: Emvarias - EPM', rotulo: 'DÍAS DE RECOLECCIÓN:',
+        dias: diasFicha(ruta.diasBasura), diasCrudos: ruta.diasBasura, horas: horasFicha(ruta.horasBasura),
+        regla: ruta.horasBasura ? `Regla de oro: Saca las bolsas cerradas ${momentoDelDia(ruta.horasBasura)} del día indicado. No las saques el día anterior.` : 'Regla de oro: Confirma tu horario con Emvarias por WhatsApp: 304 403 7188.'
       });
+      const unDia = diasDeLaSemana(ruta.diasReciclaje).length === 1;
+      const derechaTarjeta = tarjeta(izquierda + mitad, mitad, {
+        fondo: '#F0FDF4', tono: VERDE_FICHA, tonoTexto: '#15803D', tonoActivo: VERDE_FICHA, icono: iconoReciclaje,
+        titulo: 'RUTA DE RECICLAJE', operador: `Asociación: ${ruta.entidadReciclaje}`, rotulo: unDia ? 'DÍA EXCLUSIVO DE RECICLAJE:' : 'DÍAS DE RECICLAJE:',
+        dias: diasFicha(ruta.diasReciclaje), diasCrudos: ruta.diasReciclaje, horas: horasFicha(ruta.horasReciclaje),
+        regla: 'Regla de oro: Entrega en bolsa blanca o amarrado directamente al reciclador.'
+      });
+      const finTarjetas = Math.max(izquierdaTarjeta.fin, derechaTarjeta.fin);
+      izquierdaTarjeta.fondo.h = finTarjetas - y;
+      derechaTarjeta.fondo.h = finTarjetas - y;
+      y = finTarjetas + 13;
+
+      /* Bloque 3: guía de separación */
+      y = parrafo('GUÍA DE SEPARACIÓN EN LA FUENTE — CÓDIGO DE COLORES (RESOLUCIÓN 2184 DE 2019)', izquierda, y, anchoUtil, 11.5, { negrita: true }) + 6;
+      const tercio = anchoUtil / 3;
+      const cajas = GUIA_BOLSAS.map((bolsa, indice) => {
+        const x = izquierda + tercio * indice;
+        const fondo = rect(x, y, tercio, 0, { relleno: bolsa.fondo, borde: bolsa.borde, grosor: 1.3 });
+        const interior = x + 10;
+        const maximo = tercio - 20;
+        circulo(interior + 6, y + 15, 5.5, bolsa.punto, bolsa.borde, 1.1);
+        poner({ tipo: 'texto', x: interior + 17, y: y + 19.5, tamano: 13, negrita: true, color: bolsa.color, texto: bolsa.titulo });
+        let a = parrafo(bolsa.tipo, interior, y + 30, maximo, 11.5, { negrita: true, color: bolsa.color });
+        a += 3;
+        bolsa.items.forEach((item) => {
+          a = parrafo(`• ${item}`, interior, a, maximo, 12);
+        });
+        a += 3;
+        iconoCheck(interior, a + 1, TINTA);
+        a = parrafo(bolsa.nota, interior + 12, a, maximo - 12, 11, { negrita: true });
+        return { fondo, fin: a + 9 };
+      });
+      const finCajas = Math.max(...cajas.map((caja) => caja.fin));
+      cajas.forEach((caja) => { caja.fondo.h = finCajas - y; });
+      y = finCajas + 14;
+
+      /* Bloque 4: pie recortable */
+      const pie = rect(izquierda, y, anchoUtil, 0, { borde: '#64748B', grosor: 1, guiones: true });
+      const aviso = 'CORTA POR ESTA LÍNEA Y PEGA ESTA FICHA EN TU NEVERA O EN LA TIENDA DEL BARRIO';
+      const anchoAviso = anchoTexto(aviso, 9.5, true);
+      const xAviso = izquierda + (anchoUtil - anchoAviso - 20) / 2;
+      iconoTijeras(xAviso, y + 9, GRIS_TEXTO);
+      poner({ tipo: 'texto', x: xAviso + 20, y: y + 18, tamano: 9.5, negrita: true, color: GRIS_TEXTO, texto: aviso });
+      const finPie = parrafo('EcoHorarios Barriales • Institución Universitaria Pascual Bravo', izquierda, y + 25, anchoUtil, 9.5, { color: GRIS_TEXTO, centro: true });
+      pie.h = finPie + 8 - y;
       return trazos;
     }
 
-    function curvaSvg(puntos) {
-      const [[x, y], ...resto] = puntos;
-      return `M${x} ${y}${resto.map((p) => (p.length === 2 ? `L${p[0]} ${p[1]}` : `C${p.join(' ')}`)).join('')}Z`;
-    }
-
-    function pintarVistaPrevia(trazos) {
-      const hoja = porId('hoja-previa');
-      hoja.replaceChildren(...trazos.map((trazo) => {
+    function pintarHoja(hoja, trazos) {
+      const nodos = trazos.map((trazo) => {
         if (trazo.tipo === 'texto') {
-          const texto = crearSvg('text', { x: trazo.x, y: trazo.y, 'font-size': trazo.tamano, 'font-weight': trazo.negrita ? 700 : 400, fill: '#000000' });
+          const texto = crearSvg('text', { x: trazo.x, y: trazo.y, 'font-size': trazo.tamano, 'font-weight': trazo.negrita ? 700 : 400, 'font-style': trazo.italica ? 'italic' : 'normal', fill: trazo.color });
           texto.textContent = trazo.texto;
           return texto;
         }
-        if (trazo.tipo === 'linea') return crearSvg('line', { x1: trazo.x1, x2: trazo.x2, y1: trazo.y, y2: trazo.y, stroke: '#000000', 'stroke-width': 2 });
-        const relleno = `rgb(${trazo.relleno.map((c) => Math.round(c * 255)).join(' ')})`;
-        const grupo = crearSvg('g', { transform: `translate(${trazo.x} ${trazo.y}) scale(0.71)`, fill: relleno, stroke: '#000000', 'stroke-width': 2 });
-        grupo.append(crearSvg('path', { d: curvaSvg(BOLSA_CUERPO) }), crearSvg('path', { d: curvaSvg(BOLSA_NUDO) }));
-        return grupo;
-      }));
+        const estilo = { fill: trazo.relleno || 'none', stroke: trazo.borde || 'none', 'stroke-width': trazo.grosor || 0 };
+        if (trazo.tipo === 'rect') {
+          const forma = crearSvg('rect', { x: trazo.x, y: trazo.y, width: trazo.w, height: trazo.h, rx: trazo.r || 0, ...estilo });
+          if (trazo.guiones) forma.setAttribute('stroke-dasharray', '4 3');
+          return forma;
+        }
+        if (trazo.tipo === 'circulo') return crearSvg('circle', { cx: trazo.cx, cy: trazo.cy, r: trazo.r, ...estilo });
+        const d = `M${trazo.puntos.map((p) => p.join(' ')).join('L')}${trazo.abierta ? '' : 'Z'}`;
+        return crearSvg('path', { d, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', ...estilo });
+      });
+      hoja.replaceChildren(...nodos);
     }
 
     function cadenaPdf(texto) {
@@ -2368,43 +2479,72 @@
         const codigo = caracter.codePointAt(0);
         if (caracter === '(' || caracter === ')' || caracter === '\\') salida += `\\${caracter}`;
         else if (codigo >= 32 && codigo < 127) salida += caracter;
+        else if (codigo === 8226) salida += '\\225';
+        else if (codigo === 8212) salida += '\\227';
         else if (codigo >= 160 && codigo < 256) salida += `\\${codigo.toString(8).padStart(3, '0')}`;
         else salida += '?';
       }
       return `(${salida})`;
     }
 
-    function curvaPdf(puntos, x, y) {
-      const X = (valor) => (x + valor * 0.71).toFixed(2);
-      const Y = (valor) => (PAGINA.alto - y - valor * 0.71).toFixed(2);
-      return `${puntos.map((p, i) => {
-        const pares = [];
-        for (let n = 0; n < p.length; n += 2) pares.push(`${X(p[n])} ${Y(p[n + 1])}`);
-        return `${pares.join(' ')} ${i === 0 ? 'm' : p.length === 2 ? 'l' : 'c'}`;
-      }).join('\n')}\nh B`;
+    const colorPdf = (hex) => [1, 3, 5].map((i) => (parseInt(hex.slice(i, i + 2), 16) / 255).toFixed(3)).join(' ');
+    const yPdf = (valor) => (PAGINA.alto - valor).toFixed(2);
+
+    function pinturaPdf(trazo) {
+      if (trazo.relleno && trazo.borde) return 'B';
+      return trazo.relleno ? 'f' : 'S';
+    }
+
+    function comandosPdf(trazo) {
+      const antes = [];
+      if (trazo.relleno) antes.push(`${colorPdf(trazo.relleno)} rg`);
+      if (trazo.borde) antes.push(`${colorPdf(trazo.borde)} RG ${(trazo.grosor || 1).toFixed(2)} w`);
+      if (trazo.guiones) antes.push('[4 3] 0 d');
+      let ruta = '';
+      if (trazo.tipo === 'rect') {
+        const { x, y, w, h: alto, r = 0 } = trazo;
+        if (!r) {
+          ruta = `${x.toFixed(2)} ${yPdf(y + alto)} ${w.toFixed(2)} ${alto.toFixed(2)} re`;
+        } else {
+          const k = r * 0.5523;
+          ruta = [
+            `${(x + r).toFixed(2)} ${yPdf(y)} m`, `${(x + w - r).toFixed(2)} ${yPdf(y)} l`,
+            `${(x + w - r + k).toFixed(2)} ${yPdf(y)} ${(x + w).toFixed(2)} ${yPdf(y + r - k)} ${(x + w).toFixed(2)} ${yPdf(y + r)} c`,
+            `${(x + w).toFixed(2)} ${yPdf(y + alto - r)} l`,
+            `${(x + w).toFixed(2)} ${yPdf(y + alto - r + k)} ${(x + w - r + k).toFixed(2)} ${yPdf(y + alto)} ${(x + w - r).toFixed(2)} ${yPdf(y + alto)} c`,
+            `${(x + r).toFixed(2)} ${yPdf(y + alto)} l`,
+            `${(x + r - k).toFixed(2)} ${yPdf(y + alto)} ${x.toFixed(2)} ${yPdf(y + alto - r + k)} ${x.toFixed(2)} ${yPdf(y + alto - r)} c`,
+            `${x.toFixed(2)} ${yPdf(y + r)} l`,
+            `${x.toFixed(2)} ${yPdf(y + r - k)} ${(x + r - k).toFixed(2)} ${yPdf(y)} ${(x + r).toFixed(2)} ${yPdf(y)} c h`
+          ].join(' ');
+        }
+      } else if (trazo.tipo === 'circulo') {
+        const { cx, cy, r } = trazo;
+        const k = r * 0.5523;
+        const p = (a, b) => `${(cx + a).toFixed(2)} ${yPdf(cy + b)}`;
+        ruta = `${p(r, 0)} m ${p(r, k)} ${p(k, r)} ${p(0, r)} c ${p(-k, r)} ${p(-r, k)} ${p(-r, 0)} c ${p(-r, -k)} ${p(-k, -r)} ${p(0, -r)} c ${p(k, -r)} ${p(r, -k)} ${p(r, 0)} c h`;
+      } else {
+        ruta = `${trazo.puntos.map(([a, b], i) => `${a.toFixed(2)} ${yPdf(b)} ${i ? 'l' : 'm'}`).join(' ')}${trazo.abierta ? '' : ' h'}`;
+      }
+      return `q ${antes.join(' ')} ${ruta} ${pinturaPdf(trazo)} Q`;
     }
 
     function construirPdf(trazos) {
-      const contenido = ['0 0 0 RG 0 0 0 rg'];
-      trazos.forEach((trazo) => {
-        if (trazo.tipo === 'texto') {
-          contenido.push(`0 0 0 rg BT /${trazo.negrita ? 'F2' : 'F1'} ${trazo.tamano} Tf ${trazo.x.toFixed(2)} ${(PAGINA.alto - trazo.y).toFixed(2)} Td ${cadenaPdf(trazo.texto)} Tj ET`);
-        } else if (trazo.tipo === 'linea') {
-          const y = (PAGINA.alto - trazo.y).toFixed(2);
-          contenido.push(`2 w ${trazo.x1} ${y} m ${trazo.x2} ${y} l S`);
-        } else {
-          contenido.push(`1.4 w ${trazo.relleno.join(' ')} rg`, curvaPdf(BOLSA_CUERPO, trazo.x, trazo.y), curvaPdf(BOLSA_NUDO, trazo.x, trazo.y));
-        }
+      const contenido = trazos.map((trazo) => {
+        if (trazo.tipo !== 'texto') return comandosPdf(trazo);
+        const fuente = trazo.negrita ? 'F2' : trazo.italica ? 'F3' : 'F1';
+        return `${colorPdf(trazo.color)} rg BT /${fuente} ${trazo.tamano} Tf ${trazo.x.toFixed(2)} ${yPdf(trazo.y)} Td ${cadenaPdf(trazo.texto)} Tj ET`;
       });
       const flujo = contenido.join('\n');
       const fuente = (nombre) => `<< /Type /Font /Subtype /Type1 /BaseFont /${nombre} /Encoding /WinAnsiEncoding >>`;
       const objetos = [
         '<< /Type /Catalog /Pages 2 0 R >>',
         '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
-        `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PAGINA.ancho} ${PAGINA.alto}] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 4 0 R >>`,
+        `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PAGINA.ancho} ${PAGINA.alto}] /Resources << /Font << /F1 5 0 R /F2 6 0 R /F3 7 0 R >> >> /Contents 4 0 R >>`,
         `<< /Length ${flujo.length} >>\nstream\n${flujo}\nendstream`,
         fuente('Helvetica'),
-        fuente('Helvetica-Bold')
+        fuente('Helvetica-Bold'),
+        fuente('Helvetica-Oblique')
       ];
       let pdf = '%PDF-1.4\n';
       const posiciones = objetos.map((objeto, indice) => {
@@ -2424,7 +2564,7 @@
     }
 
     function abrirVistaPrevia() {
-      pintarVistaPrevia(disenarHoja(rutaActual));
+      pintarHoja(porId('hoja-previa'), disenarHoja(rutaActual));
       porId('estado-descarga').textContent = '';
       porId('vista-previa').showModal();
     }
