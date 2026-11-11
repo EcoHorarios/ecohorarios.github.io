@@ -1971,6 +1971,23 @@
       svg.addEventListener('pointerup', soltar);
       svg.addEventListener('pointercancel', soltar);
 
+      svg.addEventListener('wheel', (evento) => {
+        if (evento.deltaY > 0 && vistaMapa.w >= MAPA_COMPLETO.w) return;
+        evento.preventDefault();
+        cancelAnimationFrame(animacionMapa);
+        const caja = svg.getBoundingClientRect();
+        const fraccionX = (evento.clientX - caja.left) / caja.width;
+        const fraccionY = (evento.clientY - caja.top) / caja.height;
+        const giro = Math.max(-200, Math.min(200, evento.deltaMode === 1 ? evento.deltaY * 40 : evento.deltaY));
+        const w = vistaMapa.w * Math.exp(giro * 0.002);
+        const h = w * (MAPA_COMPLETO.h / MAPA_COMPLETO.w);
+        aplicarVista(limitarVista({
+          x: vistaMapa.x + fraccionX * vistaMapa.w - fraccionX * w,
+          y: vistaMapa.y + fraccionY * vistaMapa.h - fraccionY * h,
+          w
+        }));
+      }, { passive: false });
+
       svg.addEventListener('click', (evento) => {
         if (huboArrastre) {
           huboArrastre = false;
